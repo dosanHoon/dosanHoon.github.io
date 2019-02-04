@@ -1,12 +1,12 @@
 {
   "version": "3.0.0",
-  "name": "gatsby-starter-lumen",
+  "name": "dosanhoon.github.io",
   "description": "A minimal, lightweight and mobile-first starter for creating blazing-fast static blogs",
   "main": "n/a",
   "scripts": {
     "develop": "yarn run clean && gatsby develop",
     "build": "yarn run clean && gatsby build",
-    "deploy": "yarn run clean && gatsby build --prefix-paths && gh-pages -d public",
+    "deploy": "gatsby build && gh-pages -d public -b master -r https://github.com/dosanhoon/dosanhoon.github.io",
     "clean": "rimraf .cache public",
     "lint:js": "eslint --cache --ext .js,.jsx --ignore-pattern public .",
     "lint:scss": "stylelint \"src/**/*.scss\"",
@@ -15,7 +15,7 @@
     "test:coverage": "jest --coverage --config ./tests/jest-config.js",
     "test:watch": "jest --watch --config ./tests/jest-config.js"
   },
-  "repository": "https://github.com/alxshelepenok/gatsby-starter-lumen",
+  "repository": "https://github.com/dosanhoon/dosanhoon.github.io",
   "author": "Alexander Shelepenok <alxshelepenok@gmail.com>",
   "license": "MIT",
   "keywords": [
