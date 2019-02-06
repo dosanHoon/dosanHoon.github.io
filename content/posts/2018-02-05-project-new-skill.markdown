@@ -1,0 +1,51 @@
+---
+title: React 를 도입 하는 과정
+date: "2019-01-01T23:46:37.121Z"
+template: "post"
+draft: false
+slug: "/posts/project-new-skill"
+category: "REACT"
+tags:
+  - "javascript"
+  - "react"
+description: "React 를 도입 하는 과정"
+---
+
+# React
+
+- 기존 웹 프로젝트에는 React 모바일 프로젝트는 React Native 를 도입해볼 예정이다.
+- 그와 관련된 의사 결정 관련 생각에 대한 포스트 이다.
+
+# 3 대장
+
+- 고려 했던 기술은
+
+1. React 와 React Native
+2. Vue 와 Ionic + Vue
+3. Ionic + Angular
+
+## 현재의 프로젝트 상황과 관련된 장 단점.(각 기술의 장단점 X)
+
+### 1. React & React Native
+
+1. React 는 어느정도 학습이 되어 있는 상태 이고 팀원의 절반정도는 그래도 접해본 상태이기 때문에 다른 기술에 비해 상대적으로 부하가 적을거라는 안일한 생각.
+
+2. Native 에 대한 학습 필요.
+
+### 2. Vue & Vue + Ionic
+
+1.  가장 학습하기 쉽고, 라이브러리가 가벼우며 가장 핫하다.
+
+2.  하이브리드 앱의 경우 vue 를 사용한 케이스가 많이 부족하고 Ionic 이나 Cordova 를 같이 사용해야 할듯 한데 , 그럴 경우 기술 학습에 대한 2중 부하가 생길 우려.
+
+### 3. Angular + Ionic
+
+1. 가장 기술 학습에 대한 부담이 크다.
+2. 기존 프로젝트가 Ionic 으로 되어 있지만 최신 버젼 부터 Typescript 가 적용되기 때문에 전혀 별도의 기술로 봐야 할듯.
+3. Java 를 사용하는 프로젝트여서 mvc 패턴의 angular는 오버 스펙은 아닌가 하는 우려도 있음.
+
+# 결론
+
+1. 웹과 하이브리드앱의 동일한 스펙을 위해 눈물을 머금고 vue 제외
+2. Typescript와 그외 학습에 대한 부담으로 angular 도 제외
+3. 결국엔 그나마 익숙한 React 로
