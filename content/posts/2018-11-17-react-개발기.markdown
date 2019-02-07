@@ -8,7 +8,7 @@ category: "REACT"
 tags:
   - "javascript"
   - "react"
-description: "그동안 React 로 개발하면서 껵은 시행착오 및 삽질기"
+description: "그동안 React 로 개발하면서  겪은 시행착오 및 삽질기"
 ---
 
 # React 개발기 - 혹은 삽질기
