@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-  url: 'https://lumen.netlify.com',
-  title: 'Blog by John Doe',
-  subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+  url: 'https://dosanhoon.github.io/',
+  title: 'Dosanhoon\'s blog',
+  subtitle: '프론트엔드 개발 기술 블로그',
   copyright: '© All rights reserved.',
   disqusShortname: '',
-  postsPerPage: 4,
-  googleAnalyticsId: 'UA-73379983-2',
+  postsPerPage: 5,
+  googleAnalyticsId: 'UA-133683593-1',
   menu: [
     {
       label: 'Articles',
@@ -23,14 +23,14 @@ module.exports = {
     }
   ],
   author: {
-    name: 'John Doe',
-    photo: '/photo.jpg',
-    bio: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    name: '한승훈',
+    photo: '/avatar_profile.png',
+    bio: '프론트엔드 개발 기술 블로그',
     contacts: {
-      email: '#',
+      email: 'hangru1106@gmail.com',
       telegram: '#',
       twitter: '#',
-      github: '#',
+      github: 'https://github.com/dosanHoon',
       rss: '#',
       vkontakte: '#'
     }
