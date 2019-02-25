@@ -2,7 +2,8 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import Post from '../components/Post';
-
+import { FacebookProvider, Comments } from "react-facebook"
+import appId from "../constants/appId"
 const PostTemplate = ({ data }) => {
   const {
     title: siteTitle,
@@ -19,6 +20,9 @@ const PostTemplate = ({ data }) => {
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription}>
       <Post post={data.markdownRemark} />
+      <FacebookProvider appId={appId.MYBLOG_FACEBOOK_APP_ID}>
+        <Comments href={appId.MYBLOG_SITE_URL}></Comments>
+      </FacebookProvider>
     </Layout>
   );
 };
