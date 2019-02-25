@@ -20,9 +20,11 @@ const PostTemplate = ({ data }) => {
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription}>
       <Post post={data.markdownRemark} />
-      <FacebookProvider appId={appId.MYBLOG_FACEBOOK_APP_ID}>
-        <Comments href={appId.MYBLOG_SITE_URL}></Comments>
-      </FacebookProvider>
+      <div style={{ textAlign: "center" }}>
+        <FacebookProvider appId={appId.MYBLOG_FACEBOOK_APP_ID} style={{ textAlign: "center" }}>
+          <Comments href={appId.MYBLOG_SITE_URL}></Comments>
+        </FacebookProvider>
+      </div>
     </Layout>
   );
 };

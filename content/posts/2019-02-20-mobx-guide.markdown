@@ -16,8 +16,8 @@ mobx 공식 가이드에 있는 내용입니다.
 예전에 봤을때보다 내용이 추가 됐네요.
 가전 제품사면 설명서 따위 버리는 버릇으로 개발하니 삽질의 연속이라 guide 부터 다시 읽기 시작했습니다.
 
-# 잘못된 위치에서 IMPORT
-## Importing from wrong location
+## 잘못된 위치에서 IMPORT
+### Importing from wrong location
 
 ```javascript
   // wrong
@@ -31,11 +31,11 @@ vscode 등에서 자동 import 기능 사용시 위와 같이 import 되는 경�
   import { observable } from "mobx"
 ```
 
-# 데코레이터 관련 문제
-## Issues with decorators?
+## 데코레이터 관련 문제
+### Issues with decorators?
 
 
-### isArray ?
+#### isArray ?
 ```javascript
   Array.isArray(observable([1,2,3])) === false
 ```
@@ -109,18 +109,16 @@ class Profile extends React.Component {
 왜냐하면 현재 구성 요소 observer의 render 메소드 에만 정확하게 적용 되기 때문입니다 . 렌더링 콜백 또는 구성 요소를 하위 구성 요소에 전달해도 자동으로 반응하지 않습니다. 자세한 내용 은 Mobx는 무엇에 반응하는가를 참고하세요
 [Mobx는 무엇에 반응하는가](https://github.com/mobxjs/mobx/blob/gh-pages/docs/best/react.md#mobx-only-tracks-data-accessed-for-observer-components-if-they-are-directly-accessed-by-render)
 
-* 예시)
+
 ```javascript
 class Example extends Component {
   _renderList = ()=> { //=> render call back
-    this.props.data.map(()=>{
-
+    this.props.data.map(()=>{//...
     })
   }
   render(){
     return this._renderList()
   }
-
 }
 ```
 
@@ -179,7 +177,7 @@ class OrderLIne {
 react-hot-loader 를 사용할떄 데코레이터를 지원하지 않는 Uncaught TypeError: Cannot assign to read only property '__mobxLazyInitializers' of object에러가 발생합니다 . 사용하기 위해선 @observabl대신에 componentWillMount 에 extendObservable를 사용해야 합니다. 또는 react-hot-loader "^3.0.0-beta.2"이상으로 업그레이드 해야 합니다.
 
 ## React Component의 표시 이름이 설정되지 않았습니다.
-export const MyComponent = observer((props => <div>hi</div>))를 사용하는 경우 devtools에 표시 이름이 표시되지 않습니다. 
+`export const MyComponent = observer((props => <div>hi</div>))`를 사용하는 경우 devtools에 표시 이름이 표시되지 않습니다. 
 다음과 같은 방법을 사용하여 이를 해결할 수 있습니다.
 
 ```javascript
