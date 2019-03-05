@@ -1,4 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 25 Feb 2019 14:30:15 GMT</lastBuildDate><item><title><![CDATA[MOBX Common pitfalls & best practices]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 05 Mar 2019 15:01:48 GMT</lastBuildDate><item><title><![CDATA[기술 면접 후기 및 반성]]></title><description><![CDATA[최근에 봤던 면접에 대해서 느낌점과 반성 그리고 앞으로 어떻게 활용할지에 대해서]]></description><link>https://dosanhoon.github.io//posts/interview-review</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/interview-review</guid><pubDate>Tue, 05 Mar 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;약 한달 동안 3군대 회사의 기술 면접을 봤다. 2군데 회사는 개발팀 면접만 진행됐고, 1군데는 하루에 개발팀 면접 + HR 팀 면접을 한번에 봤음. 결과는 모두 탈락… ~~(합격했다면 이직 후기를 쓰고 있었겟지)
+서로 안맞았던 거라고 생각하면서 좌절은 하지 말고 발전의 기회로 삼기위해서 포스팅한다.&lt;/p&gt;
+&lt;h2&gt;1. o모회사 기술 면접 + HR 면접&lt;/h2&gt;
+&lt;h3&gt;코드 리뷰&lt;/h3&gt;
+&lt;p&gt;기술 면접은 내가 준비해간 코드를 바탕으로 코드 리뷰 형태로 진행됐고 리뷰 중간 중간 질문이 이어졌다. 거의 처음해보는 코드리뷰이다보니 부담스럽긴 했지만 그만큼 심사숙고해서 뽑겠다는거로 받아들이고 회사의 신뢰도가 올라감. 내가 만든 프로젝트의 구조 위주로 리뷰했는데 어떤 이슈사항에 대해서는 어떻게 처리할것인지 그런 것들은 고려가 되어있는지에 대한 질문이 많았다. 이 회사는 &lt;code class=&quot;language-text&quot;&gt;redux&lt;/code&gt;를 사용하고 있었고 나는 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;를 사용하고 있었는데 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;에 대해 사실 제대로 모르고 있었기 때문에 이슈사항에 대해서 얘기만 하고 해결책에 대해서는 제대로 답하지 못했던게 아쉽다. 그렇기 때문에 내가 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt; 가이드를 다시 읽게 된 계기가 되기도 했지만.&lt;/p&gt;
+&lt;h4&gt;관련해서 했던 질문들&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;불변성이란?&lt;br&gt;
+리액트를 기준으로 데이터가 변경될때 비교를 쉽게 하기 위해 레퍼런스 타입을 아예 업데이트 해주는 것?
+뭐 이런식으로 답했던거 같은데 아직도 난 불변성이 뭔지 모르겠다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;store 를 어떻게 나누는가?&lt;br&gt;
+사실 이건 어느 회사에서 했던 질문인지 기억이 안난다. domain 기준으로 나누는지 어떤 기준으로 만드는지 그런 내용이었는데 페이지를 기준으로 나눈다고 했던거 같다. 이건 내가 질문을 제대로 이해하지 못했던건지 대답을 아예 잘못했다. 페이지 기준이 아니라 도메인 기준으로 작성하고 있었는데 의식적이 아닌 무의식적으로 작성하다보니 생긴 문제 였다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;component를 어떤 기준으로 나누는가?&lt;br&gt;
+공통적인 요소를 기준으로 최우선적으로 나눈다라고 대답했었는데, 아마 원하는 대답은 render 최적화를 기준으로 나눈다는 대답이었던거 같다. 그래서 더 나눠야 된다는 건지 덜 나눠야 한다는 건지 이해를 못해서 약간 공격적으로 질문했던거 같다. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;model 를 사용하는 것에 대해서 많이 물어봄.&lt;br&gt;
+이건 아는지 모르는지 물어본다기 보다 내가 어떻게 사용하는지에 대해서 물어봤던거였고 그때 당시만 해도 모델의 용도가 애매했던 상황이라 약간 횡설 수설했던거 같다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;자바스크립트 관련 질문&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;var&lt;/code&gt;,&lt;code class=&quot;language-text&quot;&gt;let&lt;/code&gt;,&lt;code class=&quot;language-text&quot;&gt;const&lt;/code&gt; 에 대한 질문&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;var&lt;/code&gt; 에 대해서 &lt;code class=&quot;language-text&quot;&gt;global scope&lt;/code&gt; 라고 대답했다. 사실 아닌거 같긴 했는데 답을 몰라서 어떻게 말했던거 같다.
+면접관이 아닌거 같다고 해서 다시 물어보니 정답은 &lt;code class=&quot;language-text&quot;&gt;function scope&lt;/code&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;li&lt;/code&gt;같은 &lt;code class=&quot;language-text&quot;&gt;dom node&lt;/code&gt;를 화면에 렌더링 할떄 효율적으로 하는 방법&lt;br&gt;
+jquery를 사용시 얘기 였던거 같은데 전혀 몰랐던 내용은 아니고 거의 기억의 저편 무의식쯤에 있던 내용.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;그외에&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;네트워크 에러 코드에 관한 문제 (404,500)&lt;br&gt;
+404와 page not found , 500 서버 에러 정도로 대답하고 나머지는 모른다고 했다. 아직도 모른다. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;디자이너와의 협업, 성능 향상에 관한 문제&lt;br&gt;
+디자이너와의 협업 마크업 개발시 어떤 형태로 헀는지 에 대해서 대답했고 성능 향상은 약간 구라쳐서 대답했는데 당연히 안하는게 낫었다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;vue&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;angular&lt;/code&gt;&lt;br&gt;
+이 질문은 모든 회사에서 공통적으로 했던거 같다. 이력서에 내가 위 라이브러리 중에 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt; 선택했다라고 적었기 때문도 있을거다. 좀 더 그럴싸한 이유를 생각해내야 될거 같다. 사실 그때 당시에는 &lt;code class=&quot;language-text&quot;&gt;react native&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;에 대한 경험치로 인해서 결정한 이유가 크기 때문이다. 그리고 위 3개 라이브러리 각각의 철학에 대해 묻기도 했다. 대답은 못했음. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;redux&lt;/code&gt; , &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;&lt;br&gt;
+왜 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;를 사용했는지에 대해 물어봤는데. 팀원들의 &lt;code class=&quot;language-text&quot;&gt;learng curve&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;redux&lt;/code&gt;를 &lt;code class=&quot;language-text&quot;&gt;store&lt;/code&gt;나 &lt;code class=&quot;language-text&quot;&gt;action&lt;/code&gt; 추가 시 번잡스럽다고 대답했던거 같다. 그에 반해 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;는 &lt;code class=&quot;language-text&quot;&gt;observer&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt;이 다 알아서 해준다고. 여기서 문제가 생겼는데 &lt;code class=&quot;language-text&quot;&gt;vue&lt;/code&gt;는 &lt;code class=&quot;language-text&quot;&gt;sugar syntax&lt;/code&gt;가 많아서 별로 인거 같다 라고 대답했었는데 그럼 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;처럼 다 알아서 해주는 거랑 상충되는 거 아니냐 라는 질문이었는데 좀 당황해서 횡설수설했던거 같다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이제와서 다시 정리하자면 팀원들의 &lt;code class=&quot;language-text&quot;&gt;learng curve&lt;/code&gt;라는 건 실제로 그 라이브러리가 쉬운지 어려운지도 있겠지만 현 상태에서 내가 그들을 리드하고 알려줘야 하는 입장일때의 &lt;code class=&quot;language-text&quot;&gt;learng curve&lt;/code&gt;이다. 우리 팀원은 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;에 어느 정도 경험이 있었기 때문에 타 라이브러리가 그것을 뛰어넘을 정도가 아니라면 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;를 선택하는게 이득이었고 &lt;code class=&quot;language-text&quot;&gt;redux&lt;/code&gt;같은 경우에는 개인적으로 너무 번잡스럽다고 생각한다. 상태 관리의 개념보다 그 툴의 사용법이 더 거대한 느낌. 그에 반해 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt;는 매우 심플하다. 나 포함 우리 팀의 수준을 고려한 선택이었다. &lt;code class=&quot;language-text&quot;&gt;vue&lt;/code&gt;같은 경우 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;를 하면서 겪었던 문제점(&lt;code class=&quot;language-text&quot;&gt;dom handler&lt;/code&gt;) 등을 라이브러리 자체에서 api 메소드로 제공해주는데 처음에는 그런것들이 쉽다고 느껴졌지만 순수 javascript 로 구성된 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;에 비해 &lt;code class=&quot;language-text&quot;&gt;vue&lt;/code&gt;자체 툴 사용법을 익혀야 하는 듯한 생각이 들어서 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;를 더 선호 한다.&lt;/p&gt;
+&lt;p&gt;좀 더 그럴듯한 대답이 됐다.&lt;/p&gt;
+&lt;h3&gt;후기&lt;/h3&gt;
+&lt;p&gt;기술면접 + HR 면접 거의 3시간에 가까운 면접이라 일단 체력적으로 집중력을 유지 하기 힘들었고 코드 리뷰할때 많은 지적을 당한 느낌이어서 좀 감정적이었던거 같다..
+불합격 결과도 전화로 받아서 그나마 면접 결과에 대한 피드백을 받았다.
+자바스크립트 베이스가 부족하고 리액트 위주로만 개발한것 같다는 피드백을 받았다. (HR에서는 좋았다는데 립서비스 일지도..)
+&lt;code class=&quot;language-text&quot;&gt;php&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;jquery&lt;/code&gt; 등의 레거시 서비스와 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;redux&lt;/code&gt; 프로젝트가 공존하고 있는 회사 여서 &lt;code class=&quot;language-text&quot;&gt;jquery&lt;/code&gt;나 &lt;code class=&quot;language-text&quot;&gt;javascript&lt;/code&gt; 같은 베이스의 니즈가 컷던탓에 떨어진것도 있겠지만 &lt;code class=&quot;language-text&quot;&gt;javascript&lt;/code&gt; 자체에 대한 공부가 필요하다.&lt;/p&gt;
+&lt;h2&gt;2. o모회사 기술 면접&lt;/h2&gt;
+&lt;p&gt;흔히들 하는 온라인 알고리즘 테스트 후 면접을 봤다. 순서는 기억이 안나는데 리액트 &lt;code class=&quot;language-text&quot;&gt;mobx&lt;/code&gt; 자바스크립트 관련 질문 후 내가 제출한 알고리즘 테스트를 리뷰 했다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;오픈 소스 라이브러리를 선택하고 사용할때 고려해야될것에 대해서 질문&lt;br&gt;
+사실 제일 유명한 즉 남들이 많이 사용하고 있는 것을 위주로 선택하고 사용해왔기때문에 그정도 수준에서 밖에 대답하지 못했던게 생각난다. 그래서 내가 면접관에게 재질문했고 버젼이나 크로스 브라우징 등 결국에는 안정성으로 귀결되는 답이었던거 같다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;closure&lt;/code&gt;란?&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;java class&lt;/code&gt; 처럼 중첨 함수에서 &lt;code class=&quot;language-text&quot;&gt;scope&lt;/code&gt;가 함수 생성 당시 &lt;code class=&quot;language-text&quot;&gt;scope&lt;/code&gt;를 가져오기 때문에 지역변수처럼 사용할수 있는 현상 그리고 이게 되는건 &lt;code class=&quot;language-text&quot;&gt;javascript&lt;/code&gt; 가 &lt;code class=&quot;language-text&quot;&gt;prototype&lt;/code&gt; 상속 방식이기 때문에 라고 대답했었고 면접관이 &lt;code class=&quot;language-text&quot;&gt;prototype&lt;/code&gt; 때문이냐고 의아해 했었다. 다시 한번 확인 해볼 필요가 있다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;알고리즘 테스트&lt;/h3&gt;
+&lt;p&gt;내가 제출한 코드를 리뷰를 했는데 문제도 영어로 되어 있고 일주일 가량 지난 후 였기 때문에 사실 잘 기억이 안나서 애를 먹었다. 면접관이 성능 튜닝하는것에 대해 힌트를 줬고 관련되서 손코딩을 했다.
+&lt;code class=&quot;language-text&quot;&gt;const&lt;/code&gt;를 사용하는것을 강조했는데 왜 그랬는지는 모르곘다. 알고리즘 o의 n승 같은 복잡도를 표현하는게 있다는 것을 들었다. 알고리즘 문제에 대해 정답을 알고 싶었는데 딱히 없는것 같아 더 어려운거 같다&lt;/p&gt;
+&lt;h2&gt;3. o모회사 티타임(?)&lt;/h2&gt;
+&lt;p&gt;시간상 제일 오래됐던 면접이라 기억이 잘안난다. 내가 지원했던 부서 말고 다른 부서에서 면접 제의가 왔었고 1차 2차 면접 전에 실무자와 티타임겸 면접을 봤다. 개인적으로 가장 편한 분위기 였고 편하게 대답했던것 같다. 기술 면접이라기보다는 팀 분위기와 잘맞는지를 보는거 같았고 &lt;code class=&quot;language-text&quot;&gt;react&lt;/code&gt;를 리딩해줄 사람을 뽑는것 같았다. 개발팀 분위기에 대해서 많이 물어볼수 있었고 페어 코딩을 한다고 했다. 실로 문화 충격이었다.&lt;/p&gt;
+&lt;h1&gt;느낀점&lt;/h1&gt;
+&lt;p&gt;최대한 솔직하게 말하려고 했고 모르는 것들이나 내가 틀렸다고 눈치를 주면 다시 물어봐서 어떻게든 알려고 한다는 어필을 했다고 생각한다. 그외에도 개발자로서 자기 계발을 중요시하고 협업을 위한 커뮤니케이션이나 코드 가독성 등을 중요하게 생각한다는 것도 장점이라고 생각해서 어필했다. 나 스스로 부족하다고 생각하기에 더 발전할 여지가 있는 사람이다라는 것을 어필하고 싶었는데 그럼에도 불구하고 결과가 안좋은건 내 실력이 부족했다는 얘기밖에 되지 않는 것 같다. 어쩔수 없는 거다. 될때까지 노력할수 밖에. 좀 더 철저하게 “면접”을 위해서 따로 준비해야 겠다는 생각을 한다.&lt;/p&gt;
+&lt;p&gt;내가 알고 있다고 생각하는것과 확실히 하는 것의 차이가 존재 한다는 것을 깨달았다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[MOBX Common pitfalls & best practices]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
 예전에 봤을때보다 내용이 추가 됐네요.
 가전 제품사면 설명서 따위 버리는 버릇으로 개발하니 삽질의 연속이라 guide 부터 다시 읽기 시작했습니다.&lt;/p&gt;
 &lt;h2&gt;잘못된 위치에서 IMPORT&lt;/h2&gt;
@@ -199,210 +281,76 @@ myComponent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;display
 이 문제를 해결하려면 componentWillUnmount()다음과 같이 선언하십시오 .&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;componentWillUnmount&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;runInAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Javascript Class 에 대한 이해]]></title><description><![CDATA[Javascript Class 에 대한 이해]]></description><link>https://dosanhoon.github.io//posts/javascript-class</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-class</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Class &amp;#x26; Module&lt;/h1&gt;
-&lt;h2&gt;Class&lt;/h2&gt;
-&lt;h3&gt;9.2 생성자와 prototype&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;class 객체는 생성자로 구분 되지 않는다.&lt;/li&gt;
-&lt;li&gt;객체는 prototype 으로 구분 된다.&lt;/li&gt;
-&lt;li&gt;하지만 동일한 prototype일 경우 동일한 prototype.constructor 프로퍼티를 상속 받는다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;생성자1 프로퍼티&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-생성자&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;생성자1 프로토타입&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;생성자2 프로퍼티&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-생성자&lt;span class=&quot;token number&quot;&gt;2.&lt;/span&gt;prototype &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; 클래스&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; 클래스&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-클래스&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;instanceof&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//true&lt;/span&gt;
-
-클래스&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;instanceof&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//true&lt;/span&gt;
-
-&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;클래스&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt;constructor &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; 클래스&lt;span class=&quot;token number&quot;&gt;2.&lt;/span&gt;constructor&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//?&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;9.3 자바 스타일 클래스&lt;/h3&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Mobx는 언제 reaction 하는가?]]></title><description><![CDATA[Mobx를 React를 사용할때 언제 reaction 하는 지에 대해서 ]]></description><link>https://dosanhoon.github.io//posts/mobx-to-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/mobx-to-react</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;Mobx를 React에서 사용할떄 언제 reaction 하는지에 대해서 가이드에 있는 내용 번역입니다.
+오역과 직역이 난무하니 얼른 한글 가이드가 나왔으면 좋겠습니다.&lt;/p&gt;
+&lt;h2&gt;MobX는 무엇에 반응합니까?&lt;/h2&gt;
+&lt;p&gt;MobX는 보통 당신이 기대하는 것과 정확하게 반응합니다. 즉, 사용 사례의 90 %에서 mobx가 “그냥 작동합니다”라는 의미입니다. 그러나 어느 시점에서 예상했던대로 작동하지 않을 수도 있습니다. 이 시점에서 MobX가 대응할 대상을 결정하는 방법을 이해하는 것은 매우 중요합니다.&lt;/p&gt;
+&lt;p&gt;| MobX는 &lt;code class=&quot;language-text&quot;&gt;추적 된 함수(tracked function)&lt;/code&gt;를 실행하는 &lt;code class=&quot;language-text&quot;&gt;동안(during)&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;읽혀 지는(reading)&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt; 속성(property)에 반응 합니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;생성자 객체&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;클래스를 정의 하는 함수 객체&lt;/li&gt;
-&lt;li&gt;생성자의 프로퍼티는 클래스 필드와 클래스 메서드&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;읽기(reading)&lt;/code&gt;는 객체의 속성을 역참조하는 것이며,(예 : user[“name”] ,user.name )을 사용하여 수행 할 수 있습니다 .&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;프로포타입 객체&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;프로퍼티를 인스턴스 객체에 상속&lt;/li&gt;
-&lt;li&gt;프로퍼티가 함수일 경우 인스턴스 메서드&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;추적 된 함수(tracked function)&lt;/code&gt;는 &lt;code class=&quot;language-text&quot;&gt;computed&lt;/code&gt; 식 , &lt;code class=&quot;language-text&quot;&gt;observer component&lt;/code&gt;의 &lt;code class=&quot;language-text&quot;&gt;render()&lt;/code&gt; 메소드  내지 첫 PARAM로 전달하는 when, reaction및 autorun등의 함수를 의미합니다.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;인스턴스 객체&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;생성자를 통해 프로토타입을 상속 받은 객체&lt;/li&gt;
-&lt;li&gt;프로퍼티는 인스턴스 필드&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;during&lt;/code&gt;은 함수가 실행되는 동안 읽혀지는 &lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt; 항목 만 추적한다는 것을 의미합니다. 이러한 값이 추적 된 기능에 의해 직접적으로 또는 간접적으로 사용되는지는 중요하지 않습니다.
+즉, MobX는 다음에 반응하지 않습니다.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;자바 등 클래스 지원 언어의 멤버 유형을 관용적으로 자바스크립트에서 구현하는 방법&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//name 은 인스턴스 필드&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;getName&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;setName&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-
-Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gender &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;getGender&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gender&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;setGender&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gender &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token comment&quot;&gt;//prototype의 프로퍼티 gender는 prototype의 프로퍼티&lt;/span&gt;
-&lt;span class=&quot;token comment&quot;&gt;//prototype의 프로퍼티 함수는 인스턴스 메소드 책에서는 상속이라고 하지만 참조가 더 맞는 표현인듯&lt;/span&gt;
-
-Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;MAN&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;man&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//클래스 필드&lt;/span&gt;
-Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;WOMAN&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;woman&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;WTF&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token comment&quot;&gt;//클래스 메소드&lt;/span&gt;
-  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;MAN&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;WOMAN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token comment&quot;&gt;//클래스 멤버는 인스턴스에 상속 되지 않는다.&lt;/span&gt;
-&lt;span class=&quot;token comment&quot;&gt;//인스턴스.constructor 를 통해 접근 가능&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;9.4 클래스 확장하기&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;인스턴스가 생성된 이후에도 prototype 통해서 클래스 확장이 가능하다&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; n &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-undefined&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;times&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; n &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; n&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; f&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;9.5 클래스 자료형&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;classof ㄴㄴ&lt;/li&gt;
-&lt;li&gt;class 타입에 대한 검사&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javasciprt&quot;&gt;&lt;pre class=&quot;language-javasciprt&quot;&gt;&lt;code class=&quot;language-javasciprt&quot;&gt; isPrototypeOf()
- instanceof&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Duck typing&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;인스턴스의 클래스 타입인지 검사하기 위해 인스턴스의 특성을 검사하여 클래스는 유추하는 방식&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
-&lt;h2&gt;현 상태&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Java 서버의 Tiles 로 프론트 구성&lt;/li&gt;
-&lt;li&gt;ServerSide에 의존적임&lt;/li&gt;
-&lt;li&gt;프로젝트 졸라 복잡함&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;어떻게 리액트를 도입할까?&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;처음부터 다시 만들고 싶지만 비즈니스 로직에 대한 이해도 조차 낮은 상태&lt;/li&gt;
-&lt;li&gt;Jsp 안에서 직접 받는 ServerSide 데이터도 많은 상태&lt;/li&gt;
-&lt;li&gt;Tiles 에 해당하는 템플릿에 1:1로 컴포넌트를 작성하여 순차적으로 교체하는 방법 시도&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;초기 환경 설정&lt;/h2&gt;
-&lt;h3&gt;1. Global Package 설치&lt;/h3&gt;
-&lt;p&gt;cli로 실행하기 위해서 필요한 패키지 설치&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;babel&lt;/li&gt;
-&lt;li&gt;webpack&lt;/li&gt;
-&lt;li&gt;webpack-dev-server&lt;br&gt;
-– 필수 아님(본인은 실제 자바 서버에서 데이터를 받으면서 테스트 하는 경우이기 때문에 필요가 없지만 보통은 webpack-dev-server 로 리액트 개발을 하고 배포나 테스트시에만 실제 product 서버를 켜서 bundle 된 output 만 가지고 확인하면 된다.)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install -g babel webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2. NPM INIT&lt;/h3&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;기존 프로젝트내에 npm init 으로 초기 설정&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;3. Dependency 및 Plugin 설치&lt;/h3&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save react react-dom&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save-dev babel-core babel-loader babel-preset-react babel-preset-es2015 webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;위는 개발 환경에서만 사용되는 모듈이니 -dev 옵션&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt;에서 획득한 값이지만 &lt;code class=&quot;language-text&quot;&gt;추적 된 함수&lt;/code&gt; 외부에서 얻은 값&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;package.json 파일을 확인하면 설치한 모듈이 명시되어 있는것을 확인 가능&lt;/p&gt;
+&lt;p&gt;비동기 적으로 호출 된 코드 블록에서 읽은 &lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;dependencies&amp;quot;: {
-  &amp;quot;react&amp;quot;: &amp;quot;^16.2.0&amp;quot;,
-  &amp;quot;react-dom&amp;quot;: &amp;quot;^16.2.0&amp;quot;
-},
-&amp;quot;devDependencies&amp;quot;: {
-  &amp;quot;babel-core&amp;quot;: &amp;quot;^6.26.0&amp;quot;,
-  &amp;quot;babel-loader&amp;quot;: &amp;quot;^7.1.2&amp;quot;,
-  &amp;quot;babel-preset-es2015&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
-  &amp;quot;babel-preset-react&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
-  &amp;quot;webpack&amp;quot;: &amp;quot;^3.11.0&amp;quot;,
-  &amp;quot;webpack-dev-server&amp;quot;: &amp;quot;^2.11.1&amp;quot;
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;(2018/2/19 기준 최신 버젼)&lt;/p&gt;
-&lt;h3&gt;4. webpack 설정&lt;/h3&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  entry&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./src/index.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-
-  output&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    filename&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;bundle.js&quot;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-
-  devServer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    inline&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    port&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7777&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    contentBase&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-
-  module&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    loaders&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
-      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        test&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/\.js$/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-        loader&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;babel-loader&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-        exclude&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/node_modules/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-        query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-          cacheDirectory&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-          presets&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;es2015&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;h2&gt;MobX는 값이 아닌 속성 액세스를 추적합니다.&lt;/h2&gt;
+&lt;p&gt;위의 규칙을 예제로 자세히 설명하기 위해 다음과 같은 &lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt; 데이터 구조가 있다고 가정합니다.
+(&lt;code class=&quot;language-text&quot;&gt;observable&lt;/code&gt;은 기본이 재귀적으로 적용되므로 이 예제의 모든 필드를 관찰 할 수 있습니다.)&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; message &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;observable&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    title&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Foo&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    author&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Michel&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    likes&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Sara&quot;&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;메모리는 다음과 같이 보입니다. 녹색 상자는 observable 속성을 나타냅니다.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;가장 기본적인 설정이니 entry 와 output 의 경로만 본인 프로젝트에 맞게 변경하면 됨&lt;/li&gt;
+&lt;li&gt;유의 : 값 자체는 observable되지 않습니다!&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;webpack 명령어&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack --watch&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;watch 옵션을 주면 entry 에 변경사항이 있으면 자동으로 bundle 작업을 함.&lt;br&gt;
-(“—watch” 옵션이 생각이 안나서 계속 “webpack watch”로 bundle 하니 에러가 나더라…)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;webpack 개발 서버로 작업할시&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
-&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 를 도입 하는 과정]]></title><description><![CDATA[React 를 도입 하는 과정]]></description><link>https://dosanhoon.github.io//posts/project-new-skill</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/project-new-skill</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/mobxjs/mobx/raw/gh-pages/docs/images/observed-refs.png&quot; alt=&quot;data&quot;&gt;&lt;/p&gt;
+&lt;p&gt;이제 MobX는 기본적으로 어떤 화살표를 사용하여 함수를 수행 하는지 기록 합니다.&lt;br&gt;
+그 후 이 화살표 중 하나가 변경 될 때(그들이 다른 것을 참조하기 시작할 때)마다 다시 실행 됩니다.&lt;/p&gt;
+&lt;h4&gt;Examples&lt;/h4&gt;
+&lt;p&gt;위에서 정의 된 message 변수를 기반으로 한 많은 예제를 통해 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;Correct: dereference inside the tracked function&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;autorun&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;message&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+message&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Bar&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이것은 예상대로 반응하고, .title속성은 자동 실행에 의해 참조 해제되고 나중에 변경되므로이 변경 사항이 감지됩니다.&lt;/p&gt;
+&lt;p&gt;trace()추적 된 기능 내에서 호출하여 MobX가 추적 할 내용을 확인할 수 있습니다 . 위의 함수의 경우 다음을 출력합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; disposer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;autorun&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;message&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;trace&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Outputs:&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// [mobx.trace] &apos;Autorun@2&apos; tracing enabled&lt;/span&gt;
+message&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;title &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Hello&quot;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// [mobx.trace] &apos;Autorun@2&apos; is invalidated due to a change in: &apos;ObservableObject@1.title&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It is also possible to get the internal dependency (or observer) tree by using the designated utilities for that:&lt;/p&gt;
+&lt;p&gt;getDependencyTree(disposer) // prints the dependency tree of the reaction coupled to the disposer
+// { name: ‘Autorun@4’,
+//  dependencies: [ { name: ‘ObservableObject@1.title’ } ] }
+Incorrect: changing a non-observable reference
+autorun(() =&gt; {
+console.log(message.title)
+})
+message = observable({ title: “Bar” })
+This will not react. message was changed, but message is not an observable, just a variable which refers to an observable, but the variable (reference) itself is not observable.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 를 도입 하는 과정]]></title><description><![CDATA[React 를 도입 하는 과정]]></description><link>https://dosanhoon.github.io//posts/project-new-skill</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/project-new-skill</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;기존 웹 프로젝트에는 React 모바일 프로젝트는 React Native 를 도입해볼 예정이다.&lt;/li&gt;
 &lt;li&gt;그와 관련된 의사 결정 관련 생각에 대한 포스트 이다.&lt;/li&gt;
@@ -596,7 +544,210 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 
 &lt;span class=&quot;token function-variable function&quot;&gt;handleClick&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;hi&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[React 개발기 - 혹은 삽질기]]></title><description><![CDATA[그동안 React 로 개발하면서  겪은 시행착오 및 삽질기]]></description><link>https://dosanhoon.github.io//posts/react-develop-diary</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-develop-diary</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 개발기 - 혹은 삽질기&lt;/h1&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
+&lt;h2&gt;현 상태&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Java 서버의 Tiles 로 프론트 구성&lt;/li&gt;
+&lt;li&gt;ServerSide에 의존적임&lt;/li&gt;
+&lt;li&gt;프로젝트 졸라 복잡함&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;어떻게 리액트를 도입할까?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;처음부터 다시 만들고 싶지만 비즈니스 로직에 대한 이해도 조차 낮은 상태&lt;/li&gt;
+&lt;li&gt;Jsp 안에서 직접 받는 ServerSide 데이터도 많은 상태&lt;/li&gt;
+&lt;li&gt;Tiles 에 해당하는 템플릿에 1:1로 컴포넌트를 작성하여 순차적으로 교체하는 방법 시도&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;초기 환경 설정&lt;/h2&gt;
+&lt;h3&gt;1. Global Package 설치&lt;/h3&gt;
+&lt;p&gt;cli로 실행하기 위해서 필요한 패키지 설치&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;babel&lt;/li&gt;
+&lt;li&gt;webpack&lt;/li&gt;
+&lt;li&gt;webpack-dev-server&lt;br&gt;
+– 필수 아님(본인은 실제 자바 서버에서 데이터를 받으면서 테스트 하는 경우이기 때문에 필요가 없지만 보통은 webpack-dev-server 로 리액트 개발을 하고 배포나 테스트시에만 실제 product 서버를 켜서 bundle 된 output 만 가지고 확인하면 된다.)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install -g babel webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2. NPM INIT&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;기존 프로젝트내에 npm init 으로 초기 설정&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3. Dependency 및 Plugin 설치&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save react react-dom&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save-dev babel-core babel-loader babel-preset-react babel-preset-es2015 webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;위는 개발 환경에서만 사용되는 모듈이니 -dev 옵션&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;package.json 파일을 확인하면 설치한 모듈이 명시되어 있는것을 확인 가능&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;dependencies&amp;quot;: {
+  &amp;quot;react&amp;quot;: &amp;quot;^16.2.0&amp;quot;,
+  &amp;quot;react-dom&amp;quot;: &amp;quot;^16.2.0&amp;quot;
+},
+&amp;quot;devDependencies&amp;quot;: {
+  &amp;quot;babel-core&amp;quot;: &amp;quot;^6.26.0&amp;quot;,
+  &amp;quot;babel-loader&amp;quot;: &amp;quot;^7.1.2&amp;quot;,
+  &amp;quot;babel-preset-es2015&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
+  &amp;quot;babel-preset-react&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
+  &amp;quot;webpack&amp;quot;: &amp;quot;^3.11.0&amp;quot;,
+  &amp;quot;webpack-dev-server&amp;quot;: &amp;quot;^2.11.1&amp;quot;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(2018/2/19 기준 최신 버젼)&lt;/p&gt;
+&lt;h3&gt;4. webpack 설정&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  entry&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./src/index.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  output&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    filename&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;bundle.js&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  devServer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    inline&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    port&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7777&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    contentBase&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  module&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    loaders&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        test&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/\.js$/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        loader&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;babel-loader&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        exclude&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/node_modules/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          cacheDirectory&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+          presets&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;es2015&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;가장 기본적인 설정이니 entry 와 output 의 경로만 본인 프로젝트에 맞게 변경하면 됨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;webpack 명령어&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack --watch&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;watch 옵션을 주면 entry 에 변경사항이 있으면 자동으로 bundle 작업을 함.&lt;br&gt;
+(“—watch” 옵션이 생각이 안나서 계속 “webpack watch”로 bundle 하니 에러가 나더라…)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;webpack 개발 서버로 작업할시&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
+&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Javascript Class 에 대한 이해]]></title><description><![CDATA[Javascript Class 에 대한 이해]]></description><link>https://dosanhoon.github.io//posts/javascript-class</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-class</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Class &amp;#x26; Module&lt;/h1&gt;
+&lt;h2&gt;Class&lt;/h2&gt;
+&lt;h3&gt;9.2 생성자와 prototype&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;class 객체는 생성자로 구분 되지 않는다.&lt;/li&gt;
+&lt;li&gt;객체는 prototype 으로 구분 된다.&lt;/li&gt;
+&lt;li&gt;하지만 동일한 prototype일 경우 동일한 prototype.constructor 프로퍼티를 상속 받는다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;생성자1 프로퍼티&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+생성자&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;생성자1 프로토타입&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;생성자2 프로퍼티&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+생성자&lt;span class=&quot;token number&quot;&gt;2.&lt;/span&gt;prototype &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; 클래스&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; 클래스&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;생성자2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+클래스&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;instanceof&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//true&lt;/span&gt;
+
+클래스&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;instanceof&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//true&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;클래스&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt;constructor &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; 클래스&lt;span class=&quot;token number&quot;&gt;2.&lt;/span&gt;constructor&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; 생성자&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//?&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;9.3 자바 스타일 클래스&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;생성자 객체&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;클래스를 정의 하는 함수 객체&lt;/li&gt;
+&lt;li&gt;생성자의 프로퍼티는 클래스 필드와 클래스 메서드&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;프로포타입 객체&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;프로퍼티를 인스턴스 객체에 상속&lt;/li&gt;
+&lt;li&gt;프로퍼티가 함수일 경우 인스턴스 메서드&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;인스턴스 객체&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;생성자를 통해 프로토타입을 상속 받은 객체&lt;/li&gt;
+&lt;li&gt;프로퍼티는 인스턴스 필드&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;자바 등 클래스 지원 언어의 멤버 유형을 관용적으로 자바스크립트에서 구현하는 방법&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//name 은 인스턴스 필드&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;getName&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;setName&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gender &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;getGender&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gender&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;setGender&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gender &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//prototype의 프로퍼티 gender는 prototype의 프로퍼티&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//prototype의 프로퍼티 함수는 인스턴스 메소드 책에서는 상속이라고 하지만 참조가 더 맞는 표현인듯&lt;/span&gt;
+
+Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;MAN&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;man&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//클래스 필드&lt;/span&gt;
+Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;WOMAN&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;woman&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;WTF&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//클래스 메소드&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;MAN&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; Person&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;WOMAN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//클래스 멤버는 인스턴스에 상속 되지 않는다.&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//인스턴스.constructor 를 통해 접근 가능&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;9.4 클래스 확장하기&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;인스턴스가 생성된 이후에도 prototype 통해서 클래스 확장이 가능하다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; n &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+undefined&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+n&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;times&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function-variable function&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;f&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; n &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; n&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; f&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;9.5 클래스 자료형&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;classof ㄴㄴ&lt;/li&gt;
+&lt;li&gt;class 타입에 대한 검사&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javasciprt&quot;&gt;&lt;pre class=&quot;language-javasciprt&quot;&gt;&lt;code class=&quot;language-javasciprt&quot;&gt; isPrototypeOf()
+ instanceof&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Duck typing&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;인스턴스의 클래스 타입인지 검사하기 위해 인스턴스의 특성을 검사하여 클래스는 유추하는 방식&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[React 개발기 - 혹은 삽질기]]></title><description><![CDATA[그동안 React 로 개발하면서  겪은 시행착오 및 삽질기]]></description><link>https://dosanhoon.github.io//posts/react-develop-diary</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-develop-diary</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 개발기 - 혹은 삽질기&lt;/h1&gt;
 &lt;p&gt;React를 처음 접한지 2~3년 정도 됐는데 처음과 지금을 비교하면 많이도 변했다.&lt;br&gt;
 늘 처음이란게 그렇듯.&lt;br&gt;
 어설프고 es6 부터 시작해서 모든 것이 새로 웠다. 그래서 반면교사로 삼거나 재미삼아 변해온 과정에 대해서 간단하게 작성해보기로 했다.&lt;/p&gt;
