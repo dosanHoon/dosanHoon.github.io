@@ -13,6 +13,7 @@
     margin-right: auto;
     font-weight: 600;
     text-align: center;
+    color: #F4F4F5;
     @include line-height(1.65);
     @include margin-top(1);
     @include margin-bottom(0)
@@ -48,6 +49,8 @@
       max-width: $layout-post-width;
       margin-left: 15px;
       margin-right: 15px;
+      border-radius: 8px;
+      overflow: hidden;
       @include margin-bottom(1)
     }
 
