@@ -26,13 +26,18 @@
       line-height: $button-height;
       border-radius: 50%;
       text-align: center;
-      border: 1px solid $color-gray-bg;
+      border: 1px solid $color-gray-border;
+      transition: border-color 0.2s ease;
+
+      &:hover {
+        border-color: $color-primary;
+      }
 
       &-link {
         border: 0;
         display: flex;
-        color: $color-base;
-  
+        color: $color-gray;
+
         &:hover,
         &:focus {
           color: $color-primary;

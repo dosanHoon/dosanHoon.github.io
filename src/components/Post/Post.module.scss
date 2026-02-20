@@ -21,18 +21,20 @@
     padding: 0 24px;
     line-height: $button-height;
     text-align: center;
-    color: $color-base;
+    color: $color-gray;
     border: 1px solid $color-gray-border;
     border-radius: $button-border-radius;
     font-size: $typographic-base-font-size;
     font-weight: normal;
     margin-left: auto;
     margin-right: auto;
+    transition: all 0.2s ease;
     @include margin-top(1);
 
     &:hover,
     &:focus {
       color: $color-primary;
+      border-color: $color-primary;
     }
 
   }

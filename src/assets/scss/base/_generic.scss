@@ -1,5 +1,5 @@
-/** 
- * Generic
+/**
+ * Generic - Modern Dark Theme
  */
 html {
   font-size: $typographic-root-font-size;
@@ -8,6 +8,7 @@ html {
 body {
   font-family: $typographic-font-family;
   color: $typographic-base-font-color;
+  background-color: $typographic-bg-color;
   line-height: $typographic-base-line-height;
   font-size: $typographic-base-font-size;
   -ms-text-size-adjust: 100%;
@@ -25,6 +26,7 @@ h5,
 h6 {
   font-family: $typographic-font-family;
   font-weight: 600;
+  color: #F4F4F5;
 }
 
 h1 {
@@ -80,19 +82,20 @@ hr {
   margin-top: 52px;
   margin-bottom: 52px;
   border: 0;
-  color: $color-base;
+  color: $color-gray-border;
   display: block;
   height: 26px;
   margin-right: auto;
   margin-left: auto;
   background-size: 100% 26px;
-  background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-base 11px, $color-base 15px, transparent 15px, transparent 26px);
+  background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-gray-border 11px, $color-gray-border 15px, transparent 15px, transparent 26px);
   width: 100px;
 }
 
 a {
   color: $typographic-link-p-font-color;
   text-decoration: none;
+  transition: color 0.2s ease;
 
   &:hover,
   &:focus,
@@ -105,6 +108,7 @@ a {
 b,
 strong {
   font-weight: 600;
+  color: #F4F4F5;
 }
 
 ul {
@@ -127,6 +131,10 @@ blockquote {
   padding: 0;
   font-style: italic;
   text-align: center;
+  color: $color-gray;
+  border-left: 3px solid $color-primary;
+  padding-left: 20px;
+  text-align: left;
 }
 
 figure {
@@ -138,11 +146,30 @@ figure {
 figcaption {
   @include line-height(.75);
   @include margin-top(.25);
-  color: $color-base;
+  color: $color-gray;
   font-size: $typographic-small-font-size;
   font-style: italic;
   margin-bottom: 0;
   text-align: center;
+}
+
+// Code blocks dark enhancement
+code {
+  background-color: $color-bg-elevated;
+  color: $color-primary;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+::selection {
+  background-color: rgba($color-primary, 0.3);
+  color: #FFF;
 }
 
 @include breakpoint-sm {

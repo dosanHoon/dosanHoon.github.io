@@ -13,6 +13,7 @@
       color: $color-secondary;
       font-size: 26px;
       font-weight: bold;
+      transition: color 0.2s ease;
 
       &:hover,
       &:focus {
@@ -21,7 +22,7 @@
 
       &--disable {
         pointer-events: none;
-        color: lighten($color-gray, 20%);
+        color: $color-gray-border;
       }
 
     }
@@ -36,6 +37,7 @@
       color: $color-secondary;
       font-size: 26px;
       font-weight: bold;
+      transition: color 0.2s ease;
 
       &:hover,
       &:focus {
@@ -44,7 +46,7 @@
 
       &--disable {
         pointer-events: none;
-        color: lighten($color-gray, 20%);
+        color: $color-gray-border;
       }
 
     }

@@ -15,9 +15,10 @@
 
       &-link {
         font-size: $typographic-base-font-size;
-        color: $typographic-base-font-color;
+        color: $color-gray;
         font-weight: normal;
         border: 0;
+        transition: color 0.2s ease;
 
         &:hover,
         &:focus {
@@ -26,8 +27,8 @@
         }
 
         &--active {
-          color: $color-base;
-          border-bottom: 1px solid $color-base;
+          color: #F4F4F5;
+          border-bottom: 1px solid $color-primary;
         }
 
       }

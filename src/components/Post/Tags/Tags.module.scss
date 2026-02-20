@@ -21,11 +21,13 @@
         border: 1px solid $color-gray-border;
         text-decoration: none;
         border-radius: $button-border-radius;
-        color: $color-base;
+        color: $color-gray;
+        transition: all 0.2s ease;
 
         &:hover,
         &:focus {
           color: $color-primary;
+          border-color: $color-primary;
         }
 
       }

@@ -6,7 +6,13 @@
     display: inline-block;
     margin-bottom: 0;
     border-radius: 50%;
-    background-clip: padding-box
+    background-clip: padding-box;
+    border: 3px solid $color-gray-border;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+      border-color: $color-primary;
+    }
   }
 
   &__title {
@@ -16,11 +22,11 @@
     @include margin(.5, 0, .5, 0);
 
     &-link {
-      color: $color-base;
+      color: #F4F4F5;
 
       &:hover,
       &:focus {
-        color: $color-base
+        color: $color-primary;
       }
 
     }
