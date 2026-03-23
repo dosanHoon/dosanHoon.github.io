@@ -122,10 +122,6 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: { trackingId: siteConfig.googleAnalyticsId }
-    },
-    {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         query: `
