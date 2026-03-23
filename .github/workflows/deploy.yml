@@ -8,9 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-22.04
-    env:
-      npm_config_python: /usr/bin/python3
-      npm_config_node_gyp: /usr/local/lib/node_modules/node-gyp/bin/node-gyp.js
     steps:
       - uses: actions/checkout@v3
 
@@ -18,14 +15,12 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Setup build tools
-        run: |
-          npm install -g node-gyp@9
-          echo "node-gyp location: $(which node-gyp)"
-          echo "node-gyp version: $(node-gyp --version)"
-
       - name: Install dependencies
-        run: yarn install --network-timeout 100000 || yarn install --network-timeout 100000 --ignore-engines
+        run: |
+          yarn install --ignore-scripts --network-timeout 100000
+          cd node_modules/node-sass
+          node scripts/install.js
+          cd ../..
 
       - name: Build Gatsby
         run: yarn build
