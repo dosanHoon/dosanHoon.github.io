@@ -24,6 +24,15 @@ jobs:
       - name: Install dependencies
         run: yarn install --network-timeout 100000
 
+      - name: Create appId constants
+        run: |
+          cat > src/constants/appId.js << 'APPIDEOF'
+          export default {
+            MYBLOG_FACEBOOK_APP_ID: "",
+            MYBLOG_SITE_URL: "https://dosanhoon.github.io"
+          };
+          APPIDEOF
+
       - name: Build Gatsby
         run: yarn build
         env:
