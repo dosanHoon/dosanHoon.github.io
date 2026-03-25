@@ -1,4 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 25 Mar 2026 01:19:27 GMT</lastBuildDate><item><title><![CDATA[AI Agent 시대, 마크다운 문서 체계가 팀 생산성을 바꾼다]]></title><description><![CDATA[기획서와 회의록을 마크다운으로 축적하여 AI Agent가 참고할 수 있는 문서 체계를 구축한 경험을 공유합니다. Context 절약, 팀 정보 정렬, 기억 의존 제거까지.]]></description><link>https://dosanhoon.github.io//posts/ai-agent-markdown-docs-workflow</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/ai-agent-markdown-docs-workflow</guid><pubDate>Mon, 23 Mar 2026 09:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;들어가며&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 25 Mar 2026 02:08:27 GMT</lastBuildDate><item><title><![CDATA[Claude Code 커스텀 커맨드로 프론트엔드 워크플로우 자동화하기]]></title><description><![CDATA[Claude Code의 커스텀 슬래시 커맨드를 활용해 브랜치 관리, 배포, 테스트, QA, PR 생성까지 한 줄로 자동화한 경험을 공유한다.]]></description><link>https://dosanhoon.github.io//posts/claude-code-custom-commands</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/claude-code-custom-commands</guid><pubDate>Wed, 25 Mar 2026 09:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;왜 커스텀 커맨드인가&lt;/h2&gt;
+&lt;p&gt;Claude Code를 쓰다 보면 반복되는 패턴이 생긴다. 브랜치 따고 리베이스하고, 변경사항 커밋하고 PR 올리고, 배포하고 테스트 돌리고. 매번 같은 순서의 명령을 Agent에게 자연어로 설명하는 건 비효율적이다.&lt;/p&gt;
+&lt;p&gt;Claude Code는 프로젝트 루트의 &lt;code class=&quot;language-text&quot;&gt;.claude/commands/&lt;/code&gt; 폴더에 마크다운 파일을 넣으면, 그걸 슬래시 커맨드(&lt;code class=&quot;language-text&quot;&gt;/&lt;/code&gt;)로 실행할 수 있다. 한번 정의해두면 팀원 누구나 같은 워크플로우를 한 줄로 실행할 수 있다.&lt;/p&gt;
+&lt;p&gt;나는 이걸 활용해서 프론트엔드 개발의 반복 작업을 거의 전부 커맨드로 만들었다. 현재 운영 중인 커맨드는 크게 5개 카테고리, 12개다.&lt;/p&gt;
+&lt;h2&gt;커맨드 구조&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;.claude/commands/
+├── worktree.md        # 브랜치 체크아웃 + 리베이스 + 워크트리
+├── pr.md              # 커밋 → 푸시 → PR 생성
+├── review-pr.md       # PR 코드 리뷰
+├── dev-deploy.md      # DEV 서버 배포
+├── dev-test.md        # 유닛 + E2E 테스트
+├── dev-deploy-and-test.md  # 배포 + 테스트 코드 작성 + 실행
+├── add-eventlog.md    # 이벤트 로그 누락 분석 + 코드 추가
+├── eventlog-deploy.md # 이벤트 로그 추가 → 배포 → 일감 등록
+├── qa-fetch.md        # QA 일감 수집
+├── qa-plan.md         # QA 이슈 분석 + Fix Plan
+├── qa-fix.md          # QA 코드 수정 + 테스트 + 커밋
+└── qa-auto-fix.md     # QA 전체 파이프라인 자동화&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;각 &lt;code class=&quot;language-text&quot;&gt;.md&lt;/code&gt; 파일 안에 Agent가 따라야 할 절차를 마크다운으로 작성한다. Claude Code는 이걸 읽고 그대로 실행한다.&lt;/p&gt;
+&lt;h2&gt;Git 워크플로우 자동화&lt;/h2&gt;
+&lt;p&gt;가장 자주 쓰는 건 &lt;code class=&quot;language-text&quot;&gt;/worktree&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;/pr&lt;/code&gt;이다.&lt;/p&gt;
+&lt;h3&gt;/worktree — 브랜치 생성부터 워크트리까지 한 줄&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/worktree feature/upload-watermark&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 한 줄이 실행하는 것:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;feature/upload-watermark&lt;/code&gt; 브랜치가 없으면 생성&lt;/li&gt;
+&lt;li&gt;develop 기준으로 리베이스&lt;/li&gt;
+&lt;li&gt;Git worktree로 별도 디렉토리에 체크아웃&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;왜 worktree를 쓰냐면, 모노레포에서 브랜치를 전환하면 node_modules 충돌이나 빌드 캐시 오염이 생기기 때문이다. Worktree로 분리하면 메인 작업 디렉토리를 건드리지 않고 병렬로 작업할 수 있다.&lt;/p&gt;
+&lt;h3&gt;/pr — 변경사항을 PR까지 한번에&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/pr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이것만 치면:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;변경사항 분석 후 적절한 커밋 메시지 생성&lt;/li&gt;
+&lt;li&gt;리모트에 푸시&lt;/li&gt;
+&lt;li&gt;PR 제목과 본문 자동 작성&lt;/li&gt;
+&lt;li&gt;GitHub PR 생성&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;커밋 메시지나 PR 본문을 매번 고민할 필요가 없다. Agent가 diff를 분석해서 작성하고, 마음에 안 들면 수정하면 된다.&lt;/p&gt;
+&lt;h2&gt;배포 + 테스트 자동화&lt;/h2&gt;
+&lt;h3&gt;/dev-deploy-and-test — 가장 강력한 커맨드&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/dev-deploy-and-test&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 커맨드는 세 단계를 연결한다:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;현재 브랜치를 DEV 서버에 배포&lt;/li&gt;
+&lt;li&gt;변경된 코드에 대한 테스트가 없으면 테스트 코드 작성&lt;/li&gt;
+&lt;li&gt;Vitest(유닛) + Playwright(E2E) 테스트 실행&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;“테스트 코드가 없으면 작성”하는 부분이 핵심이다. 기능 구현은 빠르게 하고 싶은데 테스트 작성은 미루게 되는 경향이 있다. 이 커맨드를 쓰면 배포할 때 자동으로 테스트가 따라온다. Agent가 변경된 컴포넌트를 분석해서 적절한 테스트 케이스를 생성한다.&lt;/p&gt;
+&lt;h2&gt;QA 파이프라인 자동화&lt;/h2&gt;
+&lt;p&gt;QA 단계에서 가장 시간을 많이 잡아먹는 건 이슈 확인 → 원인 파악 → 수정 → 재배포 사이클이다. 이걸 4단계 커맨드로 분리했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/qa-fetch    → QA 시스템에서 이슈 수집
+/qa-plan     → 이슈 분석 + 수정 계획 수립
+/qa-fix      → 코드 수정 + 테스트 + 커밋
+/qa-deploy   → DEV 서버에 배포&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;각 단계를 독립적으로 실행할 수 있어서, 계획만 먼저 확인하고 싶을 때는 &lt;code class=&quot;language-text&quot;&gt;/qa-plan&lt;/code&gt;까지만, 한번에 끝내고 싶을 때는 &lt;code class=&quot;language-text&quot;&gt;/qa-auto-fix&lt;/code&gt;로 전체 파이프라인을 돌린다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/qa-auto-fix&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 한 줄이 fetch → plan → fix → deploy를 순차 실행한다. 단순한 UI 버그는 사람이 개입하지 않아도 수정되는 경우가 많다.&lt;/p&gt;
+&lt;h2&gt;이벤트 로그 자동화&lt;/h2&gt;
+&lt;p&gt;프론트엔드에서 빠뜨리기 쉬운 게 이벤트 로그다. 기능은 구현했는데 분석용 로그를 안 심는 경우가 많다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/add-eventlog feature/upload-watermark&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 커맨드는:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;해당 브랜치의 변경사항을 분석&lt;/li&gt;
+&lt;li&gt;새로 추가된 사용자 인터랙션(버튼 클릭, 페이지 진입 등) 중 이벤트 로그가 누락된 부분을 찾아냄&lt;/li&gt;
+&lt;li&gt;로그 코드를 자동 추가&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;분석팀에서 “이 버튼 클릭 이벤트가 안 잡히는데요”라고 물어오는 상황을 사전에 방지할 수 있다.&lt;/p&gt;
+&lt;h2&gt;커맨드 작성 팁&lt;/h2&gt;
+&lt;p&gt;실제로 운영하면서 배운 몇 가지.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;절차를 명확하게 쓴다.&lt;/strong&gt; Agent가 판단할 여지를 최소화해야 한다. “적절히 커밋해”가 아니라 “변경 파일을 분석해서 conventional commit 형식으로 커밋 메시지를 생성하고, 파일 단위로 스테이징해서 커밋한다”처럼 구체적으로 쓴다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;실패 케이스를 명시한다.&lt;/strong&gt; “테스트가 실패하면 수정하고 재실행한다. 3회 이상 실패하면 실패 로그를 출력하고 중단한다” 같은 fallback을 적어둬야 Agent가 무한 루프에 빠지지 않는다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;파이프라인은 단계별로 분리한다.&lt;/strong&gt; &lt;code class=&quot;language-text&quot;&gt;/qa-auto-fix&lt;/code&gt;처럼 전체를 한번에 돌리는 커맨드도 만들되, 각 단계(&lt;code class=&quot;language-text&quot;&gt;fetch&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;plan&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;fix&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;deploy&lt;/code&gt;)를 개별 커맨드로도 실행할 수 있게 한다. 디버깅할 때 단계별로 확인할 수 있어야 한다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MCP 서버와 조합한다.&lt;/strong&gt; 커맨드 안에서 Jira MCP로 일감을 가져오거나, Figma MCP로 기획서를 참조하게 할 수 있다. 커맨드 단독보다 MCP와 조합했을 때 자동화 범위가 크게 넓어진다.&lt;/p&gt;
+&lt;h2&gt;결과&lt;/h2&gt;
+&lt;p&gt;이 커맨드 체계를 운영한 뒤 체감되는 변화는 명확하다.&lt;/p&gt;
+&lt;p&gt;PR 생성에 걸리는 시간이 줄었다. 커밋 메시지 고민, PR 본문 작성, 리뷰어 지정 같은 부수 작업을 Agent가 처리한다. QA 이슈 대응도 빨라졌다. &lt;code class=&quot;language-text&quot;&gt;/qa-auto-fix&lt;/code&gt; 한 줄로 단순 이슈는 사람이 코드를 열어보지 않아도 수정된다.&lt;/p&gt;
+&lt;p&gt;무엇보다 &lt;strong&gt;팀 전체가 같은 워크플로우를 쓰게 된다&lt;/strong&gt;는 점이 크다. &lt;code class=&quot;language-text&quot;&gt;.claude/commands/&lt;/code&gt;는 Git으로 관리되니까, 한 사람이 커맨드를 개선하면 팀 전체에 적용된다. “배포는 어떻게 하더라?”같은 질문이 사라진다.&lt;/p&gt;
+&lt;h2&gt;시작하기&lt;/h2&gt;
+&lt;p&gt;커스텀 커맨드를 처음 만든다면, 가장 자주 반복하는 작업 하나를 골라서 시작하는 걸 추천한다. 브랜치 생성이든, PR 올리기든, 배포든. 그 작업을 할 때 터미널에 치는 명령어들을 순서대로 마크다운에 적으면 그게 첫 번째 커맨드가 된다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[AI Agent 시대, 마크다운 문서 체계가 팀 생산성을 바꾼다]]></title><description><![CDATA[기획서와 회의록을 마크다운으로 축적하여 AI Agent가 참고할 수 있는 문서 체계를 구축한 경험을 공유합니다. Context 절약, 팀 정보 정렬, 기억 의존 제거까지.]]></description><link>https://dosanhoon.github.io//posts/ai-agent-markdown-docs-workflow</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/ai-agent-markdown-docs-workflow</guid><pubDate>Mon, 23 Mar 2026 09:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;들어가며&lt;/h2&gt;
 &lt;p&gt;AI Agent(Claude, Cursor, Copilot 등)를 활용해 코딩하는 팀이 점점 늘고 있습니다. 그런데 Agent에게 기능 구현을 시키려면, 결국 &lt;strong&gt;프로젝트의 맥락&lt;/strong&gt;을 전달해야 합니다. “이 기능의 스펙이 뭔지”, “지난 회의에서 어떻게 결정했는지” 같은 것들이요.&lt;/p&gt;
 &lt;p&gt;저는 최근 사내 프로젝트에서 기획서, 회의록, PRD 등을 전부 마크다운으로 관리하는 체계를 구축했습니다. 단순한 문서 관리가 아니라, AI Agent가 직접 참조할 수 있도록 설계한 것입니다. 이 글에서는 왜 이런 방식을 선택했고, 어떤 효과가 있었는지 공유합니다.&lt;/p&gt;
 &lt;h2&gt;왜 마크다운인가?&lt;/h2&gt;
@@ -643,7 +723,7 @@ autorun(() =&gt; {
 console.log(message.title)
 })
 message = observable({ title: “Bar” })
-This will not react. message was changed, but message is not an observable, just a variable which refers to an observable, but the variable (reference) itself is not observable.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[mobx-react-guide]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
+This will not react. message was changed, but message is not an observable, just a variable which refers to an observable, but the variable (reference) itself is not observable.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[MOBX Common pitfalls & best practices]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
 예전에 봤을때보다 내용이 추가 됐네요.
 가전 제품사면 설명서 따위 버리는 버릇으로 개발하니 삽질의 연속이라 guide 부터 다시 읽기 시작했습니다.&lt;/p&gt;
 &lt;h2&gt;잘못된 위치에서 IMPORT&lt;/h2&gt;
@@ -844,7 +924,7 @@ myComponent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;display
 이 문제를 해결하려면 componentWillUnmount()다음과 같이 선언하십시오 .&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;componentWillUnmount&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;runInAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[MOBX Common pitfalls & best practices]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[mobx-react-guide]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
 예전에 봤을때보다 내용이 추가 됐네요.
 가전 제품사면 설명서 따위 버리는 버릇으로 개발하니 삽질의 연속이라 guide 부터 다시 읽기 시작했습니다.&lt;/p&gt;
 &lt;h2&gt;잘못된 위치에서 IMPORT&lt;/h2&gt;
@@ -1045,7 +1125,100 @@ myComponent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;display
 이 문제를 해결하려면 componentWillUnmount()다음과 같이 선언하십시오 .&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;componentWillUnmount&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;runInAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Javascript Class 에 대한 이해]]></title><description><![CDATA[Javascript Class 에 대한 이해]]></description><link>https://dosanhoon.github.io//posts/javascript-class</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-class</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Class &amp;#x26; Module&lt;/h1&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
+&lt;h2&gt;현 상태&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Java 서버의 Tiles 로 프론트 구성&lt;/li&gt;
+&lt;li&gt;ServerSide에 의존적임&lt;/li&gt;
+&lt;li&gt;프로젝트 졸라 복잡함&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;어떻게 리액트를 도입할까?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;처음부터 다시 만들고 싶지만 비즈니스 로직에 대한 이해도 조차 낮은 상태&lt;/li&gt;
+&lt;li&gt;Jsp 안에서 직접 받는 ServerSide 데이터도 많은 상태&lt;/li&gt;
+&lt;li&gt;Tiles 에 해당하는 템플릿에 1:1로 컴포넌트를 작성하여 순차적으로 교체하는 방법 시도&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;초기 환경 설정&lt;/h2&gt;
+&lt;h3&gt;1. Global Package 설치&lt;/h3&gt;
+&lt;p&gt;cli로 실행하기 위해서 필요한 패키지 설치&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;babel&lt;/li&gt;
+&lt;li&gt;webpack&lt;/li&gt;
+&lt;li&gt;webpack-dev-server&lt;br&gt;
+– 필수 아님(본인은 실제 자바 서버에서 데이터를 받으면서 테스트 하는 경우이기 때문에 필요가 없지만 보통은 webpack-dev-server 로 리액트 개발을 하고 배포나 테스트시에만 실제 product 서버를 켜서 bundle 된 output 만 가지고 확인하면 된다.)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install -g babel webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2. NPM INIT&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;기존 프로젝트내에 npm init 으로 초기 설정&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3. Dependency 및 Plugin 설치&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save react react-dom&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save-dev babel-core babel-loader babel-preset-react babel-preset-es2015 webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;위는 개발 환경에서만 사용되는 모듈이니 -dev 옵션&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;package.json 파일을 확인하면 설치한 모듈이 명시되어 있는것을 확인 가능&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;dependencies&amp;quot;: {
+  &amp;quot;react&amp;quot;: &amp;quot;^16.2.0&amp;quot;,
+  &amp;quot;react-dom&amp;quot;: &amp;quot;^16.2.0&amp;quot;
+},
+&amp;quot;devDependencies&amp;quot;: {
+  &amp;quot;babel-core&amp;quot;: &amp;quot;^6.26.0&amp;quot;,
+  &amp;quot;babel-loader&amp;quot;: &amp;quot;^7.1.2&amp;quot;,
+  &amp;quot;babel-preset-es2015&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
+  &amp;quot;babel-preset-react&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
+  &amp;quot;webpack&amp;quot;: &amp;quot;^3.11.0&amp;quot;,
+  &amp;quot;webpack-dev-server&amp;quot;: &amp;quot;^2.11.1&amp;quot;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(2018/2/19 기준 최신 버젼)&lt;/p&gt;
+&lt;h3&gt;4. webpack 설정&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  entry&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./src/index.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  output&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    filename&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;bundle.js&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  devServer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    inline&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    port&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7777&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    contentBase&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  module&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    loaders&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        test&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/\.js$/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        loader&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;babel-loader&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        exclude&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/node_modules/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          cacheDirectory&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+          presets&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;es2015&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;가장 기본적인 설정이니 entry 와 output 의 경로만 본인 프로젝트에 맞게 변경하면 됨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;webpack 명령어&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack --watch&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;watch 옵션을 주면 entry 에 변경사항이 있으면 자동으로 bundle 작업을 함.&lt;br&gt;
+(“—watch” 옵션이 생각이 안나서 계속 “webpack watch”로 bundle 하니 에러가 나더라…)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;webpack 개발 서버로 작업할시&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
+&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Javascript Class 에 대한 이해]]></title><description><![CDATA[Javascript Class 에 대한 이해]]></description><link>https://dosanhoon.github.io//posts/javascript-class</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-class</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Class &amp;#x26; Module&lt;/h1&gt;
 &lt;h2&gt;Class&lt;/h2&gt;
 &lt;h3&gt;9.2 생성자와 prototype&lt;/h3&gt;
 &lt;ul&gt;
@@ -1327,100 +1500,7 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 
 &lt;span class=&quot;token function-variable function&quot;&gt;handleClick&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;hi&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
-&lt;h2&gt;현 상태&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Java 서버의 Tiles 로 프론트 구성&lt;/li&gt;
-&lt;li&gt;ServerSide에 의존적임&lt;/li&gt;
-&lt;li&gt;프로젝트 졸라 복잡함&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;어떻게 리액트를 도입할까?&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;처음부터 다시 만들고 싶지만 비즈니스 로직에 대한 이해도 조차 낮은 상태&lt;/li&gt;
-&lt;li&gt;Jsp 안에서 직접 받는 ServerSide 데이터도 많은 상태&lt;/li&gt;
-&lt;li&gt;Tiles 에 해당하는 템플릿에 1:1로 컴포넌트를 작성하여 순차적으로 교체하는 방법 시도&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;초기 환경 설정&lt;/h2&gt;
-&lt;h3&gt;1. Global Package 설치&lt;/h3&gt;
-&lt;p&gt;cli로 실행하기 위해서 필요한 패키지 설치&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;babel&lt;/li&gt;
-&lt;li&gt;webpack&lt;/li&gt;
-&lt;li&gt;webpack-dev-server&lt;br&gt;
-– 필수 아님(본인은 실제 자바 서버에서 데이터를 받으면서 테스트 하는 경우이기 때문에 필요가 없지만 보통은 webpack-dev-server 로 리액트 개발을 하고 배포나 테스트시에만 실제 product 서버를 켜서 bundle 된 output 만 가지고 확인하면 된다.)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install -g babel webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2. NPM INIT&lt;/h3&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;기존 프로젝트내에 npm init 으로 초기 설정&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;3. Dependency 및 Plugin 설치&lt;/h3&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save react react-dom&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ npm install --save-dev babel-core babel-loader babel-preset-react babel-preset-es2015 webpack webpack-dev-server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;위는 개발 환경에서만 사용되는 모듈이니 -dev 옵션&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;package.json 파일을 확인하면 설치한 모듈이 명시되어 있는것을 확인 가능&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;dependencies&amp;quot;: {
-  &amp;quot;react&amp;quot;: &amp;quot;^16.2.0&amp;quot;,
-  &amp;quot;react-dom&amp;quot;: &amp;quot;^16.2.0&amp;quot;
-},
-&amp;quot;devDependencies&amp;quot;: {
-  &amp;quot;babel-core&amp;quot;: &amp;quot;^6.26.0&amp;quot;,
-  &amp;quot;babel-loader&amp;quot;: &amp;quot;^7.1.2&amp;quot;,
-  &amp;quot;babel-preset-es2015&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
-  &amp;quot;babel-preset-react&amp;quot;: &amp;quot;^6.24.1&amp;quot;,
-  &amp;quot;webpack&amp;quot;: &amp;quot;^3.11.0&amp;quot;,
-  &amp;quot;webpack-dev-server&amp;quot;: &amp;quot;^2.11.1&amp;quot;
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;(2018/2/19 기준 최신 버젼)&lt;/p&gt;
-&lt;h3&gt;4. webpack 설정&lt;/h3&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  entry&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;./src/index.js&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-
-  output&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    filename&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;bundle.js&quot;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-
-  devServer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    inline&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    port&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;7777&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-    contentBase&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; __dirname &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/public/&quot;&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-
-  module&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    loaders&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
-      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        test&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/\.js$/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-        loader&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;babel-loader&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-        exclude&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/node_modules/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-        query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-          cacheDirectory&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-          presets&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;es2015&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;가장 기본적인 설정이니 entry 와 output 의 경로만 본인 프로젝트에 맞게 변경하면 됨&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;webpack 명령어&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack --watch&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;watch 옵션을 주면 entry 에 변경사항이 있으면 자동으로 bundle 작업을 함.&lt;br&gt;
-(“—watch” 옵션이 생각이 안나서 계속 “webpack watch”로 bundle 하니 에러가 나더라…)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;webpack 개발 서버로 작업할시&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
-&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
 &lt;/ul&gt;
