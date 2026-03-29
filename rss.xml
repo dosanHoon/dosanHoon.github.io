@@ -1,4 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 29 Mar 2026 02:08:38 GMT</lastBuildDate><item><title><![CDATA[Claude Code 커스텀 커맨드로 프론트엔드 워크플로우 자동화하기]]></title><description><![CDATA[Claude Code의 커스텀 슬래시 커맨드를 활용해 브랜치 관리, 배포, 테스트, QA, PR 생성까지 한 줄로 자동화한 경험을 공유한다.]]></description><link>https://dosanhoon.github.io//posts/claude-code-custom-commands</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/claude-code-custom-commands</guid><pubDate>Wed, 25 Mar 2026 09:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;왜 커스텀 커맨드인가&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 29 Mar 2026 02:10:02 GMT</lastBuildDate><item><title><![CDATA[Yarn PnP 적용기 — node_modules를 버리고 얻은 것들]]></title><description><![CDATA[node_modules의 구조적 문제를 짚고, Yarn PnP와 Zero Install을 적용하면서 설치 시간과 디스크 용량을 극적으로 줄인 경험을 공유한다.]]></description><link>https://dosanhoon.github.io//posts/yarn-pnp</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/yarn-pnp</guid><pubDate>Sun, 29 Mar 2026 09:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;node_modules의 문제&lt;/h2&gt;
+&lt;h3&gt;파일이 너무 많다&lt;/h3&gt;
+&lt;p&gt;node&lt;em&gt;modules 안에 node&lt;/em&gt;modules 안에 node_modules. 중첩 구조가 끝없이 이어진다. 디렉토리 구조가 복잡해지고, 파일 수가 기하급수적으로 늘어난다.&lt;/p&gt;
+&lt;p&gt;NPM은 이 문제를 &lt;strong&gt;호이스팅&lt;/strong&gt;으로 해결하려 했다. 모든 모듈을 최상단 node_modules로 끌어올리는 방식이다. 하지만 이건 또 다른 문제를 만들었다.&lt;/p&gt;
+&lt;h3&gt;유령 의존성(Phantom Dependencies)&lt;/h3&gt;
+&lt;p&gt;package.json에 명시하지 않은 패키지를 사용할 수 있는 상황이 생긴다. 호이스팅 때문에 다른 패키지의 의존성이 최상단에 올라오면서, 직접 설치하지 않았는데도 &lt;code class=&quot;language-text&quot;&gt;require&lt;/code&gt;가 된다.&lt;/p&gt;
+&lt;p&gt;이건 혼란을 야기한다. 어느 날 갑자기 의존성 트리가 바뀌면 찾을 수 없다는 에러가 터진다.&lt;/p&gt;
+&lt;h3&gt;느린 모듈 탐색&lt;/h3&gt;
+&lt;p&gt;NPM은 패키지를 찾기 위해 계속 상위 디렉토리의 node_modules 폴더를 탐색한다. 바로 찾지 못할수록 &lt;code class=&quot;language-text&quot;&gt;readdir&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;stat&lt;/code&gt; 같은 느린 I/O 호출이 반복된다. 경우에 따라서는 I/O 호출이 중간에 실패하기도 한다.&lt;/p&gt;
+&lt;p&gt;프로젝트 내부뿐 아니라 개발자 로컬 글로벌 영역까지 검색한다. 환경에 따라 결과가 달라질 수 있다.&lt;/p&gt;
+&lt;p&gt;안 되면 &lt;strong&gt;node_modules 지우고 재설치가 국룰&lt;/strong&gt;인 건 다 이유가 있다.&lt;/p&gt;
+&lt;h2&gt;Plug’n’Play (PnP) 방식&lt;/h2&gt;
+&lt;p&gt;Yarn의 접근은 단순하다. &lt;strong&gt;node_modules를 아예 만들지 않는다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;기존 node_modules는 파일 I/O를 발생시키며 파일시스템에 의존해서 모듈을 찾는다. PnP는 모듈의 위치를 &lt;strong&gt;명시적으로 작성해놓고 찾는다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.yarn/cache&lt;/code&gt; 폴더에 의존성이 Zip 아카이브로 저장되고, &lt;code class=&quot;language-text&quot;&gt;.pnp.cjs&lt;/code&gt; 파일에 의존성을 찾을 수 있는 정보가 기록된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// .pnp.cjs에 명시된 정보에 따라 각 패키지들이 동적으로 참조된다&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; lodashCeilPath &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; require&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;lodash/ceil&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// → /path/to/.yarn/cache/lodash-npm-4.17.11-xxxxx.zip/node_modules/lodash/ceil.js&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;PnP 런타임이 Node의 &lt;code class=&quot;language-text&quot;&gt;fs&lt;/code&gt; 모듈을 패치해서 Zip 아카이브 내부 파일에 직접 접근할 수 있게 해준다. 별도 작업 없이 기존 코드가 그대로 동작한다.&lt;/p&gt;
+&lt;h3&gt;PnP의 이점&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;디스크 용량 감소&lt;/strong&gt;: node_modules보다 훨씬 적은 용량&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;탐색 속도 향상&lt;/strong&gt;: 폴더를 순회할 필요 없이 &lt;code class=&quot;language-text&quot;&gt;.pnp.cjs&lt;/code&gt;에서 바로 위치를 찾음&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;유령 의존성 해결&lt;/strong&gt;: 호이스팅을 하지 않으므로 명시하지 않은 패키지는 접근 불가&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;실제 비교: node_modules vs PnP&lt;/h2&gt;
+&lt;p&gt;동일한 프로젝트 기준으로 비교했다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;node_modules&lt;/th&gt;
+&lt;th&gt;PnP&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;설치 시간&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;73.78s&lt;/td&gt;
+&lt;td&gt;6s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;디스크 용량&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;1.2 GB&lt;/td&gt;
+&lt;td&gt;189 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;넘사벽이다.&lt;/p&gt;
+&lt;h2&gt;설정 방법&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.yarnrc.yml&lt;/code&gt;에서 linker 모드를 설정한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# PnP 모드 (기본값)&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;nodeLinker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; pnp
+
+&lt;span class=&quot;token comment&quot;&gt;# 기존 node_modules 방식으로 되돌리려면&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;nodeLinker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;modules&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Zero Install&lt;/h2&gt;
+&lt;p&gt;PnP의 진짜 킬러 피처는 &lt;strong&gt;Zero Install&lt;/strong&gt;이다. &lt;code class=&quot;language-text&quot;&gt;.yarn/cache&lt;/code&gt;에 있는 Zip 파일들을 Git에 커밋해두면, clone 후 &lt;code class=&quot;language-text&quot;&gt;yarn install&lt;/code&gt; 없이 바로 실행할 수 있다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.gitignore&lt;/code&gt; 설정:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;gitignore&quot;&gt;&lt;pre class=&quot;language-gitignore&quot;&gt;&lt;code class=&quot;language-gitignore&quot;&gt;# Zero Install을 사용할 때
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Zero Install을 사용하지 않을 때
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Zero Install을 쓰면 CI에서 install 단계가 사라진다. 새 팀원이 clone하고 바로 &lt;code class=&quot;language-text&quot;&gt;yarn start&lt;/code&gt;를 칠 수 있다. 의존성 설치 관련 이슈가 원천 차단된다.&lt;/p&gt;
+&lt;h2&gt;마무리&lt;/h2&gt;
+&lt;p&gt;node_modules는 Node.js 생태계의 오래된 관습이다. 동작은 하지만 구조적으로 느리고, 유령 의존성 같은 예측 불가능한 문제를 안고 있다.&lt;/p&gt;
+&lt;p&gt;Yarn PnP는 이 문제를 근본적으로 해결한다. 설치 시간 12배 단축, 디스크 용량 84% 절감. 숫자가 모든 걸 말해준다.&lt;/p&gt;
+&lt;p&gt;물론 PnP와 호환되지 않는 패키지가 간혹 있어서, &lt;code class=&quot;language-text&quot;&gt;packageExtensions&lt;/code&gt;나 &lt;code class=&quot;language-text&quot;&gt;patchedDependencies&lt;/code&gt; 설정이 필요할 수 있다. 하지만 대부분의 메이저 라이브러리는 이미 PnP를 지원한다. 아직 node_modules를 쓰고 있다면, 전환을 고려해볼 만하다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Claude Code 커스텀 커맨드로 프론트엔드 워크플로우 자동화하기]]></title><description><![CDATA[Claude Code의 커스텀 슬래시 커맨드를 활용해 브랜치 관리, 배포, 테스트, QA, PR 생성까지 한 줄로 자동화한 경험을 공유한다.]]></description><link>https://dosanhoon.github.io//posts/claude-code-custom-commands</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/claude-code-custom-commands</guid><pubDate>Wed, 25 Mar 2026 09:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;왜 커스텀 커맨드인가&lt;/h2&gt;
 &lt;p&gt;Claude Code를 쓰다 보면 반복되는 패턴이 생긴다. 브랜치 따고 리베이스하고, 변경사항 커밋하고 PR 올리고, 배포하고 테스트 돌리고. 매번 같은 순서의 명령을 Agent에게 자연어로 설명하는 건 비효율적이다.&lt;/p&gt;
 &lt;p&gt;Claude Code는 프로젝트 루트의 &lt;code class=&quot;language-text&quot;&gt;.claude/commands/&lt;/code&gt; 폴더에 마크다운 파일을 넣으면, 그걸 슬래시 커맨드(&lt;code class=&quot;language-text&quot;&gt;/&lt;/code&gt;)로 실행할 수 있다. 한번 정의해두면 팀원 누구나 같은 워크플로우를 한 줄로 실행할 수 있다.&lt;/p&gt;
 &lt;p&gt;나는 이걸 활용해서 프론트엔드 개발의 반복 작업을 거의 전부 커맨드로 만들었다. 현재 운영 중인 커맨드는 크게 5개 카테고리, 12개다.&lt;/p&gt;
@@ -2889,29 +2969,7 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
-&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Array&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oldArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; oldArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Object&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newObject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldObject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;단순 값만 복사한다면 위에 방법중 골라서 하면 된다.&lt;/p&gt;
-&lt;p&gt;다만 [{},{}] 나 {key:{},key:{}} 처럼&lt;/p&gt;
-&lt;p&gt;원소 값 또한 참조형이면 값을 복제하더라고 원소가 참조형이기 때문에&lt;/p&gt;
-&lt;p&gt;값을 변경하면 원본 자료도 값이 변경 된다.(자바스크립의 괴랄함..)&lt;/p&gt;
-&lt;p&gt;이떄는 json 을 이용한 방식으로 하면 가능 하다.&lt;/p&gt;
-&lt;p&gt;이외에도 함수로 구현하거나 lodash 등 자바스크립트 Superset 라이브러리등을 사용하는 방법 등이 있다.&lt;/p&gt;
-&lt;p&gt;개인적으론 Deep copy는 한글로 복제 shallow copy 는 참조 라고 하는게 자연스러운것 같다.
-(prototype 과 property 모두를 복제 할려면 위 방법으로 해야 된다.)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Structured_clone_algorithm&quot;&gt;복제 알고리즘 참고&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/lodash/lodash/blob/4.17.5/lodash.js#L11078&quot;&gt;lodash deep clone 구현 코드&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;위 내용 참고해보면 재밌다.&lt;/p&gt;
-&lt;p&gt;알고리즘 사이트는 저런게 있는것도 처음 알았다는…&lt;/p&gt;
-&lt;p&gt;추후 자바스크립에 deep copy 메소드가 추가 되면 좋겟다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Mobx 최적화]]></title><description><![CDATA[Mobx 최적환 관련 기록]]></description><link>https://dosanhoon.github.io//posts/react-mobx</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Mobx 최적화&lt;/h1&gt;
+&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Mobx 최적화]]></title><description><![CDATA[Mobx 최적환 관련 기록]]></description><link>https://dosanhoon.github.io//posts/react-mobx</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Mobx 최적화&lt;/h1&gt;
 &lt;h2&gt;mobx-react-devtools 개발도구 설치&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; mobx-react-devtools&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Component &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -3033,7 +3091,29 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 
 &lt;span class=&quot;token function-variable function&quot;&gt;handleClick&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token function&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;hi&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[React 개발기 - 혹은 삽질기]]></title><description><![CDATA[그동안 React 로 개발하면서  겪은 시행착오 및 삽질기]]></description><link>https://dosanhoon.github.io//posts/react-develop-diary</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-develop-diary</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 개발기 - 혹은 삽질기&lt;/h1&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Array&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oldArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; oldArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Object&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newObject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldObject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;단순 값만 복사한다면 위에 방법중 골라서 하면 된다.&lt;/p&gt;
+&lt;p&gt;다만 [{},{}] 나 {key:{},key:{}} 처럼&lt;/p&gt;
+&lt;p&gt;원소 값 또한 참조형이면 값을 복제하더라고 원소가 참조형이기 때문에&lt;/p&gt;
+&lt;p&gt;값을 변경하면 원본 자료도 값이 변경 된다.(자바스크립의 괴랄함..)&lt;/p&gt;
+&lt;p&gt;이떄는 json 을 이용한 방식으로 하면 가능 하다.&lt;/p&gt;
+&lt;p&gt;이외에도 함수로 구현하거나 lodash 등 자바스크립트 Superset 라이브러리등을 사용하는 방법 등이 있다.&lt;/p&gt;
+&lt;p&gt;개인적으론 Deep copy는 한글로 복제 shallow copy 는 참조 라고 하는게 자연스러운것 같다.
+(prototype 과 property 모두를 복제 할려면 위 방법으로 해야 된다.)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Structured_clone_algorithm&quot;&gt;복제 알고리즘 참고&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lodash/lodash/blob/4.17.5/lodash.js#L11078&quot;&gt;lodash deep clone 구현 코드&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;위 내용 참고해보면 재밌다.&lt;/p&gt;
+&lt;p&gt;알고리즘 사이트는 저런게 있는것도 처음 알았다는…&lt;/p&gt;
+&lt;p&gt;추후 자바스크립에 deep copy 메소드가 추가 되면 좋겟다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 개발기 - 혹은 삽질기]]></title><description><![CDATA[그동안 React 로 개발하면서  겪은 시행착오 및 삽질기]]></description><link>https://dosanhoon.github.io//posts/react-develop-diary</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-develop-diary</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 개발기 - 혹은 삽질기&lt;/h1&gt;
 &lt;p&gt;React를 처음 접한지 2~3년 정도 됐는데 처음과 지금을 비교하면 많이도 변했다.&lt;br&gt;
 늘 처음이란게 그렇듯.&lt;br&gt;
 어설프고 es6 부터 시작해서 모든 것이 새로 웠다. 그래서 반면교사로 삼거나 재미삼아 변해온 과정에 대해서 간단하게 작성해보기로 했다.&lt;/p&gt;
