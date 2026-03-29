@@ -24,7 +24,7 @@ module.exports = {
     bio: '프론트엔드 개발 기술 블로그',
     contacts: {
       email: 'hangru1106@gmail.com',
-      github: 'https://github.com/dosanHoon'
+      github: 'dosanHoon'
     }
   }
 };
