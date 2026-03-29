@@ -36,7 +36,7 @@ export const query = graphql`
         author {
           name
           contacts {
-            twitter
+            github
           }
         }
         disqusShortname
