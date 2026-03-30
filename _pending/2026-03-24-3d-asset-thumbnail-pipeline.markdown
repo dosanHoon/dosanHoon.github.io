@@ -2,7 +2,7 @@
 title: "6만 건 3D 에셋에서 썸네일을 자동 추출하는 시스템을 만들었다"
 date: "2026-03-24T09:00:00.000Z"
 template: "post"
-draft: false
+draft: true
 slug: "/posts/3d-asset-thumbnail-pipeline"
 category: "Frontend"
 tags:
