@@ -153,6 +153,34 @@ figcaption {
   text-align: center;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $typographic-small-font-size;
+  @include margin-bottom(1);
+}
+
+th,
+td {
+  padding: 10px 14px;
+  border: 1px solid $color-gray-border;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+th {
+  font-weight: 600;
+  color: #F4F4F5;
+  background-color: $color-bg-elevated;
+  white-space: nowrap;
+}
+
+tr:nth-child(even) td {
+  background-color: $color-bg-secondary;
+}
+
 // Code blocks dark enhancement
 code {
   background-color: $color-bg-elevated;
