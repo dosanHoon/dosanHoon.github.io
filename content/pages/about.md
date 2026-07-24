@@ -6,7 +6,6 @@ template: "page"
 ## Contact.
 
 - 한승훈
-- 010-3487-8711
 - hangru1106@gmail.com
 - GitHub: [github.com/dosanHoon](https://github.com/dosanHoon)
 
