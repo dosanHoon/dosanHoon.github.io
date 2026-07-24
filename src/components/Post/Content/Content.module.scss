@@ -61,6 +61,16 @@
       margin-right: auto
     }
 
+    // 위 *:not(div) 규칙이 표 셀에까지 width:100%를 걸면 컬럼 폭 계산이 깨진다
+    & thead,
+    & tbody,
+    & tr,
+    & th,
+    & td {
+      width: auto;
+      max-width: none;
+    }
+
   }
 
 }
