@@ -23,6 +23,21 @@
     & figure {
       @include margin-bottom(1);
 
+      & img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      & figcaption {
+        margin-top: 10px;
+        color: $color-gray;
+        font-size: $typographic-small-font-size;
+        text-align: center;
+        line-height: 1.5;
+      }
+
       & blockquote {
         font-style: italic;
         text-align: center;

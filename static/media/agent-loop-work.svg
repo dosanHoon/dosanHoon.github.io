@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="title2 desc2">
+  <title id="title2">업무 루프</title>
+  <desc id="desc2">QA 버그 일감을 파악하고 수정한 뒤 QA를 거쳐 머지하기까지의 네 구간.</desc>
+  <rect width="720" height="250" rx="12" fill="#18181F"/>
+  <text x="360" y="30" text-anchor="middle" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">업무 루프 · QA 버그 하나를 끝까지</text>
+  <rect x="16" y="52" width="152" height="168" rx="10" fill="#1E1E28" stroke="#7C8AFF"/>
+  <text x="92" y="80" text-anchor="middle" fill="#7C8AFF" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600">1. 파악</text>
+  <text x="92" y="114" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">일감 조회</text>
+  <text x="92" y="140" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">내용 분석</text>
+  <text x="92" y="166" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">코드 · 원인</text>
+  <text x="92" y="198" text-anchor="middle" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="11">qa-agent</text>
+  <path d="M174 136 H190" stroke="#71717A" stroke-width="2"/>
+  <polygon points="190,131 200,136 190,141" fill="#71717A"/>
+  <rect x="206" y="52" width="152" height="168" rx="10" fill="#1E1E28" stroke="#34D399"/>
+  <text x="282" y="80" text-anchor="middle" fill="#34D399" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600">2. 수정</text>
+  <text x="282" y="114" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">수정 계획</text>
+  <text x="282" y="140" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">버그 수정</text>
+  <text x="282" y="166" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">로컬 검수</text>
+  <text x="282" y="198" text-anchor="middle" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="11">qa-agent</text>
+  <path d="M364 136 H380" stroke="#71717A" stroke-width="2"/>
+  <polygon points="380,131 390,136 380,141" fill="#71717A"/>
+  <rect x="396" y="52" width="152" height="168" rx="10" fill="#1E1E28" stroke="#F7A046"/>
+  <text x="472" y="80" text-anchor="middle" fill="#F7A046" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600">3. QA</text>
+  <text x="472" y="114" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">개발망 배포</text>
+  <text x="472" y="140" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">검수 · 상태 변경</text>
+  <text x="472" y="166" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">QA 요청 · 통과</text>
+  <text x="472" y="198" text-anchor="middle" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="11">dev-deploy</text>
+  <path d="M554 136 H570" stroke="#71717A" stroke-width="2"/>
+  <polygon points="570,131 580,136 570,141" fill="#71717A"/>
+  <rect x="586" y="52" width="118" height="168" rx="10" fill="#1E1E28" stroke="#E4E4E7"/>
+  <text x="645" y="80" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="15" font-weight="600">4. 머지</text>
+  <text x="645" y="120" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">PR 생성</text>
+  <text x="645" y="146" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">리뷰 요청</text>
+  <text x="645" y="172" text-anchor="middle" fill="#E4E4E7" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13">머지</text>
+  <text x="645" y="204" text-anchor="middle" fill="#71717A" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="11">pr-reviewer</text>
+</svg>
