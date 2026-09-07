@@ -2,7 +2,7 @@
 title: "이미지 검색 만들다가 브라우저에서 AI 모델까지 돌리게 됨 — WebGPU 427ms"
 date: "2026-09-07T09:00:00.000Z"
 template: "post"
-draft: false
+draft: true
 slug: "/posts/browser-image-search-webgpu"
 category: "AI"
 tags:
