@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 10 Sep 2026 23:59:07 GMT</lastBuildDate><item><title><![CDATA[AI 에이전트 피드백 루프 - 더 딸각]]></title><description><![CDATA[회사에서 클로드로 업무 자동화하기 실용편. 반복 업무를 에이전트와 스킬로 쪼개고, 일감 댓글과 실패한 실행을 다음 실행의 규칙으로 되돌려 놓는 피드백 루프를 만든 기록.]]></description><link>https://dosanhoon.github.io//posts/agent-loop-engineering</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/agent-loop-engineering</guid><pubDate>Sat, 22 Aug 2026 09:00:00 GMT</pubDate><content:encoded>&lt;p&gt;회사에서 클로드로 업무 자동화하기 실용편.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Sep 2026 01:39:47 GMT</lastBuildDate><item><title><![CDATA[AI 에이전트 피드백 루프 - 더 딸각]]></title><description><![CDATA[회사에서 클로드로 업무 자동화하기 실용편. 반복 업무를 에이전트와 스킬로 쪼개고, 일감 댓글과 실패한 실행을 다음 실행의 규칙으로 되돌려 놓는 피드백 루프를 만든 기록.]]></description><link>https://dosanhoon.github.io//posts/agent-loop-engineering</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/agent-loop-engineering</guid><pubDate>Sat, 22 Aug 2026 09:00:00 GMT</pubDate><content:encoded>&lt;p&gt;회사에서 클로드로 업무 자동화하기 실용편.&lt;/p&gt;
 &lt;p&gt;K회사에 다니는 K직장인 개발자로서, 반복되는 업무를 클로드에 넘겨 자동화하는 과정을 정리한다. 프롬프트를 잘 쓰는 요령을 다루려는 글은 아니다. &lt;strong&gt;한 번 시킨 일이 다음번에는 덜 틀리도록 만드는 루프를 어떻게 짜느냐&lt;/strong&gt;가 주제이다.&lt;/p&gt;
 &lt;h2&gt;개발자가 회사에서 하는 일&lt;/h2&gt;
 &lt;ol&gt;
@@ -1249,29 +1249,7 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 &lt;li&gt;웹과 하이브리드앱의 동일한 스펙을 위해 눈물을 머금고 vue 제외&lt;/li&gt;
 &lt;li&gt;Typescript와 그외 학습에 대한 부담으로 angular 도 제외&lt;/li&gt;
 &lt;li&gt;결국엔 그나마 익숙한 React 로&lt;/li&gt;
-&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Array&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oldArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; oldArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Object&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newObject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldObject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;단순 값만 복사한다면 위에 방법중 골라서 하면 된다.&lt;/p&gt;
-&lt;p&gt;다만 [{},{}] 나 {key:{},key:{}} 처럼&lt;/p&gt;
-&lt;p&gt;원소 값 또한 참조형이면 값을 복제하더라고 원소가 참조형이기 때문에&lt;/p&gt;
-&lt;p&gt;값을 변경하면 원본 자료도 값이 변경 된다.(자바스크립의 괴랄함..)&lt;/p&gt;
-&lt;p&gt;이떄는 json 을 이용한 방식으로 하면 가능 하다.&lt;/p&gt;
-&lt;p&gt;이외에도 함수로 구현하거나 lodash 등 자바스크립트 Superset 라이브러리등을 사용하는 방법 등이 있다.&lt;/p&gt;
-&lt;p&gt;개인적으론 Deep copy는 한글로 복제 shallow copy 는 참조 라고 하는게 자연스러운것 같다.
-(prototype 과 property 모두를 복제 할려면 위 방법으로 해야 된다.)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Structured_clone_algorithm&quot;&gt;복제 알고리즘 참고&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/lodash/lodash/blob/4.17.5/lodash.js#L11078&quot;&gt;lodash deep clone 구현 코드&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;위 내용 참고해보면 재밌다.&lt;/p&gt;
-&lt;p&gt;알고리즘 사이트는 저런게 있는것도 처음 알았다는…&lt;/p&gt;
-&lt;p&gt;추후 자바스크립에 deep copy 메소드가 추가 되면 좋겟다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
 &lt;h2&gt;현 상태&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Java 서버의 Tiles 로 프론트 구성&lt;/li&gt;
@@ -1364,7 +1342,29 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
-&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Mobx 최적화]]></title><description><![CDATA[Mobx 최적환 관련 기록]]></description><link>https://dosanhoon.github.io//posts/react-mobx</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Mobx 최적화&lt;/h1&gt;
+&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Array&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oldArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; oldArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Object&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newObject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldObject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;단순 값만 복사한다면 위에 방법중 골라서 하면 된다.&lt;/p&gt;
+&lt;p&gt;다만 [{},{}] 나 {key:{},key:{}} 처럼&lt;/p&gt;
+&lt;p&gt;원소 값 또한 참조형이면 값을 복제하더라고 원소가 참조형이기 때문에&lt;/p&gt;
+&lt;p&gt;값을 변경하면 원본 자료도 값이 변경 된다.(자바스크립의 괴랄함..)&lt;/p&gt;
+&lt;p&gt;이떄는 json 을 이용한 방식으로 하면 가능 하다.&lt;/p&gt;
+&lt;p&gt;이외에도 함수로 구현하거나 lodash 등 자바스크립트 Superset 라이브러리등을 사용하는 방법 등이 있다.&lt;/p&gt;
+&lt;p&gt;개인적으론 Deep copy는 한글로 복제 shallow copy 는 참조 라고 하는게 자연스러운것 같다.
+(prototype 과 property 모두를 복제 할려면 위 방법으로 해야 된다.)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Structured_clone_algorithm&quot;&gt;복제 알고리즘 참고&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lodash/lodash/blob/4.17.5/lodash.js#L11078&quot;&gt;lodash deep clone 구현 코드&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;위 내용 참고해보면 재밌다.&lt;/p&gt;
+&lt;p&gt;알고리즘 사이트는 저런게 있는것도 처음 알았다는…&lt;/p&gt;
+&lt;p&gt;추후 자바스크립에 deep copy 메소드가 추가 되면 좋겟다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Mobx 최적화]]></title><description><![CDATA[Mobx 최적환 관련 기록]]></description><link>https://dosanhoon.github.io//posts/react-mobx</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Mobx 최적화&lt;/h1&gt;
 &lt;h2&gt;mobx-react-devtools 개발도구 설치&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; mobx-react-devtools&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Component &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
