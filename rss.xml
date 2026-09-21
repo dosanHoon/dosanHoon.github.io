@@ -1,8 +1,188 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Sep 2026 01:39:47 GMT</lastBuildDate><item><title><![CDATA[AI 에이전트 피드백 루프 - 더 딸각]]></title><description><![CDATA[회사에서 클로드로 업무 자동화하기 실용편. 반복 업무를 에이전트와 스킬로 쪼개고, 일감 댓글과 실패한 실행을 다음 실행의 규칙으로 되돌려 놓는 피드백 루프를 만든 기록.]]></description><link>https://dosanhoon.github.io//posts/agent-loop-engineering</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/agent-loop-engineering</guid><pubDate>Sat, 22 Aug 2026 09:00:00 GMT</pubDate><content:encoded>&lt;p&gt;회사에서 클로드로 업무 자동화하기 실용편.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dosanhoon's blog]]></title><description><![CDATA[프론트엔드 개발 기술 블로그]]></description><link>https://dosanhoon.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 21 Sep 2026 06:20:08 GMT</lastBuildDate><item><title><![CDATA[나만 쓰던 AI 자동화를 팀의 개발 환경으로 만들게 됨]]></title><description><![CDATA[개인용 AI 명령과 에이전트를 팀 플러그인으로 배포함. 공통 컨텍스트, 권한 경계, 검증 절차와 실패 피드백까지 팀의 개발 환경으로 만든 기록.]]></description><link>https://dosanhoon.github.io//posts/team-ai-workflow</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/team-ai-workflow</guid><pubDate>Wed, 09 Sep 2026 09:00:00 GMT</pubDate><content:encoded>&lt;p&gt;처음에는 나만 잘 쓰면 된다고 생각함.&lt;/p&gt;
+&lt;p&gt;일감 조회, Figma 명세 추출, PR 리뷰를 Claude에게 시킴.&lt;/p&gt;
+&lt;p&gt;반복되는 절차는 스킬과 에이전트 파일로 남김.&lt;/p&gt;
+&lt;p&gt;내 컴퓨터에서는 꽤 잘 돌아감.&lt;/p&gt;
+&lt;p&gt;그런데 팀원에게 써 보라고 하려는 순간 문제가 생김.&lt;/p&gt;
+&lt;p&gt;파일을 어디에 복사해야 하는지, 어떤 MCP가 필요한지, 토큰은 어디에 넣는지 설명해야 했음.&lt;/p&gt;
+&lt;p&gt;업데이트할 때는 다시 복사해 달라고 해야 함.&lt;/p&gt;
+&lt;p&gt;이건 팀의 도구가 아니었음.&lt;/p&gt;
+&lt;p&gt;그냥 내 설정 파일이 많아진 것이었음.&lt;/p&gt;
+&lt;h2&gt;프롬프트를 공유하는 것으로는 부족했음&lt;/h2&gt;
+&lt;p&gt;팀에서 AI를 같이 쓴다고 하면 공용 프롬프트부터 떠올리기 쉬움.&lt;/p&gt;
+&lt;p&gt;실제로 필요했던 것은 그보다 넓었음.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;공통 업무 맥락
+→ 재사용할 작업 절차
+→ 필요한 도구와 인증
+→ 변경 권한
+→ 결과 검증
+→ 실패를 다음 버전에 반영&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 중 하나라도 개인 컴퓨터에만 있으면 같은 결과를 재현하기 어려움.&lt;/p&gt;
+&lt;p&gt;그래서 개인 설정에 있던 스킬과 에이전트를 사내 Git 저장소로 옮김.&lt;/p&gt;
+&lt;p&gt;Claude Code 플러그인 마켓플레이스 형태로 배포함.&lt;/p&gt;
+&lt;p&gt;팀원은 저장소를 내려받아 파일을 복사하지 않음.&lt;/p&gt;
+&lt;p&gt;마켓플레이스를 한 번 추가하고 필요한 플러그인만 설치함.&lt;/p&gt;
+&lt;p&gt;업데이트도 같은 경로로 받음.&lt;/p&gt;
+&lt;h2&gt;업무 단위로 플러그인을 나눔&lt;/h2&gt;
+&lt;p&gt;하나의 거대한 AI 도구로 만들지 않음.&lt;/p&gt;
+&lt;p&gt;실제 업무 경계에 맞춰 세 묶음으로 나눔.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;플러그인&lt;/th&gt;
+&lt;th&gt;하는 일&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;업무 도구&lt;/td&gt;
+&lt;td&gt;일감·댓글·사내 문서·기획 명세 조회&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Figma 도구&lt;/td&gt;
+&lt;td&gt;시안 추출, 코드 대조, 구현 전 계획&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;리뷰 도구&lt;/td&gt;
+&lt;td&gt;PR 분석, 발견 항목 반증 검증&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Figma를 쓰지 않는 사람은 Figma 도구를 설치하지 않아도 됨.&lt;/p&gt;
+&lt;p&gt;PR 리뷰가 필요 없는 사람도 리뷰 도구를 빼면 됨.&lt;/p&gt;
+&lt;p&gt;외부 서비스 인증은 플러그인에 넣지 않음.&lt;/p&gt;
+&lt;p&gt;토큰과 OAuth는 각자의 사용자 환경에 둠.&lt;/p&gt;
+&lt;p&gt;플러그인은 &lt;strong&gt;무엇을 할지&lt;/strong&gt;만 배포함.&lt;/p&gt;
+&lt;p&gt;인증 정보는 &lt;strong&gt;누가 실행하는지&lt;/strong&gt;에 따라 분리함.&lt;/p&gt;
+&lt;p&gt;덕분에 공용 저장소에 개인 경로나 계정, 토큰이 들어갈 이유가 없어짐.&lt;/p&gt;
+&lt;h2&gt;명령어를 외우게 하지 않음&lt;/h2&gt;
+&lt;p&gt;팀 도구가 생겨도 사용법이 복잡하면 안 쓰게 됨.&lt;/p&gt;
+&lt;p&gt;그래서 별도 명령을 외우게 하지 않음.&lt;/p&gt;
+&lt;p&gt;평소 하던 말로 요청하면 맞는 스킬이나 에이전트가 선택되게 함.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;quot;이 일감과 댓글 확인해줘&amp;quot;
+&amp;quot;이 시안이랑 코드가 맞는지 봐줘&amp;quot;
+&amp;quot;이 PR 리뷰해줘&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;온보딩 문서에는 설치만 적지 않음.&lt;/p&gt;
+&lt;p&gt;필요한 인증, 설치 확인, 첫 동작 테스트, 자주 발생하는 오류까지 한 흐름으로 둠.&lt;/p&gt;
+&lt;p&gt;설명서를 읽고도 막히면 온보딩이 끝난 것이 아니기 때문임.&lt;/p&gt;
+&lt;h2&gt;모든 맥락을 한 번에 넣지 않음&lt;/h2&gt;
+&lt;p&gt;팀 AI라고 해서 모든 문서를 항상 읽게 하면 느리고 비쌈.&lt;/p&gt;
+&lt;p&gt;반대로 아무것도 주지 않으면 팀의 규칙을 모름.&lt;/p&gt;
+&lt;p&gt;그래서 컨텍스트를 세 층으로 나눔.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;항상 읽는 것
+  └─ 저장소 구조, 빌드 명령, 공통 개발 규칙
+
+상황에 따라 읽는 것
+  └─ Figma 구현, API 연동, 이벤트 로그, 영문 카피 규칙
+
+여러 저장소를 건드릴 때 읽는 것
+  └─ FE·BE·문서 간 동기화 순서와 배포 규칙&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;단일 저장소 작업은 그 저장소에서 시작함.&lt;/p&gt;
+&lt;p&gt;FE와 BE를 같이 바꾸는 작업만 별도 워크스페이스에서 시작함.&lt;/p&gt;
+&lt;p&gt;그 워크스페이스에는 코드보다 저장소 사이의 계약을 적음.&lt;/p&gt;
+&lt;p&gt;API가 바뀌면 어떤 스펙을 갱신하는지, FE와 BE PR을 어떤 순서로 묶는지 같은 내용임.&lt;/p&gt;
+&lt;p&gt;AI에게 모든 지식을 주는 대신 &lt;strong&gt;지금 하는 일에 필요한 지식의 입구&lt;/strong&gt;를 줌.&lt;/p&gt;
+&lt;h2&gt;조회와 변경의 권한을 분리함&lt;/h2&gt;
+&lt;p&gt;AI가 일을 잘하는 것과 마음대로 쓰게 하는 것은 다른 문제였음.&lt;/p&gt;
+&lt;p&gt;읽기 전용 에이전트는 분석까지만 함.&lt;/p&gt;
+&lt;p&gt;PR 리뷰 에이전트는 코드를 읽고 발견 항목을 만들지만 GitHub에 댓글을 달지 않음.&lt;/p&gt;
+&lt;p&gt;Figma 대조 에이전트도 차이를 찾지만 무엇을 고칠지는 결정하지 않음.&lt;/p&gt;
+&lt;p&gt;일감 댓글처럼 외부 상태를 바꾸는 작업은 먼저 초안을 보여줌.&lt;/p&gt;
+&lt;p&gt;사용자가 승인한 뒤에만 등록함.&lt;/p&gt;
+&lt;p&gt;내 PR을 자동으로 고치는 흐름도 경계를 둠.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;타인 PR에는 push하지 않음&lt;/li&gt;
+&lt;li&gt;내 PR 수정 뒤에는 기존 승인을 무효로 봄&lt;/li&gt;
+&lt;li&gt;테스트가 통과해도 사람의 approve가 필요함&lt;/li&gt;
+&lt;li&gt;force push와 self approve는 금지함&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;자동화 범위보다 &lt;strong&gt;어디서 멈추는지&lt;/strong&gt;를 먼저 정함.&lt;/p&gt;
+&lt;h2&gt;AI의 리뷰도 다시 검증함&lt;/h2&gt;
+&lt;p&gt;처음에는 리뷰 에이전트 하나가 찾은 문제를 그대로 믿었음.&lt;/p&gt;
+&lt;p&gt;오탐이 쌓임.&lt;/p&gt;
+&lt;p&gt;그래서 리뷰와 검증을 분리함.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;PR diff
+  → 리뷰 에이전트가 결함 후보를 찾음
+  → 검증 에이전트가 틀렸다는 증거부터 찾음
+  → 반증에 실패한 항목만 남김
+  → 별도 게시 규칙으로 다음 동작을 결정함&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;검증 에이전트에는 “맞는지 확인하라”가 아니라 “틀렸음을 입증하라”고 시킴.&lt;/p&gt;
+&lt;p&gt;판정도 세 가지로 고정함.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;확인됨&lt;/li&gt;
+&lt;li&gt;반증됨&lt;/li&gt;
+&lt;li&gt;실행해 봐야 알 수 있음&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;확신이 없는 항목을 그럴듯하게 단정하지 못하게 함.&lt;/p&gt;
+&lt;p&gt;코드 위치와 재현 경로가 없는 지적은 버림.&lt;/p&gt;
+&lt;p&gt;AI를 한 번 더 호출한 것이 핵심은 아님.&lt;/p&gt;
+&lt;p&gt;서로 다른 역할과 판정 기준으로 &lt;strong&gt;한 모델의 확신을 견제하는 구조&lt;/strong&gt;를 만든 것이 핵심이었음.&lt;/p&gt;
+&lt;h2&gt;실제 실패가 공용 규칙이 됨&lt;/h2&gt;
+&lt;p&gt;가장 많이 바뀐 것은 프롬프트가 아니라 실패 처리였음.&lt;/p&gt;
+&lt;p&gt;로컬 브랜치가 원격보다 오래되어 이미 바뀐 코드를 문제라고 판단할 뻔한 적이 있었음.&lt;/p&gt;
+&lt;p&gt;그 뒤 검증 에이전트는 판정 전에 최신 원격 코드를 확인하게 됨.&lt;/p&gt;
+&lt;p&gt;숨겨진 브라우저 탭에서는 애니메이션과 레이아웃 관찰이 제대로 동작하지 않았음.&lt;/p&gt;
+&lt;p&gt;그 뒤 렌더링 검증은 Playwright로만 하게 됨.&lt;/p&gt;
+&lt;p&gt;스크린샷의 요소 간격을 요소 너비로 잘못 해석해 Figma가 모순됐다고 보고한 적도 있었음.&lt;/p&gt;
+&lt;p&gt;그 뒤 수치 지적은 Figma 원본의 실제 필드를 다시 확인해야만 외부에 보고할 수 있게 됨.&lt;/p&gt;
+&lt;p&gt;구현 계획에서 토스트 문구가 빠졌는데 테스트는 모두 통과한 적도 있었음.&lt;/p&gt;
+&lt;p&gt;테스트에 그 문구를 확인하는 코드가 애초에 없었기 때문임.&lt;/p&gt;
+&lt;p&gt;그 뒤 구현 계획에 UI 문구와 테스트 여부를 함께 적는 커버리지 표가 들어감.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;실패
+→ 원인 확인
+→ 에이전트 또는 스킬 규칙 수정
+→ 버전 증가
+→ 팀 업데이트&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;개인 자동화에서는 내가 다음에 기억하면 끝남.&lt;/p&gt;
+&lt;p&gt;팀 자동화에서는 기억이 아니라 배포 가능한 변경으로 남아야 함.&lt;/p&gt;
+&lt;p&gt;이 부분은 앞서 정리한 &lt;a href=&quot;/posts/agent-loop-engineering&quot;&gt;AI 에이전트 피드백 루프&lt;/a&gt;를 실제 팀 배포 구조로 옮긴 과정에 가까움.&lt;/p&gt;
+&lt;h2&gt;팀원이 첫 PR을 보냄&lt;/h2&gt;
+&lt;p&gt;팀 도구가 되었는지는 설치 횟수보다 다른 사람이 고칠 수 있는지로 판단할 수 있었음.&lt;/p&gt;
+&lt;p&gt;첫 팀원 PR은 화려한 에이전트를 추가한 작업이 아니었음.&lt;/p&gt;
+&lt;p&gt;Windows에서 동작하지 않는 온보딩 명령을 고침.&lt;/p&gt;
+&lt;p&gt;이미 등록된 MCP의 이름이 다를 때 생기는 오류도 문서에 추가함.&lt;/p&gt;
+&lt;p&gt;플러그인이 제공한다고 잘못 적어 둔 전제도 바로잡음.&lt;/p&gt;
+&lt;p&gt;그 변경이 중요했음.&lt;/p&gt;
+&lt;p&gt;내 컴퓨터에서 맞는 설명이 팀 전체에서 맞는 설명으로 바뀌었기 때문임.&lt;/p&gt;
+&lt;p&gt;이후 변경 규칙도 저장소에 둠.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;스킬이나 에이전트가 바뀌면 버전을 올림&lt;/li&gt;
+&lt;li&gt;manifest를 바꾸면 push 전에 JSON을 검증함&lt;/li&gt;
+&lt;li&gt;개인 경로와 비밀값을 넣지 않음&lt;/li&gt;
+&lt;li&gt;공용 도구와 저장소 전용 규칙을 섞지 않음&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;AI에게 지킬 규칙을 적는 저장소 자체도 팀의 코드가 됨.&lt;/p&gt;
+&lt;h2&gt;아직 생산성 숫자는 없음&lt;/h2&gt;
+&lt;p&gt;“개발 속도가 몇 배 빨라졌다”는 숫자는 적지 않기로 함.&lt;/p&gt;
+&lt;p&gt;아직 같은 조건으로 비교하지 않았고, 도입 초기이기 때문임.&lt;/p&gt;
+&lt;p&gt;대신 확인할 수 있는 변화는 있었음.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;팀원이 같은 설치 경로로 같은 도구를 받음&lt;/li&gt;
+&lt;li&gt;업무 규칙이 개인 프롬프트가 아니라 Git 변경 이력으로 남음&lt;/li&gt;
+&lt;li&gt;Figma 구현, 기획 검토, PR 리뷰에 공통 출력 형식이 생김&lt;/li&gt;
+&lt;li&gt;오탐과 누락이 다음 버전의 검증 규칙으로 들어감&lt;/li&gt;
+&lt;li&gt;다른 OS에서 생긴 문제가 팀원의 PR로 수정됨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;정량화하려면 앞으로 더 봐야 함.&lt;/p&gt;
+&lt;p&gt;온보딩 완료 시간, PR 리뷰의 유효 지적 비율, 같은 유형의 재작업 횟수 정도는 측정할 수 있을 것 같음.&lt;/p&gt;
+&lt;p&gt;지금 말할 수 있는 성과는 AI가 코드를 더 많이 만든 것이 아님.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;팀이 AI에게 일을 맡기는 방식이 검토 가능한 형태로 남기 시작한 것&lt;/strong&gt;임.&lt;/p&gt;
+&lt;h2&gt;팀 레벨 AI 활용은 배포 문제였음&lt;/h2&gt;
+&lt;p&gt;개인이 AI를 잘 쓰는 데에는 좋은 프롬프트가 중요함.&lt;/p&gt;
+&lt;p&gt;팀이 같이 쓰려면 다른 것이 더 필요했음.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;설치할 수 있어야 함
+업데이트할 수 있어야 함
+같은 맥락을 읽어야 함
+권한 경계가 보여야 함
+결과를 검증해야 함
+실패가 다음 버전에 남아야 함&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;결국 팀 레벨의 AI 활용은 프롬프트 작성법이 아니었음.&lt;/p&gt;
+&lt;p&gt;팀의 업무 방식을 코드처럼 버전 관리하고 배포하는 일이었음.&lt;/p&gt;
+&lt;p&gt;AI를 팀원처럼 만든 것이 아님.&lt;/p&gt;
+&lt;p&gt;팀이 일하는 절차를 AI도 따라갈 수 있는 형태로 만든 것에 가까움.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[AI 에이전트 피드백 루프 - 더 딸각]]></title><description><![CDATA[회사에서 클로드로 업무 자동화하기 실용편. 반복 업무를 에이전트와 스킬로 쪼개고, 일감 댓글과 실패한 실행을 다음 실행의 규칙으로 되돌려 놓는 피드백 루프를 만든 기록.]]></description><link>https://dosanhoon.github.io//posts/agent-loop-engineering</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/agent-loop-engineering</guid><pubDate>Sat, 22 Aug 2026 09:00:00 GMT</pubDate><content:encoded>&lt;p&gt;회사에서 클로드로 업무 자동화하기 실용편.&lt;/p&gt;
 &lt;p&gt;K회사에 다니는 K직장인 개발자로서, 반복되는 업무를 클로드에 넘겨 자동화하는 과정을 정리한다. 프롬프트를 잘 쓰는 요령을 다루려는 글은 아니다. &lt;strong&gt;한 번 시킨 일이 다음번에는 덜 틀리도록 만드는 루프를 어떻게 짜느냐&lt;/strong&gt;가 주제이다.&lt;/p&gt;
 &lt;h2&gt;개발자가 회사에서 하는 일&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;팀원 PR 처리&lt;/strong&gt; — 리뷰한 척 어프로브를 누르고, 적당히 댓글을 단다&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;팀원 PR 처리&lt;/strong&gt; — 변경사항을 검토하고, 필요한 코멘트를 남긴 뒤 승인한다&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;일감 관리&lt;/strong&gt; — 등록, 수정, 상태 변경, 담당자 변경, QA 요청&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;깃허브&lt;/strong&gt; — PR 생성, 커밋, 푸시, 리베이스, 머지, 리셋, 브랜치 관리&lt;/li&gt;
 &lt;/ol&gt;
@@ -687,7 +867,7 @@ autorun(() =&gt; {
 console.log(message.title)
 })
 message = observable({ title: “Bar” })
-This will not react. message was changed, but message is not an observable, just a variable which refers to an observable, but the variable (reference) itself is not observable.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[MOBX Common pitfalls & best practices]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
+This will not react. message was changed, but message is not an observable, just a variable which refers to an observable, but the variable (reference) itself is not observable.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[mobx-react-guide]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
 예전에 봤을때보다 내용이 추가 됐네요.
 가전 제품사면 설명서 따위 버리는 버릇으로 개발하니 삽질의 연속이라 guide 부터 다시 읽기 시작했습니다.&lt;/p&gt;
 &lt;h2&gt;잘못된 위치에서 IMPORT&lt;/h2&gt;
@@ -888,7 +1068,7 @@ myComponent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;display
 이 문제를 해결하려면 componentWillUnmount()다음과 같이 선언하십시오 .&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;componentWillUnmount&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;runInAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[mobx-react-guide]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[MOBX Common pitfalls & best practices]]></title><description><![CDATA[mobx 삽질의 연속을 줄여줄 Common pitfalls & best practices ]]></description><link>https://dosanhoon.github.io//posts/react-mobx-guide</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx-guide</guid><pubDate>Wed, 20 Feb 2019 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;mobx 공식 가이드에 있는 내용입니다.
 예전에 봤을때보다 내용이 추가 됐네요.
 가전 제품사면 설명서 따위 버리는 버릇으로 개발하니 삽질의 연속이라 guide 부터 다시 읽기 시작했습니다.&lt;/p&gt;
 &lt;h2&gt;잘못된 위치에서 IMPORT&lt;/h2&gt;
@@ -1089,7 +1269,57 @@ myComponent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;display
 이 문제를 해결하려면 componentWillUnmount()다음과 같이 선언하십시오 .&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token function&quot;&gt;componentWillUnmount&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;runInAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Javascript Class 에 대한 이해]]></title><description><![CDATA[Javascript Class 에 대한 이해]]></description><link>https://dosanhoon.github.io//posts/javascript-class</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-class</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Class &amp;#x26; Module&lt;/h1&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[React 를 도입 하는 과정]]></title><description><![CDATA[React 를 도입 하는 과정]]></description><link>https://dosanhoon.github.io//posts/project-new-skill</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/project-new-skill</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;기존 웹 프로젝트에는 React 모바일 프로젝트는 React Native 를 도입해볼 예정이다.&lt;/li&gt;
+&lt;li&gt;그와 관련된 의사 결정 관련 생각에 대한 포스트 이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;3 대장&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;고려 했던 기술은&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;React 와 React Native&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Vue 와 Ionic + Vue&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ionic + Angular&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;현재의 프로젝트 상황과 관련된 장 단점.(각 기술의 장단점 X)&lt;/h2&gt;
+&lt;h3&gt;1. React &amp;#x26; React Native&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;React 는 어느정도 학습이 되어 있는 상태 이고 팀원의 절반정도는 그래도 접해본 상태이기 때문에 다른 기술에 비해 상대적으로 부하가 적을거라는 안일한 생각.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Native 에 대한 학습 필요.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;2. Vue &amp;#x26; Vue + Ionic&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;가장 학습하기 쉽고, 라이브러리가 가벼우며 가장 핫하다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;하이브리드 앱의 경우 vue 를 사용한 케이스가 많이 부족하고 Ionic 이나 Cordova 를 같이 사용해야 할듯 한데 , 그럴 경우 기술 학습에 대한 2중 부하가 생길 우려.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;3. Angular + Ionic&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;가장 기술 학습에 대한 부담이 크다.&lt;/li&gt;
+&lt;li&gt;기존 프로젝트가 Ionic 으로 되어 있지만 최신 버젼 부터 Typescript 가 적용되기 때문에 전혀 별도의 기술로 봐야 할듯.&lt;/li&gt;
+&lt;li&gt;Java 를 사용하는 프로젝트여서 mvc 패턴의 angular는 오버 스펙은 아닌가 하는 우려도 있음.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;결론&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;웹과 하이브리드앱의 동일한 스펙을 위해 눈물을 머금고 vue 제외&lt;/li&gt;
+&lt;li&gt;Typescript와 그외 학습에 대한 부담으로 angular 도 제외&lt;/li&gt;
+&lt;li&gt;결국엔 그나마 익숙한 React 로&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Javascript Class 에 대한 이해]]></title><description><![CDATA[Javascript Class 에 대한 이해]]></description><link>https://dosanhoon.github.io//posts/javascript-class</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-class</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Class &amp;#x26; Module&lt;/h1&gt;
 &lt;h2&gt;Class&lt;/h2&gt;
 &lt;h3&gt;9.2 생성자와 prototype&lt;/h3&gt;
 &lt;ul&gt;
@@ -1199,57 +1429,29 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 &lt;h3&gt;Duck typing&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;인스턴스의 클래스 타입인지 검사하기 위해 인스턴스의 특성을 검사하여 클래스는 유추하는 방식&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[React 를 도입 하는 과정]]></title><description><![CDATA[React 를 도입 하는 과정]]></description><link>https://dosanhoon.github.io//posts/project-new-skill</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/project-new-skill</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React&lt;/h1&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;기존 웹 프로젝트에는 React 모바일 프로젝트는 React Native 를 도입해볼 예정이다.&lt;/li&gt;
-&lt;li&gt;그와 관련된 의사 결정 관련 생각에 대한 포스트 이다.&lt;/li&gt;
+&lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1&gt;3 대장&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;고려 했던 기술은&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;React 와 React Native&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Vue 와 Ionic + Vue&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Ionic + Angular&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;현재의 프로젝트 상황과 관련된 장 단점.(각 기술의 장단점 X)&lt;/h2&gt;
-&lt;h3&gt;1. React &amp;#x26; React Native&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;React 는 어느정도 학습이 되어 있는 상태 이고 팀원의 절반정도는 그래도 접해본 상태이기 때문에 다른 기술에 비해 상대적으로 부하가 적을거라는 안일한 생각.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Native 에 대한 학습 필요.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;2. Vue &amp;#x26; Vue + Ionic&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;가장 학습하기 쉽고, 라이브러리가 가벼우며 가장 핫하다.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;하이브리드 앱의 경우 vue 를 사용한 케이스가 많이 부족하고 Ionic 이나 Cordova 를 같이 사용해야 할듯 한데 , 그럴 경우 기술 학습에 대한 2중 부하가 생길 우려.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;3. Angular + Ionic&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;가장 기술 학습에 대한 부담이 크다.&lt;/li&gt;
-&lt;li&gt;기존 프로젝트가 Ionic 으로 되어 있지만 최신 버젼 부터 Typescript 가 적용되기 때문에 전혀 별도의 기술로 봐야 할듯.&lt;/li&gt;
-&lt;li&gt;Java 를 사용하는 프로젝트여서 mvc 패턴의 angular는 오버 스펙은 아닌가 하는 우려도 있음.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1&gt;결론&lt;/h1&gt;
-&lt;ol&gt;
-&lt;li&gt;웹과 하이브리드앱의 동일한 스펙을 위해 눈물을 머금고 vue 제외&lt;/li&gt;
-&lt;li&gt;Typescript와 그외 학습에 대한 부담으로 angular 도 제외&lt;/li&gt;
-&lt;li&gt;결국엔 그나마 익숙한 React 로&lt;/li&gt;
-&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
+&lt;h2&gt;Array&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oldArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; oldArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Object&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newObject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldObject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;단순 값만 복사한다면 위에 방법중 골라서 하면 된다.&lt;/p&gt;
+&lt;p&gt;다만 [{},{}] 나 {key:{},key:{}} 처럼&lt;/p&gt;
+&lt;p&gt;원소 값 또한 참조형이면 값을 복제하더라고 원소가 참조형이기 때문에&lt;/p&gt;
+&lt;p&gt;값을 변경하면 원본 자료도 값이 변경 된다.(자바스크립의 괴랄함..)&lt;/p&gt;
+&lt;p&gt;이떄는 json 을 이용한 방식으로 하면 가능 하다.&lt;/p&gt;
+&lt;p&gt;이외에도 함수로 구현하거나 lodash 등 자바스크립트 Superset 라이브러리등을 사용하는 방법 등이 있다.&lt;/p&gt;
+&lt;p&gt;개인적으론 Deep copy는 한글로 복제 shallow copy 는 참조 라고 하는게 자연스러운것 같다.
+(prototype 과 property 모두를 복제 할려면 위 방법으로 해야 된다.)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Structured_clone_algorithm&quot;&gt;복제 알고리즘 참고&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/lodash/lodash/blob/4.17.5/lodash.js#L11078&quot;&gt;lodash deep clone 구현 코드&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;위 내용 참고해보면 재밌다.&lt;/p&gt;
+&lt;p&gt;알고리즘 사이트는 저런게 있는것도 처음 알았다는…&lt;/p&gt;
+&lt;p&gt;추후 자바스크립에 deep copy 메소드가 추가 되면 좋겟다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 시작하기]]></title><description><![CDATA[React 시작하기]]></description><link>https://dosanhoon.github.io//posts/start-react</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/start-react</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;React 시작하기&lt;/h1&gt;
 &lt;h2&gt;현 상태&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Java 서버의 Tiles 로 프론트 구성&lt;/li&gt;
@@ -1342,29 +1544,7 @@ Number&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prototype&lt
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ webpack-dev-server --hot --host 0.0.0.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;많은 내용은 존경하는 velopert님의 블로그를 참고 했습니다.
-&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Javascript 참조형 Deep copy]]></title><description><![CDATA[Javascript 참조형 Deep copy]]></description><link>https://dosanhoon.github.io//posts/javascript-deep-copy</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/javascript-deep-copy</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Javascript 참조형 Deep copy&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;자바스크립트에서 Object 나 Array 는 참조형이다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Array&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oldArray&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newArray &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; oldArray&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Object&lt;/h2&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; newObject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Object&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldObject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;단순 값만 복사한다면 위에 방법중 골라서 하면 된다.&lt;/p&gt;
-&lt;p&gt;다만 [{},{}] 나 {key:{},key:{}} 처럼&lt;/p&gt;
-&lt;p&gt;원소 값 또한 참조형이면 값을 복제하더라고 원소가 참조형이기 때문에&lt;/p&gt;
-&lt;p&gt;값을 변경하면 원본 자료도 값이 변경 된다.(자바스크립의 괴랄함..)&lt;/p&gt;
-&lt;p&gt;이떄는 json 을 이용한 방식으로 하면 가능 하다.&lt;/p&gt;
-&lt;p&gt;이외에도 함수로 구현하거나 lodash 등 자바스크립트 Superset 라이브러리등을 사용하는 방법 등이 있다.&lt;/p&gt;
-&lt;p&gt;개인적으론 Deep copy는 한글로 복제 shallow copy 는 참조 라고 하는게 자연스러운것 같다.
-(prototype 과 property 모두를 복제 할려면 위 방법으로 해야 된다.)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Structured_clone_algorithm&quot;&gt;복제 알고리즘 참고&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/lodash/lodash/blob/4.17.5/lodash.js#L11078&quot;&gt;lodash deep clone 구현 코드&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;위 내용 참고해보면 재밌다.&lt;/p&gt;
-&lt;p&gt;알고리즘 사이트는 저런게 있는것도 처음 알았다는…&lt;/p&gt;
-&lt;p&gt;추후 자바스크립에 deep copy 메소드가 추가 되면 좋겟다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Mobx 최적화]]></title><description><![CDATA[Mobx 최적환 관련 기록]]></description><link>https://dosanhoon.github.io//posts/react-mobx</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Mobx 최적화&lt;/h1&gt;
+&lt;a href=&quot;https://velopert.com/814&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Mobx 최적화]]></title><description><![CDATA[Mobx 최적환 관련 기록]]></description><link>https://dosanhoon.github.io//posts/react-mobx</link><guid isPermaLink="false">https://dosanhoon.github.io//posts/react-mobx</guid><pubDate>Tue, 01 Jan 2019 23:46:37 GMT</pubDate><content:encoded>&lt;h1&gt;Mobx 최적화&lt;/h1&gt;
 &lt;h2&gt;mobx-react-devtools 개발도구 설치&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; mobx-react-devtools&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Component &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
