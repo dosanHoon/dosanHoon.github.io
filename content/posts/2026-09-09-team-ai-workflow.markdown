@@ -2,7 +2,7 @@
 title: "나만 쓰던 AI 자동화를 팀의 개발 환경으로 만들게 됨"
 date: "2026-09-09T09:00:00.000Z"
 template: "post"
-draft: true
+draft: false
 slug: "/posts/team-ai-workflow"
 category: "AI"
 tags:
