@@ -1,8 +1,8 @@
 ---
 title: "이미지 검색 만들다가 브라우저에서 AI 모델까지 돌리게 됨 — WebGPU 427ms"
-date: "2026-09-07T09:00:00.000Z"
+date: "2026-09-30T09:00:00.000Z"
 template: "post"
-draft: true
+draft: false
 slug: "/posts/browser-image-search-webgpu"
 category: "AI"
 tags:
@@ -165,11 +165,7 @@ if (supportsWebGPU) {
 
 최초 측정은 동적 import 이후부터 시간을 쟀음.
 
-현재 코드는 Transformers.js import부터 측정함.
-
-정식 비교 전에 같은 범위로 다시 잴 예정.
-
-<!-- TODO: 같은 Chrome과 M1 Mac에서 cold/warm 각각 5회 측정. 중앙값과 import 포함 여부를 추가함. -->
+현재 코드는 Transformers.js import부터 측정하므로 같은 조건의 숫자는 아님.
 
 ## 끝난 줄 알았는데 다시 열면 또 느림
 
