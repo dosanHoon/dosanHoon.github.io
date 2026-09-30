@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>https://dosanhoon.github.io//tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//categories</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//posts/project-new-skill</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/javascript-class</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/start-react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dosanhoon.github.io//posts/project-new-skill</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/javascript-deep-copy</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/react-mobx</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/mobx-to-react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//posts/claude-code-custom-commands</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/yarn-pnp</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dosanhoon.github.io//posts/claude-code-custom-commands</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/3d-asset-thumbnail-pipeline</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//posts/team-ai-workflow</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//pages/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//posts/react-develop-diary</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/react-mobx-guide</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dosanhoon.github.io//posts/react-develop-diary</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/interview-review</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/ai-agent-markdown-docs-workflow</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/eslint-ast-korean-search-ai-agent</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//posts/agent-loop-engineering</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dosanhoon.github.io//posts/team-ai-workflow</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/ai-agent</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/ast</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/ax</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -42,10 +42,8 @@
 <url> <loc>https://dosanhoon.github.io//tag/class</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/i-18-n</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/javascript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//tag/javascript/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/mobx</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//tag/react/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/기술면접</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/루프지니어링</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//tag/패키지-매니저</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -57,6 +55,4 @@
 <url> <loc>https://dosanhoon.github.io//category/react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dosanhoon.github.io//page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//page/2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://dosanhoon.github.io//page/3</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
