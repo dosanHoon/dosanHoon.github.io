@@ -174,6 +174,17 @@ th {
   white-space: nowrap;
 }
 
+// 마크다운 표의 열 정렬(---: / :---:)은 align 속성으로 나오므로 위의 text-align: left보다 우선시킨다
+th[align='right'],
+td[align='right'] {
+  text-align: right;
+}
+
+th[align='center'],
+td[align='center'] {
+  text-align: center;
+}
+
 tr:nth-child(even) td {
   background-color: #FBFCFD;
 }
