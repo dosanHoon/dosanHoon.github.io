@@ -1,6 +1,6 @@
 ---
 title: Javascript Class 에 대한 이해
-date: "2019-01-01T23:46:37.121Z"
+date: "2017-04-12T23:46:37.121Z"
 template: "post"
 draft: false
 slug: "/posts/javascript-class"

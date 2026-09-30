@@ -2,7 +2,7 @@
 title: mobx-react-guide
 date: "2019-02-20T23:46:37.121Z"
 template: "post"
-draft: false
+draft: true
 slug: "/posts/react-mobx-guide"
 category: "MOBX"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: React 를 도입 하는 과정
-date: "2019-01-01T23:46:37.121Z"
+date: "2018-02-05T23:46:37.121Z"
 template: "post"
 draft: false
 slug: "/posts/project-new-skill"

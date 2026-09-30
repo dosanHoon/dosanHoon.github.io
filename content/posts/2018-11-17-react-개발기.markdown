@@ -1,6 +1,6 @@
 ---
 title: React 개발기 - 혹은 삽질기
-date: "2019-01-01T23:46:37.121Z"
+date: "2018-11-17T23:46:37.121Z"
 template: "post"
 draft: false
 slug: "/posts/react-develop-diary"
