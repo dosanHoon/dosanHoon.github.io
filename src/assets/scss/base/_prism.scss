@@ -1,0 +1,105 @@
+/**
+ * Prism — GitHub light 계열 (gatsby-remark-prismjs 출력용)
+ */
+code[class*='language-'],
+pre[class*='language-'] {
+  color: #24292E;
+  background: none;
+  font-family: $typographic-mono-font-family;
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 2;
+  hyphens: none;
+}
+
+.gatsby-highlight {
+  margin: 0 0 24px;
+  border-radius: 8px;
+  background-color: $color-bg-soft;
+}
+
+pre[class*='language-'] {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px 20px;
+  overflow: auto;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background-color: $color-bg-soft;
+}
+
+// 인라인 코드도 gatsby-remark-prismjs가 language-text 클래스를 붙이므로 위 규칙보다 구체적으로 다시 잡는다
+:not(pre) > code[class*='language-'] {
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: $color-text;
+  background-color: $color-inline-code-bg;
+  font-size: 0.85em;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6A737D;
+}
+
+.token.punctuation {
+  color: #24292E;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #005CC5;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #032F62;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #D73A49;
+}
+
+.token.function,
+.token.class-name {
+  color: #6F42C1;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #E36209;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}

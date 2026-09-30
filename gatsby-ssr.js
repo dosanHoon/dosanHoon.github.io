@@ -3,9 +3,25 @@
 const React = require('react');
 const siteConfig = require('./config.js');
 
-exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+const PRETENDARD_CSS = 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css';
+
+exports.onRenderBody = ({ setHeadComponents }) => {
+  const headComponents = [
+    React.createElement('link', {
+      key: 'pretendard-preconnect',
+      rel: 'preconnect',
+      href: 'https://cdn.jsdelivr.net',
+      crossOrigin: 'anonymous'
+    }),
+    React.createElement('link', {
+      key: 'pretendard-css',
+      rel: 'stylesheet',
+      href: PRETENDARD_CSS
+    })
+  ];
+
   if (siteConfig.googleAnalyticsId) {
-    setHeadComponents([
+    headComponents.push(
       React.createElement('script', {
         key: 'gtag-js',
         async: true,
@@ -25,6 +41,8 @@ exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
           `
         }
       })
-    ]);
+    );
   }
+
+  setHeadComponents(headComponents);
 };

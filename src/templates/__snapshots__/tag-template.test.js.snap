@@ -7,148 +7,173 @@ exports[`TagTemplate renders correctly 1`] = `
   <StaticQuery
     render={[Function]}
   />
-  <div
-    className="page"
+  <main
+    className="layout__main"
   >
     <div
-      className="page__inner"
+      className="listing"
     >
       <h1
-        className="page__title"
+        className="listing__title"
       >
-        test
+        #test
       </h1>
-      <div
-        className="page__body"
+      <ul
+        className="feed"
       >
-        <div
-          className="feed"
+        <li
+          className="feed__item"
         >
-          <div
-            className="feed__item"
+          <article
+            className="card"
           >
             <div
-              className="feed__item-meta"
+              aria-hidden="true"
+              className="card__thumb card__thumb--generated"
+              style={
+                Object {
+                  "backgroundImage": "linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%)",
+                  "color": "#495057",
+                }
+              }
             >
-              <time
-                className="feed__item-meta-time"
-                dateTime="September 1, 2016"
-              >
-                September 2016
-              </time>
               <span
-                className="feed__item-meta-divider"
-              />
-              <span
-                className="feed__item-meta-category"
-              >
-                <Link
-                  className="feed__item-meta-category-link"
-                  to="/test"
-                >
-                  test
-                </Link>
-              </span>
-            </div>
-            <h2
-              className="feed__item-title"
-            >
-              <Link
-                className="feed__item-title-link"
-                to="/test_0"
+                className="card__thumb-title"
               >
                 test_0
-              </Link>
-            </h2>
-            <p
-              className="feed__item-description"
-            >
-              test_0
-            </p>
-            <Link
-              className="feed__item-readmore"
-              to="/test_0"
-            >
-              Read
-            </Link>
-          </div>
-          <div
-            className="feed__item"
-          >
-            <div
-              className="feed__item-meta"
-            >
-              <time
-                className="feed__item-meta-time"
-                dateTime="September 1, 2016"
-              >
-                September 2016
-              </time>
-              <span
-                className="feed__item-meta-divider"
-              />
-              <span
-                className="feed__item-meta-category"
-              >
-                <Link
-                  className="feed__item-meta-category-link"
-                  to="/test"
-                >
-                  test
-                </Link>
               </span>
             </div>
-            <h2
-              className="feed__item-title"
+            <div
+              className="card__body"
             >
               <Link
-                className="feed__item-title-link"
-                to="/test_1"
+                className="card__category"
+                style={
+                  Object {
+                    "backgroundColor": "#F1F3F5",
+                    "color": "#495057",
+                  }
+                }
+                to="/test"
+              >
+                test
+              </Link>
+              <h2
+                className="card__title"
+              >
+                <Link
+                  className="card__title-link"
+                  to="/test_0"
+                >
+                  test_0
+                </Link>
+              </h2>
+              <p
+                className="card__description"
+              >
+                test_0
+              </p>
+              <time
+                className="card__date"
+                dateTime="2016-09-01"
+              >
+                2016년 9월 1일
+              </time>
+            </div>
+          </article>
+        </li>
+        <li
+          className="feed__item"
+        >
+          <article
+            className="card"
+          >
+            <div
+              aria-hidden="true"
+              className="card__thumb card__thumb--generated"
+              style={
+                Object {
+                  "backgroundImage": "linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%)",
+                  "color": "#495057",
+                }
+              }
+            >
+              <span
+                className="card__thumb-title"
               >
                 test_1
+              </span>
+            </div>
+            <div
+              className="card__body"
+            >
+              <Link
+                className="card__category"
+                style={
+                  Object {
+                    "backgroundColor": "#F1F3F5",
+                    "color": "#495057",
+                  }
+                }
+                to="/test"
+              >
+                test
               </Link>
-            </h2>
-            <p
-              className="feed__item-description"
-            >
-              test_1
-            </p>
-            <Link
-              className="feed__item-readmore"
-              to="/test_1"
-            >
-              Read
-            </Link>
-          </div>
+              <h2
+                className="card__title"
+              >
+                <Link
+                  className="card__title-link"
+                  to="/test_1"
+                >
+                  test_1
+                </Link>
+              </h2>
+              <p
+                className="card__description"
+              >
+                test_1
+              </p>
+              <time
+                className="card__date"
+                dateTime="2016-09-01"
+              >
+                2016년 9월 1일
+              </time>
+            </div>
+          </article>
+        </li>
+      </ul>
+      <div
+        className="pagination"
+      >
+        <div
+          className="pagination__prev"
+        >
+          <Link
+            className="pagination__prev-link"
+            rel="prev"
+            to="/page/1"
+          >
+            ← 이전 페이지
+          </Link>
         </div>
         <div
-          className="pagination"
+          className="pagination__next"
         >
-          <div
-            className="pagination__prev"
+          <Link
+            className="pagination__next-link"
+            rel="next"
+            to="/page/3"
           >
-            <Link
-              className="pagination__prev-link"
-              rel="prev"
-              to="/page/1"
-            >
-              ← PREV
-            </Link>
-          </div>
-          <div
-            className="pagination__next"
-          >
-            <Link
-              className="pagination__next-link"
-              rel="next"
-              to="/page/3"
-            >
-              → NEXT
-            </Link>
-          </div>
+            다음 페이지 →
+          </Link>
         </div>
       </div>
     </div>
-  </div>
+  </main>
+  <StaticQuery
+    render={[Function]}
+  />
 </div>
 `;

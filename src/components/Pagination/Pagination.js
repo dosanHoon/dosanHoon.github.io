@@ -12,6 +12,10 @@ const Pagination = ({
   hasNextPage,
   hasPrevPage
 }) => {
+  if (!hasPrevPage && !hasNextPage) {
+    return null;
+  }
+
   const prevClassName = cx({
     'pagination__prev-link': true,
     'pagination__prev-link--disable': !hasPrevPage

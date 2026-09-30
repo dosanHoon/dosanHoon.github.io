@@ -2,39 +2,36 @@
 @import '../../assets/scss/mixins';
 
 .post {
-  &__footer {
-    max-width: $layout-post-width;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-
+  &__footer,
   &__comments {
-    max-width: $layout-post-width;
+    box-sizing: border-box;
+    max-width: $layout-post-width + $layout-gutter-sm * 2;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 $layout-gutter-sm;
   }
 
-  &__home-button {
-    display: block;
-    max-width: 90px;
-    height: $button-height;
-    padding: 0 24px;
-    line-height: $button-height;
-    text-align: center;
-    color: $color-gray;
-    border: 1px solid $color-gray-border;
-    border-radius: $button-border-radius;
-    font-size: $typographic-base-font-size;
-    font-weight: normal;
-    margin-left: auto;
-    margin-right: auto;
-    transition: all 0.2s ease;
-    @include margin-top(1);
+  &__footer {
+    margin-top: 56px;
+  }
+
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 28px 0 0;
+    padding: 20px 0 0;
+    border-top: 1px solid $color-border;
+  }
+
+  &__nav-link {
+    margin: 4px 0;
+    color: $color-link;
+    font-size: 15px;
+    font-weight: 600;
 
     &:hover,
     &:focus {
-      color: $color-primary;
-      border-color: $color-primary;
+      color: $color-text;
     }
 
   }
@@ -43,20 +40,10 @@
 
 @include breakpoint-md {
   .post {
-    &__footer {
-      padding: 0;
-    }
-
+    &__footer,
     &__comments {
+      max-width: $layout-post-width;
       padding: 0;
-    }
-
-    &__home-button {
-      position: fixed;
-      max-width: auto;
-      margin: 0;
-      top: 30px;
-      left: 30px
     }
 
   }

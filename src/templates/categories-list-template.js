@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
-import Sidebar from '../components/Sidebar';
 import Layout from '../components/Layout';
 import Page from '../components/Page';
 
@@ -15,7 +14,6 @@ const CategoriesListTemplate = ({ data }) => {
 
   return (
     <Layout title={`Categories - ${title}`} description={subtitle}>
-      <Sidebar />
       <Page title="Categories">
         <ul>
           {group.map((category) => (

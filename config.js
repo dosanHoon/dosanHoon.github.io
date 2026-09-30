@@ -6,7 +6,7 @@ module.exports = {
   subtitle: '프론트엔드 개발 기술 블로그',
   copyright: '© All rights reserved.',
   disqusShortname: '',
-  postsPerPage: 5,
+  postsPerPage: 12,
   googleAnalyticsId: 'G-XXXXXXXXXX',
   menu: [
     {

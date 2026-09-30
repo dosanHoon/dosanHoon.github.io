@@ -1,129 +1,192 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/mixins';
 
+// 들여쓰기 규칙
+// 1. 첫 제목 앞 도입부는 칼럼 왼쪽 끝에 붙인다.
+// 2. 큰 제목(글의 최상위 레벨)은 구분선으로 섹션을 나누고, 그 아래 본문을 한 단계 들여쓴다.
+// 3. 작은 제목(두 번째 레벨)은 큰 제목 본문 안에서 한 단계 더 들여쓰고 왼쪽 안내선을 둔다.
+// 4. 목록은 1.4em, 중첩 목록은 한 단계씩 더 들여쓴다.
+$indent-top: 14px;
+$indent-top-md: 20px;
+$indent-sub: 12px;
+$indent-sub-md: 16px;
+
 .content {
-  max-width: $layout-post-single-width;
-  padding: 0 15px;
+  box-sizing: border-box;
+  max-width: $layout-post-width + $layout-gutter-sm * 2;
   margin: 0 auto;
+  padding: 0 $layout-gutter-sm;
 
   &__title {
-    font-size: $typographic-base-font-size * 2;
-    max-width: $layout-post-width;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 600;
-    text-align: center;
-    color: #F4F4F5;
-    @include line-height(1.65);
-    @include margin-top(1);
-    @include margin-bottom(0)
+    margin: 48px 0 36px;
+    color: $color-text;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+    word-break: keep-all;
   }
 
   &__body {
-    & figure {
-      @include margin-bottom(1);
+    font-size: 16px;
+    line-height: $typographic-body-line-height;
 
-      & img {
-        display: block;
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
+    & p {
+      margin: 0 0 22px;
+    }
+
+    & li {
+      margin: 8px 0;
+
+      & > p {
+        margin: 0;
       }
 
-      & figcaption {
-        margin-top: 10px;
-        color: $color-gray;
-        font-size: $typographic-small-font-size;
-        text-align: center;
-        line-height: 1.5;
-      }
+    }
 
-      & blockquote {
-        font-style: italic;
-        text-align: center;
-        margin-top: 0;
-        @include padding(1, 0);
+    & ul ul,
+    & ol ul {
+      list-style: circle;
+    }
 
-        & p {
-          max-width: $layout-post-width;
-          font-size: $typographic-base-font-size * 1.6817;
-          margin-top: 0;
-          @include margin-bottom(1);
-          @include line-height(1.5)
-        }
-
-      }
-
+    & li > ul,
+    & li > ol {
+      margin: 6px 0 0;
     }
 
     & a {
-      text-decoration: underline
+      color: $color-link;
+      text-decoration: underline;
+      text-decoration-color: $color-link-underline;
+      text-underline-offset: 3px;
+
+      &:hover,
+      &:focus {
+        text-decoration-color: $color-link;
+      }
+
     }
 
-    & .gatsby-highlight {
-      max-width: $layout-post-width;
-      margin-left: 15px;
-      margin-right: 15px;
+    & img {
       border-radius: 8px;
-      overflow: hidden;
-      @include margin-bottom(1)
     }
 
-    & *:not(div) {
-      width: 100%;
-      max-width: $layout-post-width;
-      margin-left: auto;
-      margin-right: auto
+    & figure {
+      margin: 32px 0;
     }
 
-    // 위 *:not(div) 규칙이 표 셀에까지 width:100%를 걸면 컬럼 폭 계산이 깨진다
-    & thead,
-    & tbody,
-    & tr,
-    & th,
-    & td {
-      width: auto;
-      max-width: none;
+    & table {
+      display: block;
+      overflow-x: auto;
+    }
+
+    // 도입부 뒤 첫 섹션까지, 그리고 섹션끼리 구분선으로 나눈다
+    & > :first-child {
+      margin-top: 0;
     }
 
   }
 
 }
 
-@include breakpoint-sm {
-  .content {
-    &__body {
-      & .gatsby-highlight {
-        margin-left: auto;
-        margin-right: auto
-      }
+.section {
+  &--top {
+    margin-top: 44px;
+    padding-top: 36px;
+    border-top: 1px solid $color-border;
 
+    & > :first-child {
+      margin: 0 0 16px;
+      font-size: 24px;
+      line-height: 1.45;
+    }
+
+    & > .section__body {
+      padding-left: $indent-top;
     }
 
   }
 
+  &--sub {
+    margin-top: 32px;
+
+    & > :first-child {
+      margin: 0 0 10px;
+      font-size: 19px;
+      line-height: 1.5;
+    }
+
+    & > .section__body {
+      padding-left: $indent-sub;
+      border-left: 2px solid $color-bg-muted;
+    }
+
+  }
+
+  &__body > :last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+// 도입부가 없는 글은 첫 섹션 위 구분선을 생략
+.content__body > .section--top:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
 @include breakpoint-md {
   .content {
+    max-width: $layout-post-width;
     padding: 0;
 
     &__title {
-      font-size: $typographic-base-font-size * 3;
-      @include line-height(2.25);
-      @include margin-top(2.25);
-      @include margin-bottom(1.5)
+      margin: 72px 0 48px;
+      font-size: 42px;
+      line-height: 1.35;
     }
 
     &__body {
-      font-size: $typographic-base-font-size * 1.125;
-      @include line-height(1.125);
-      @include margin-bottom(1.125);
+      font-size: 18px;
 
       & p {
-        font-size: $typographic-base-font-size * 1.125;
-        @include line-height(1.125);
-        @include margin-bottom(1.125)
+        margin-bottom: 24px;
+      }
+
+      & table {
+        display: table;
+        font-size: 16px;
+      }
+
+    }
+
+  }
+
+  .section {
+    &--top {
+      margin-top: 56px;
+      padding-top: 44px;
+
+      & > :first-child {
+        margin-bottom: 20px;
+        font-size: 28px;
+      }
+
+      & > .section__body {
+        padding-left: $indent-top-md;
+      }
+
+    }
+
+    &--sub {
+      margin-top: 40px;
+
+      & > :first-child {
+        font-size: 21px;
+      }
+
+      & > .section__body {
+        padding-left: $indent-sub-md;
       }
 
     }

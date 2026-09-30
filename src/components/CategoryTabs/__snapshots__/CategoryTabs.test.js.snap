@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryTabs marks the active category 1`] = `
+<nav
+  aria-label="카테고리"
+  className="tabs"
+>
+  <ul
+    className="tabs__list"
+  >
+    <li
+      className="tabs__item"
+    >
+      <Link
+        className="tabs__link "
+        to="/"
+      >
+        전체
+        <span
+          className="tabs__count"
+        >
+          3
+        </span>
+      </Link>
+    </li>
+    <li
+      className="tabs__item"
+    >
+      <Link
+        className="tabs__link "
+        to="/category/ai/"
+      >
+        AI
+        <span
+          className="tabs__count"
+        >
+          2
+        </span>
+      </Link>
+    </li>
+    <li
+      className="tabs__item"
+    >
+      <Link
+        aria-current="page"
+        className="tabs__link tabs__link--active"
+        to="/category/mobx/"
+      >
+        MobX
+        <span
+          className="tabs__count"
+        >
+          1
+        </span>
+      </Link>
+    </li>
+  </ul>
+</nav>
+`;
+
+exports[`CategoryTabs renders all categories with "전체" active on the index 1`] = `
+<nav
+  aria-label="카테고리"
+  className="tabs"
+>
+  <ul
+    className="tabs__list"
+  >
+    <li
+      className="tabs__item"
+    >
+      <Link
+        aria-current="page"
+        className="tabs__link tabs__link--active"
+        to="/"
+      >
+        전체
+        <span
+          className="tabs__count"
+        >
+          3
+        </span>
+      </Link>
+    </li>
+    <li
+      className="tabs__item"
+    >
+      <Link
+        className="tabs__link "
+        to="/category/ai/"
+      >
+        AI
+        <span
+          className="tabs__count"
+        >
+          2
+        </span>
+      </Link>
+    </li>
+    <li
+      className="tabs__item"
+    >
+      <Link
+        className="tabs__link "
+        to="/category/mobx/"
+      >
+        MobX
+        <span
+          className="tabs__count"
+        >
+          1
+        </span>
+      </Link>
+    </li>
+  </ul>
+</nav>
+`;

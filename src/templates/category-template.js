@@ -1,10 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
+import Listing from '../components/Listing';
+import CategoryTabs from '../components/CategoryTabs';
 import Feed from '../components/Feed';
-import Page from '../components/Page';
 import Pagination from '../components/Pagination';
+import { getCategoryLabel } from '../utils';
 
 const CategoryTemplate = ({ data, pageContext }) => {
   const {
@@ -22,12 +23,13 @@ const CategoryTemplate = ({ data, pageContext }) => {
   } = pageContext;
 
   const { edges } = data.allMarkdownRemark;
-  const pageTitle = currentPage > 0 ? `${category} - Page ${currentPage} - ${siteTitle}` : `${category} - ${siteTitle}`;
+  const label = getCategoryLabel(category);
+  const pageTitle = currentPage > 0 ? `${label} - Page ${currentPage} - ${siteTitle}` : `${label} - ${siteTitle}`;
 
   return (
     <Layout title={pageTitle} description={siteSubtitle}>
-      <Sidebar />
-      <Page title={category}>
+      <Listing title={label}>
+        <CategoryTabs activeCategory={category} />
         <Feed edges={edges} />
         <Pagination
           prevPagePath={prevPagePath}
@@ -35,7 +37,7 @@ const CategoryTemplate = ({ data, pageContext }) => {
           hasPrevPage={hasPrevPage}
           hasNextPage={hasNextPage}
         />
-      </Page>
+      </Listing>
     </Layout>
   );
 };
@@ -59,6 +61,7 @@ export const query = graphql`
           fields {
             categorySlug
             slug
+            thumbnail
           }
           frontmatter {
             date

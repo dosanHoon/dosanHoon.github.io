@@ -4,12 +4,6 @@ exports[`Post renders correctly 1`] = `
 <div
   className="post"
 >
-  <Link
-    className="post__home-button"
-    to="/"
-  >
-    All Articles
-  </Link>
   <div
     className="post__content"
   >
@@ -37,12 +31,12 @@ exports[`Post renders correctly 1`] = `
     <div
       className="meta"
     >
-      <p
+      <time
         className="meta__date"
+        dateTime="2016-09-01"
       >
-        Published 
-        1 Sep 2016
-      </p>
+        2016년 9월 1일
+      </time>
     </div>
     <div
       className="tags"
@@ -72,6 +66,17 @@ exports[`Post renders correctly 1`] = `
         </li>
       </ul>
     </div>
+    <nav
+      aria-label="글 목록"
+      className="post__nav"
+    >
+      <Link
+        className="post__nav-link"
+        to="/"
+      >
+        ← 전체 글
+      </Link>
+    </nav>
     <StaticQuery
       render={[Function]}
     />

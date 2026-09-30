@@ -1,16 +1,20 @@
 /**
- * Generic - Modern Dark Theme
+ * Generic — Light theme
  */
 html {
-  font-size: $typographic-root-font-size;
+  font-size: 100%;
 }
 
 body {
+  margin: 0;
   font-family: $typographic-font-family;
   color: $typographic-base-font-color;
   background-color: $typographic-bg-color;
-  line-height: $typographic-base-line-height;
+  line-height: 1.7;
   font-size: $typographic-base-font-size;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
@@ -25,50 +29,41 @@ h4,
 h5,
 h6 {
   font-family: $typographic-font-family;
-  font-weight: 600;
-  color: #F4F4F5;
+  font-weight: bold;
+  color: $color-text;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
 }
 
 h1 {
-  font-size: $typographic-base-font-size * 2.5;
-  @include line-height(2);
-  @include margin-top(2);
-  @include margin-bottom(0.5);
+  font-size: 32px;
+  line-height: 1.4;
+  margin: 48px 0 16px;
 }
 
 h2 {
-  font-size: $typographic-base-font-size * 1.6875;
-  @include line-height(1.5);
-  @include margin-top(1);
-  @include margin-bottom(.5);
+  font-size: 26px;
+  line-height: 1.45;
+  margin: 40px 0 16px;
 }
 
 h3 {
-  font-size: $typographic-base-font-size * 1.375;
-  @include line-height(1);
-  @include margin-top(.5);
-  @include margin-bottom(.5);
+  font-size: 21px;
+  line-height: 1.5;
+  margin: 32px 0 12px;
 }
 
 h4 {
-  font-size: $typographic-base-font-size * 1.2;
-  @include line-height(1);
-  @include margin-top(1.5);
-  @include margin-bottom(.5);
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 28px 0 8px;
 }
 
-h5 {
-  font-size: $typographic-base-font-size;
-  @include line-height(1);
-  @include margin-top(2.5);
-  @include margin-bottom(.5);
-}
-
+h5,
 h6 {
-  font-size: $typographic-base-font-size;
-  @include line-height(1);
-  @include margin-top(2.5);
-  @include margin-bottom(.5);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 24px 0 8px;
 }
 
 img {
@@ -79,17 +74,11 @@ img {
 }
 
 hr {
-  margin-top: 52px;
-  margin-bottom: 52px;
+  height: 1px;
+  width: 100%;
+  margin: 48px auto;
   border: 0;
-  color: $color-gray-border;
-  display: block;
-  height: 26px;
-  margin-right: auto;
-  margin-left: auto;
-  background-size: 100% 26px;
-  background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-gray-border 11px, $color-gray-border 15px, transparent 15px, transparent 26px);
-  width: 100px;
+  background: $color-border;
 }
 
 a {
@@ -107,97 +96,105 @@ a {
 
 b,
 strong {
-  font-weight: 600;
-  color: #F4F4F5;
+  font-weight: bold;
+  color: $color-text;
 }
 
 ul {
-  list-style: square;
-  @include margin-bottom(1);
+  list-style: disc;
+}
+
+ul,
+ol {
+  margin: 0 0 20px;
+  padding-left: 1.4em;
 
   & li {
-    padding: 0 5px;
-    margin-bottom: 10px;
+    margin: 6px 0;
+    padding: 0;
   }
 
 }
 
 p {
-  @include line-height(1);
-  @include margin-bottom(1);
+  margin: 0 0 20px;
 }
 
 blockquote {
-  padding: 0;
-  font-style: italic;
-  text-align: center;
-  color: $color-gray;
-  border-left: 3px solid $color-primary;
-  padding-left: 20px;
-  text-align: left;
+  margin: 28px 0;
+  padding: 16px 20px 16px 24px;
+  font-style: normal;
+  color: $color-text-secondary;
+  background: $color-bg-soft;
+  border-left: 4px solid $color-accent-soft;
+  border-radius: 0 6px 6px 0;
+
+  & p:last-child {
+    margin-bottom: 0;
+  }
+
 }
 
 figure {
   display: block;
   width: 100%;
   height: auto;
+  margin: 32px 0;
 }
 
 figcaption {
-  @include line-height(.75);
-  @include margin-top(.25);
-  color: $color-gray;
+  margin-top: 10px;
+  color: $color-text-tertiary;
   font-size: $typographic-small-font-size;
-  font-style: italic;
-  margin-bottom: 0;
+  line-height: 1.5;
   text-align: center;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: $typographic-small-font-size;
-  @include margin-bottom(1);
+  font-size: 15px;
+  margin: 8px 0 28px;
 }
 
 th,
 td {
   padding: 10px 14px;
-  border: 1px solid $color-gray-border;
+  border: 1px solid $color-border-strong;
   text-align: left;
   vertical-align: top;
-  line-height: 1.5;
+  line-height: 1.6;
   word-break: keep-all;
 }
 
 th {
   font-weight: 600;
-  color: #F4F4F5;
-  background-color: $color-bg-elevated;
+  color: $color-text;
+  background-color: $color-bg-soft;
   white-space: nowrap;
 }
 
 tr:nth-child(even) td {
-  background-color: $color-bg-secondary;
+  background-color: #FBFCFD;
 }
 
-// Code blocks dark enhancement
-code {
-  background-color: $color-bg-elevated;
-  color: $color-primary;
-  padding: 2px 6px;
+:not(pre) > code {
+  font-family: $typographic-mono-font-family;
+  font-size: 0.85em;
+  color: $color-text;
+  background-color: $color-inline-code-bg;
+  padding: 0.15em 0.4em;
   border-radius: 4px;
-  font-size: 0.875em;
-}
-
-pre code {
-  background-color: transparent;
-  padding: 0;
+  word-break: break-word;
 }
 
 ::selection {
-  background-color: rgba($color-primary, 0.3);
-  color: #FFF;
+  background-color: rgba($color-accent, 0.2);
+}
+
+:focus-visible {
+  outline: 2px solid $color-accent;
+  outline-offset: 2px;
 }
 
 @include breakpoint-sm {

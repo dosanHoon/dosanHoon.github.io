@@ -1,34 +1,47 @@
 /**
- * Variables
+ * Variables — Light theme (velog 벤치마크)
  */
 
-// Colors - Modern Dark Theme
-$color-base: #E4E4E7;
-$color-bg: #0F0F13;
-$color-bg-secondary: #18181F;
-$color-bg-elevated: #1E1E28;
-$color-primary: #7C8AFF;
-$color-secondary: #F7A046;
-$color-accent: #34D399;
+// Colors — 대비는 흰 배경 기준
+$color-text: #212529;          // 15.4:1
+$color-text-secondary: #495057; // 7.8:1 설명
+$color-text-tertiary: #6C757D;  // 4.7:1 메타
+$color-bg: #FFF;
+$color-bg-soft: #F8F9FA;
+$color-bg-muted: #F1F3F5;
+$color-border: #E9ECEF;
+$color-border-strong: #DEE2E6;
+$color-accent: #12B886;        // 막대·포커스 등 글자가 아닌 곳
+$color-accent-soft: #20C997;
+$color-link: #087F5B;          // 글자 링크 5.0:1
+$color-link-underline: rgba(8, 127, 91, 0.35);
+$color-inline-code-bg: #EEF0F2;
+$color-disabled: #CED4DA;
 
+// 기존 컴포넌트가 쓰던 이름 (새 토큰으로 연결)
+$color-base: $color-text;
+$color-primary: $color-link;
+$color-secondary: $color-link;
+$color-gray: $color-text-tertiary;
+$color-gray-border: $color-border;
+$color-gray-bg: $color-bg-soft;
 $color-white: #FFF;
-$color-gray: #71717A;
-$color-gray-border: #27272F;
-$color-gray-bg: #18181F;
 
 // Typographic
-$typographic-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$typographic-font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+$typographic-mono-font-family: SFMono-Regular, Menlo, Consolas, 'Liberation Mono', D2Coding, monospace;
 
 $typographic-root-font-size: 100;
 $typographic-base-font-size: 16px;
 $typographic-small-font-size: 14px;
 
 $typographic-base-line-height: 1.625;
+$typographic-body-line-height: 1.75;
 
-$typographic-base-font-color: $color-base;
+$typographic-base-font-color: $color-text;
 $typographic-bg-color: $color-bg;
-$typographic-link-p-font-color: $color-primary;
-$typographic-link-s-font-color: $color-secondary;
+$typographic-link-p-font-color: $color-link;
+$typographic-link-s-font-color: $color-text;
 
 $typographic-leading: round(16 * ($typographic-root-font-size / 100) * $typographic-base-line-height);
 
@@ -37,10 +50,13 @@ $button-height: 35px;
 $button-border-radius: 20px;
 
 // Layout
-$layout-post-single-width: 945px;
-$layout-post-width: $layout-post-single-width - 305px;
+$layout-post-width: 768px;          // 글·About 본문 칼럼
+$layout-post-single-width: $layout-post-width;
+$layout-width: 1100px;              // 목록(카드 그리드)·헤더
+$layout-gutter: 24px;
+$layout-gutter-sm: 16px;
+$header-height: 64px;
 
-$layout-width: 1070px;
 $layout-breakpoint-sm: 685px;
 $layout-breakpoint-md: 960px;
 $layout-breakpoint-lg: 1100px;

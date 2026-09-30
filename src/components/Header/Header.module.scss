@@ -1,0 +1,144 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid $color-border;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    max-width: $layout-width;
+    height: $header-height;
+    margin: 0 auto;
+    padding: 0 12px 0 $layout-gutter-sm;
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    margin-right: 12px;
+    color: $color-text;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus {
+      color: $color-text;
+    }
+
+  }
+
+  &__brand-photo {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin: 0 8px 0 0;
+    border: 1px solid $color-border;
+    border-radius: 50%;
+  }
+
+  &__brand-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__nav {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  &__link {
+    padding: 8px 7px;
+    border-radius: 8px;
+    color: $color-text-secondary;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus {
+      color: $color-text;
+      background: $color-bg-muted;
+    }
+
+    &--active {
+      color: $color-text;
+      font-weight: bold;
+    }
+
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: $color-text-secondary;
+    font-size: 18px;
+
+    &:hover,
+    &:focus {
+      color: $color-text;
+      background: $color-bg-muted;
+    }
+
+    & svg {
+      margin: 0;
+    }
+
+    &--email {
+      display: none;
+    }
+
+  }
+
+}
+
+@include breakpoint-sm {
+  .header {
+    &__inner {
+      padding: 0 $layout-gutter;
+    }
+
+    &__brand {
+      font-size: 18px;
+    }
+
+    &__brand-photo {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+
+    &__link {
+      padding: 8px 12px;
+      font-size: 15px;
+    }
+
+    &__icon {
+      width: 36px;
+      height: 36px;
+      font-size: 20px;
+
+      &--email {
+        display: inline-flex;
+      }
+
+    }
+
+  }
+
+}

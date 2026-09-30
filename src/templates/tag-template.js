@@ -1,9 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
+import Listing from '../components/Listing';
 import Feed from '../components/Feed';
-import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 
 const TagTemplate = ({ data, pageContext }) => {
@@ -26,8 +25,7 @@ const TagTemplate = ({ data, pageContext }) => {
 
   return (
     <Layout title={pageTitle} description={siteSubtitle}>
-      <Sidebar />
-      <Page title={tag}>
+      <Listing title={`#${tag}`}>
         <Feed edges={edges} />
         <Pagination
           prevPagePath={prevPagePath}
@@ -35,7 +33,7 @@ const TagTemplate = ({ data, pageContext }) => {
           hasPrevPage={hasPrevPage}
           hasNextPage={hasNextPage}
         />
-      </Page>
+      </Listing>
     </Layout>
   );
 };
@@ -59,6 +57,7 @@ export const query = graphql`
           fields {
             slug
             categorySlug
+            thumbnail
           }
           frontmatter {
             title

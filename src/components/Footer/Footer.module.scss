@@ -1,0 +1,27 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.footer {
+  margin-top: 64px;
+  border-top: 1px solid $color-border;
+
+  &__inner {
+    box-sizing: border-box;
+    max-width: $layout-width;
+    margin: 0 auto;
+    padding: 28px $layout-gutter-sm 40px;
+    color: $color-text-tertiary;
+    font-size: 13px;
+  }
+
+}
+
+@include breakpoint-sm {
+  .footer {
+    &__inner {
+      padding: 32px $layout-gutter 48px;
+    }
+
+  }
+
+}
