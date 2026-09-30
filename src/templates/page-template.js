@@ -20,9 +20,7 @@ const PageTemplate = ({ data }) => {
 
   return (
     <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription}>
-      <Page title={pageTitle}>
-        <div dangerouslySetInnerHTML={{ __html: pageBody }} />
-      </Page>
+      <Page title={pageTitle} html={pageBody} />
     </Layout>
   );
 };

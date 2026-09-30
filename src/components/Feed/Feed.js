@@ -1,34 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-import { Link, withPrefix } from 'gatsby';
+import { Link } from 'gatsby';
 import { getCategoryColors, getCategoryLabel } from '../../utils';
 import styles from './Feed.module.scss';
 
-const resolveSrc = (src) => (/^(https?:)?\/\//.test(src) ? src : withPrefix(src));
-
-// 본문에 이미지가 있으면 첫 이미지, 없으면 카테고리 색 네모 박스에 제목을 그린다.
-const Thumbnail = ({ src, title, colors }) => {
-  if (src) {
-    const isVector = /\.svg(\?|#|$)/i.test(src);
-
-    return (
-      <div className={`${styles['card__thumb']} ${isVector ? styles['card__thumb--vector'] : ''}`}>
-        <img className={styles['card__thumb-image']} src={resolveSrc(src)} alt="" loading="lazy" />
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={`${styles['card__thumb']} ${styles['card__thumb--generated']}`}
-      style={{ backgroundImage: `linear-gradient(135deg, ${colors.from} 0%, ${colors.to} 100%)`, color: colors.fg }}
-      aria-hidden="true"
-    >
-      <span className={styles['card__thumb-title']}>{title}</span>
-    </div>
-  );
-};
-
+// 썸네일은 모든 글 공통으로 카테고리 색 박스에 제목을 그린다. 썸네일의 제목이 곧 카드 제목(링크)이다.
 const Feed = ({ edges }) => (
   <ul className={styles['feed']}>
     {edges.map(({ node }) => {
@@ -39,7 +15,16 @@ const Feed = ({ edges }) => (
       return (
         <li className={styles['feed__item']} key={fields.slug}>
           <article className={styles['card']}>
-            <Thumbnail src={fields.thumbnail} title={frontmatter.title} colors={colors} />
+            <div
+              className={styles['card__thumb']}
+              style={{ backgroundImage: `linear-gradient(135deg, ${colors.from} 0%, ${colors.to} 100%)` }}
+            >
+              <h2 className={styles['card__title']}>
+                <Link className={styles['card__title-link']} to={fields.slug} style={{ color: colors.fg }}>
+                  {frontmatter.title}
+                </Link>
+              </h2>
+            </div>
             <div className={styles['card__body']}>
               {frontmatter.category && (
                 <Link
@@ -50,9 +35,6 @@ const Feed = ({ edges }) => (
                   {label}
                 </Link>
               )}
-              <h2 className={styles['card__title']}>
-                <Link className={styles['card__title-link']} to={fields.slug}>{frontmatter.title}</Link>
-              </h2>
               {frontmatter.description && (
                 <p className={styles['card__description']}>{frontmatter.description}</p>
               )}

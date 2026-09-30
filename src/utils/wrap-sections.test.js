@@ -44,6 +44,19 @@ describe('wrapSections', () => {
     );
   });
 
+  it('keeps headings above minLevel as dividers that close open sections', () => {
+    const html = '<h2>Contact</h2><ul></ul><h1>Part</h1><p>lead</p><h2>Co</h2><p>p</p><h3>Team</h3><h4>g</h4><h1>Skill</h1><ul></ul>';
+
+    expect(wrapSections(html, classNames, { minLevel: 2 })).toBe(
+      '<div class="s s--top"><h2>Contact</h2><div class="b"><ul></ul></div></div>'
+      + '<h1>Part</h1><p>lead</p>'
+      + '<div class="s s--top"><h2>Co</h2><div class="b"><p>p</p>'
+      + '<div class="s s--sub"><h3>Team</h3><div class="b"><h4>g</h4></div></div>'
+      + '</div></div>'
+      + '<h1>Skill</h1><ul></ul>'
+    );
+  });
+
   it('ignores escaped headings inside code blocks', () => {
     const html = '<h2>A</h2><pre><code>&lt;h2&gt;not a heading&lt;/h2&gt;</code></pre>';
 

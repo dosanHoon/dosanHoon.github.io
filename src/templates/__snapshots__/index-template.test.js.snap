@@ -26,20 +26,28 @@ exports[`IndexTemplate renders correctly 1`] = `
             className="card"
           >
             <div
-              aria-hidden="true"
-              className="card__thumb card__thumb--generated"
+              className="card__thumb"
               style={
                 Object {
                   "backgroundImage": "linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%)",
-                  "color": "#495057",
                 }
               }
             >
-              <span
-                className="card__thumb-title"
+              <h2
+                className="card__title"
               >
-                test_0
-              </span>
+                <Link
+                  className="card__title-link"
+                  style={
+                    Object {
+                      "color": "#495057",
+                    }
+                  }
+                  to="/test_0"
+                >
+                  test_0
+                </Link>
+              </h2>
             </div>
             <div
               className="card__body"
@@ -56,16 +64,6 @@ exports[`IndexTemplate renders correctly 1`] = `
               >
                 test_0
               </Link>
-              <h2
-                className="card__title"
-              >
-                <Link
-                  className="card__title-link"
-                  to="/test_0"
-                >
-                  test_0
-                </Link>
-              </h2>
               <p
                 className="card__description"
               >
@@ -87,20 +85,28 @@ exports[`IndexTemplate renders correctly 1`] = `
             className="card"
           >
             <div
-              aria-hidden="true"
-              className="card__thumb card__thumb--generated"
+              className="card__thumb"
               style={
                 Object {
                   "backgroundImage": "linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%)",
-                  "color": "#495057",
                 }
               }
             >
-              <span
-                className="card__thumb-title"
+              <h2
+                className="card__title"
               >
-                test_1
-              </span>
+                <Link
+                  className="card__title-link"
+                  style={
+                    Object {
+                      "color": "#495057",
+                    }
+                  }
+                  to="/test_1"
+                >
+                  test_1
+                </Link>
+              </h2>
             </div>
             <div
               className="card__body"
@@ -117,16 +123,6 @@ exports[`IndexTemplate renders correctly 1`] = `
               >
                 test_1
               </Link>
-              <h2
-                className="card__title"
-              >
-                <Link
-                  className="card__title-link"
-                  to="/test_1"
-                >
-                  test_1
-                </Link>
-              </h2>
               <p
                 className="card__description"
               >

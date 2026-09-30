@@ -1,10 +1,11 @@
 // 마크다운 HTML을 제목 기준 섹션으로 감싼다. 제목 아래 본문을 들여써서 단락 구분을 만들기 위함.
-// 글에서 쓰인 제목 레벨 중 가장 높은 두 단계만 섹션이 된다(최근 글은 h2/h3, 옛 글은 h1/h2).
+// 글에서 쓰인 제목 레벨(minLevel 이상) 중 가장 높은 두 단계만 섹션이 된다(최근 글은 h2/h3, 옛 글은 h1/h2).
+// minLevel보다 높은 제목(예: About의 h1)은 섹션을 모두 닫는 구역 구분선으로 그대로 둔다.
 // 첫 제목 앞의 도입부는 감싸지 않는다.
 const HEADING_START = /(?=<h[1-6][\s>])/i;
 const HEADING_LEVEL = /^<h([1-6])[\s>]/i;
 
-const wrapSections = (html, classNames) => {
+const wrapSections = (html, classNames, { minLevel = 1 } = {}) => {
   if (!html) {
     return html;
   }
@@ -13,7 +14,8 @@ const wrapSections = (html, classNames) => {
   const levels = parts
     .map((part) => part.match(HEADING_LEVEL))
     .filter(Boolean)
-    .map((match) => Number(match[1]));
+    .map((match) => Number(match[1]))
+    .filter((level) => level >= minLevel);
 
   if (levels.length === 0) {
     return html;
@@ -26,6 +28,12 @@ const wrapSections = (html, classNames) => {
   const close = () => {
     stack.pop();
     out += '</div></div>';
+  };
+
+  const closeAll = () => {
+    while (stack.length) {
+      close();
+    }
   };
 
   const open = (kind, part, level) => {
@@ -44,10 +52,11 @@ const wrapSections = (html, classNames) => {
     const match = part.match(HEADING_LEVEL);
     const level = match ? Number(match[1]) : null;
 
-    if (level === topLevel) {
-      while (stack.length) {
-        close();
-      }
+    if (level !== null && level < topLevel) {
+      closeAll();
+      out += part;
+    } else if (level === topLevel) {
+      closeAll();
       open('top', part, level);
     } else if (subLevel && level === subLevel) {
       if (stack[stack.length - 1] === 'sub') {
@@ -59,9 +68,7 @@ const wrapSections = (html, classNames) => {
     }
   });
 
-  while (stack.length) {
-    close();
-  }
+  closeAll();
 
   return out;
 };
