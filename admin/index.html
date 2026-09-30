@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>글쓰기 · Dosanhoon's blog</title>
+</head>
+<body>
+  <!--
+    로컬 글쓰기 전용 편집기 (yarn cms → http://localhost:8000/admin/, 사용법은 WRITING.md)
+    - Decap CMS(Netlify CMS 후속)를 Gatsby 빌드에 묶지 않고 버전·무결성 해시를 고정한 CDN 스크립트로 불러온다.
+      번들에 React 18이 들어 있어 Gatsby 2(React 16)·Node 10 빌드와 충돌하지 않는다.
+      Netlify CMS 2.10은 본문 편집기(Slate 0.47)가 줄바꿈 입력을 잃고 U+FEFF를 저장해 쓰지 않는다.
+    - static/ 밖에 있어 운영 빌드에는 포함되지 않고, 개발 서버만 /admin/ 으로 제공한다 (gatsby/on-create-dev-server.js).
+  -->
+  <script
+    src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"
+    integrity="sha384-A/Gdn928CNLufmnGWGs9RM4Q9o8bSNLeJERqBFrBjwzL7FRpoLT3MPF8Tl0+Wd2p"
+    crossorigin="anonymous"
+  ></script>
+  <script src="/admin/preview.js"></script>
+</body>
+</html>

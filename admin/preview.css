@@ -1,0 +1,195 @@
+/* 편집기 미리보기 전용 — src/assets/scss/_variables.scss, base/_generic.scss, base/_prism.scss,
+ * components/Post/Content/Content.module.scss의 본문 값을 옮긴 것. 사이트 스타일을 바꾸면 여기도 맞춘다. */
+body {
+  margin: 0;
+  padding: 40px 32px 80px;
+  background: #FFF;
+  color: #212529;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+.preview {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.preview__meta {
+  margin: 0 0 12px;
+  color: #6C757D;
+  font-size: 14px;
+}
+
+.preview__title {
+  margin: 0 0 16px;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.preview__description {
+  margin: 0 0 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #E9ECEF;
+  color: #495057;
+  font-size: 16px;
+}
+
+.preview__body h1,
+.preview__body h2,
+.preview__body h3,
+.preview__body h4 {
+  font-weight: bold;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.preview__body h1,
+.preview__body h2 {
+  margin: 56px 0 20px;
+  padding-top: 44px;
+  border-top: 1px solid #E9ECEF;
+  font-size: 28px;
+  line-height: 1.45;
+}
+
+.preview__body h3 {
+  margin: 40px 0 10px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.preview__body h4 {
+  margin: 28px 0 8px;
+  font-size: 18px;
+}
+
+.preview__body p {
+  margin: 0 0 24px;
+}
+
+.preview__body ul,
+.preview__body ol {
+  margin: 0 0 20px;
+  padding-left: 1.4em;
+}
+
+.preview__body li {
+  margin: 8px 0;
+}
+
+.preview__body li > p {
+  margin: 0;
+}
+
+.preview__body ul ul {
+  list-style: circle;
+}
+
+.preview__body a {
+  color: #087F5B;
+  text-decoration: underline;
+  text-decoration-color: rgba(8, 127, 91, 0.35);
+  text-underline-offset: 3px;
+}
+
+.preview__body strong {
+  font-weight: bold;
+}
+
+.preview__body img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.preview__body figure {
+  margin: 32px 0;
+}
+
+.preview__body figcaption {
+  margin-top: 10px;
+  color: #6C757D;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.preview__body blockquote {
+  margin: 28px 0;
+  padding: 16px 20px 16px 24px;
+  border-left: 4px solid #20C997;
+  border-radius: 0 6px 6px 0;
+  background: #F8F9FA;
+  color: #495057;
+}
+
+.preview__body hr {
+  height: 1px;
+  margin: 48px 0;
+  border: 0;
+  background: #E9ECEF;
+}
+
+.preview__body code {
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: #EEF0F2;
+  font-family: SFMono-Regular, Menlo, Consolas, 'Liberation Mono', D2Coding, monospace;
+  font-size: 0.85em;
+}
+
+.preview__body pre {
+  margin: 0 0 24px;
+  padding: 16px 20px;
+  overflow: auto;
+  border: 1px solid #E9ECEF;
+  border-radius: 8px;
+  background: #F8F9FA;
+  line-height: 1.65;
+}
+
+.preview__body pre code {
+  padding: 0;
+  background: none;
+  font-size: 14px;
+  white-space: pre;
+}
+
+.preview__body table {
+  width: 100%;
+  margin: 8px 0 28px;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.preview__body th,
+.preview__body td {
+  padding: 10px 14px;
+  border: 1px solid #DEE2E6;
+  line-height: 1.6;
+  text-align: left;
+  vertical-align: top;
+}
+
+.preview__body th {
+  background: #F8F9FA;
+  font-weight: 600;
+}
+
+.preview__body th[align='right'],
+.preview__body td[align='right'] {
+  text-align: right;
+}
+
+.preview__body th[align='center'],
+.preview__body td[align='center'] {
+  text-align: center;
+}
