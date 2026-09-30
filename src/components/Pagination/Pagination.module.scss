@@ -2,55 +2,40 @@
 @import '../../assets/scss/mixins';
 
 .pagination {
-  @include margin-top(2);
   display: flex;
+  margin-top: 40px;
+
+  &__prev,
+  &__next {
+    width: 50%;
+  }
 
   &__prev {
-    width: 50%;
     text-align: left;
+  }
 
-    &-link {
-      color: $color-secondary;
-      font-size: 26px;
-      font-weight: bold;
-      transition: color 0.2s ease;
+  &__next {
+    text-align: right;
+  }
 
-      &:hover,
-      &:focus {
-        color: $color-primary;
-      }
+  &__prev-link,
+  &__next-link {
+    color: $color-link;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.2s ease;
 
-      &--disable {
-        pointer-events: none;
-        color: $color-gray-border;
-      }
-
+    &:hover,
+    &:focus {
+      color: $color-text;
     }
 
   }
 
-  &__next {
-    width: 50%;
-    text-align: right;
-
-    &-link {
-      color: $color-secondary;
-      font-size: 26px;
-      font-weight: bold;
-      transition: color 0.2s ease;
-
-      &:hover,
-      &:focus {
-        color: $color-primary;
-      }
-
-      &--disable {
-        pointer-events: none;
-        color: $color-gray-border;
-      }
-
-    }
-
+  &__prev-link--disable,
+  &__next-link--disable {
+    pointer-events: none;
+    color: $color-disabled;
   }
 
 }

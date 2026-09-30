@@ -4,6 +4,16 @@ exports[`Layout renders correctly 1`] = `
 <div
   className="layout"
 >
-  test
+  <StaticQuery
+    render={[Function]}
+  />
+  <main
+    className="layout__main"
+  >
+    test
+  </main>
+  <StaticQuery
+    render={[Function]}
+  />
 </div>
 `;

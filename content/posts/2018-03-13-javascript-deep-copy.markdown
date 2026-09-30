@@ -1,6 +1,6 @@
 ---
 title: Javascript 참조형 Deep copy
-date: "2019-01-01T23:46:37.121Z"
+date: "2018-03-13T23:46:37.121Z"
 template: "post"
 draft: false
 slug: "/posts/javascript-deep-copy"

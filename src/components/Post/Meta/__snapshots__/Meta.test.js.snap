@@ -4,11 +4,11 @@ exports[`Meta renders correctly 1`] = `
 <div
   className="meta"
 >
-  <p
+  <time
     className="meta__date"
+    dateTime="2016-09-01"
   >
-    Published 
-    1 Sep 2016
-  </p>
+    2016년 9월 1일
+  </time>
 </div>
 `;

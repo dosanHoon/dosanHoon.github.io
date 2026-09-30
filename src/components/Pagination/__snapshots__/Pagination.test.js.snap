@@ -12,7 +12,7 @@ exports[`Pagination renders correctly 1`] = `
       rel="prev"
       to="/page/1"
     >
-      ← PREV
+      ← 이전 페이지
     </Link>
   </div>
   <div
@@ -23,7 +23,7 @@ exports[`Pagination renders correctly 1`] = `
       rel="next"
       to="/page/3"
     >
-      → NEXT
+      다음 페이지 →
     </Link>
   </div>
 </div>

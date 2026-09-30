@@ -4,88 +4,103 @@ exports[`PostTemplate renders correctly 1`] = `
 <div
   className="layout"
 >
-  <div
-    className="post"
+  <StaticQuery
+    render={[Function]}
+  />
+  <main
+    className="layout__main"
   >
-    <Link
-      className="post__home-button"
-      to="/"
-    >
-      All Articles
-    </Link>
     <div
-      className="post__content"
+      className="post"
     >
       <div
-        className="content"
+        className="post__content"
       >
-        <h1
-          className="content__title"
-        >
-          test
-        </h1>
         <div
-          className="content__body"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<p>test</p>",
+          className="content"
+        >
+          <h1
+            className="content__title"
+          >
+            test
+          </h1>
+          <div
+            className="content__body"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<p>test</p>",
+              }
             }
-          }
+          />
+        </div>
+      </div>
+      <div
+        className="post__footer"
+      >
+        <div
+          className="meta"
+        >
+          <time
+            className="meta__date"
+            dateTime="2016-09-01"
+          >
+            2016년 9월 1일
+          </time>
+        </div>
+        <div
+          className="tags"
+        >
+          <ul
+            className="tags__list"
+          >
+            <li
+              className="tags__list-item"
+            >
+              <Link
+                className="tags__list-item-link"
+                to="/test_0"
+              >
+                test_0
+              </Link>
+            </li>
+            <li
+              className="tags__list-item"
+            >
+              <Link
+                className="tags__list-item-link"
+                to="/test_1"
+              >
+                test_1
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <nav
+          aria-label="글 목록"
+          className="post__nav"
+        >
+          <Link
+            className="post__nav-link"
+            to="/"
+          >
+            ← 전체 글
+          </Link>
+        </nav>
+        <StaticQuery
+          render={[Function]}
+        />
+      </div>
+      <div
+        className="post__comments"
+      >
+        <StaticQuery
+          render={[Function]}
         />
       </div>
     </div>
-    <div
-      className="post__footer"
-    >
-      <div
-        className="meta"
-      >
-        <p
-          className="meta__date"
-        >
-          Published 
-          1 Sep 2016
-        </p>
-      </div>
-      <div
-        className="tags"
-      >
-        <ul
-          className="tags__list"
-        >
-          <li
-            className="tags__list-item"
-          >
-            <Link
-              className="tags__list-item-link"
-              to="/test_0"
-            >
-              test_0
-            </Link>
-          </li>
-          <li
-            className="tags__list-item"
-          >
-            <Link
-              className="tags__list-item-link"
-              to="/test_1"
-            >
-              test_1
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <StaticQuery
-        render={[Function]}
-      />
-    </div>
-    <div
-      className="post__comments"
-    >
-      <StaticQuery
-        render={[Function]}
-      />
-    </div>
-  </div>
+  </main>
+  <StaticQuery
+    render={[Function]}
+  />
 </div>
 `;

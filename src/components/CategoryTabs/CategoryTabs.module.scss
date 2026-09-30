@@ -1,0 +1,82 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.tabs {
+  margin: 0 (-$layout-gutter-sm) 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0 $layout-gutter-sm 4px;
+    list-style: none;
+  }
+
+  &__item {
+    flex: none;
+    margin: 0 8px 0 0;
+    padding: 0;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 18px;
+    background: $color-bg-muted;
+    color: $color-text-secondary;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      background: $color-border;
+      color: $color-text;
+    }
+
+    &--active,
+    &--active:hover,
+    &--active:focus {
+      background: $color-text;
+      color: $color-white;
+    }
+
+  }
+
+  &__count {
+    margin-left: 6px;
+    color: $color-text-tertiary;
+    font-weight: 500;
+  }
+
+  &__link--active &__count {
+    color: $color-disabled;
+  }
+
+}
+
+@include breakpoint-sm {
+  .tabs {
+    margin: 0 0 28px;
+
+    &__list {
+      flex-wrap: wrap;
+      padding: 0;
+    }
+
+    &__item {
+      margin-bottom: 8px;
+    }
+
+  }
+
+}

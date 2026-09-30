@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Intro renders correctly 1`] = `
+<section
+  aria-label="블로그 소개"
+  className="intro"
+>
+  <img
+    alt="name 프로필 이미지"
+    className="intro__photo"
+    height="72"
+    src="/photo.jpg"
+    width="72"
+  />
+  <div>
+    <h1
+      className="intro__name"
+    >
+      name
+    </h1>
+    <p
+      className="intro__bio"
+    >
+      bio
+    </p>
+  </div>
+</section>
+`;

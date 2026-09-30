@@ -1,0 +1,50 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.intro {
+  display: flex;
+  align-items: center;
+  padding: 28px 0 20px;
+
+  &__photo {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    margin: 0 14px 0 0;
+    border: 1px solid $color-border;
+    border-radius: 50%;
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  &__bio {
+    margin: 4px 0 0;
+    color: $color-text-secondary;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+}
+
+@include breakpoint-sm {
+  .intro {
+    padding: 48px 0 32px;
+
+    &__photo {
+      width: 72px;
+      height: 72px;
+      margin-right: 20px;
+    }
+
+    &__name {
+      font-size: 22px;
+    }
+
+  }
+
+}

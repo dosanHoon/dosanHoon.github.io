@@ -1,0 +1,30 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.listing {
+  box-sizing: border-box;
+  max-width: $layout-width;
+  margin: 0 auto;
+  padding: 0 $layout-gutter-sm;
+
+  &__title {
+    margin: 36px 0 20px;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+}
+
+@include breakpoint-sm {
+  .listing {
+    padding: 0 $layout-gutter;
+
+    &__title {
+      margin: 48px 0 24px;
+      font-size: 32px;
+    }
+
+  }
+
+}

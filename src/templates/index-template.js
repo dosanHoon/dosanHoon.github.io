@@ -1,15 +1,17 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
+import Listing from '../components/Listing';
+import Intro from '../components/Intro';
+import CategoryTabs from '../components/CategoryTabs';
 import Feed from '../components/Feed';
-import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 
 const IndexTemplate = ({ data, pageContext }) => {
   const {
     title: siteTitle,
-    subtitle: siteSubtitle
+    subtitle: siteSubtitle,
+    author
   } = data.site.siteMetadata;
 
   const {
@@ -25,8 +27,9 @@ const IndexTemplate = ({ data, pageContext }) => {
 
   return (
     <Layout title={pageTitle} description={siteSubtitle}>
-      <Sidebar />
-      <Page>
+      <Listing>
+        {currentPage === 0 && author && <Intro author={author} />}
+        <CategoryTabs />
         <Feed edges={edges} />
         <Pagination
           prevPagePath={prevPagePath}
@@ -34,7 +37,7 @@ const IndexTemplate = ({ data, pageContext }) => {
           hasPrevPage={hasPrevPage}
           hasNextPage={hasNextPage}
         />
-      </Page>
+      </Listing>
     </Layout>
   );
 };
@@ -45,6 +48,11 @@ export const query = graphql`
       siteMetadata {
         title
         subtitle
+        author {
+          name
+          photo
+          bio
+        }
       }
     }
     allMarkdownRemark(
@@ -58,6 +66,7 @@ export const query = graphql`
           fields {
             slug
             categorySlug
+            thumbnail
           }
           frontmatter {
             title
