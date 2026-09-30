@@ -66,7 +66,6 @@ export const query = graphql`
           fields {
             slug
             categorySlug
-            thumbnail
           }
           frontmatter {
             title

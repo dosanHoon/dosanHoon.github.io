@@ -61,7 +61,6 @@ export const query = graphql`
           fields {
             categorySlug
             slug
-            thumbnail
           }
           frontmatter {
             date

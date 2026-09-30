@@ -52,6 +52,11 @@
       margin: 8px 0;
     }
 
+    // 중첩 목록이 있는 항목은 마크다운이 텍스트를 <p>로 감싸므로 문단 여백을 없앤다
+    & li > p {
+      margin: 0;
+    }
+
     & a {
       color: $color-link;
       text-decoration: underline;
@@ -59,6 +64,157 @@
       text-underline-offset: 3px;
     }
 
+  }
+
+}
+
+// ---------- 마크다운 페이지(About = 이력서) ----------
+// h1: 구역(Introduce / 프로젝트 경험 / Skill) — 구분선과 큰 제목
+// h2: 회사 블록 — 바로 아래 첫 문단의 굵은 글씨(기간)는 뱃지, 이어지는 문단(스택·규모)은 보조 글씨
+// h3: 팀·프로젝트 — 왼쪽 안내선으로 회사 안에서 한 단계 들여쓴다
+// h4: 기능 묶음 — 초록색 소제목
+// 중첩 목록: 한 단계 작고 옅게
+.page__body--markdown {
+  & > h1 {
+    margin: 64px 0 24px;
+    padding-top: 40px;
+    border-top: 1px solid $color-border;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  & > h1 + p {
+    margin: 0 0 24px;
+    padding-left: 16px;
+    border-left: 4px solid $color-accent-soft;
+    color: $color-text;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.6;
+  }
+
+}
+
+.section {
+  &--top {
+    margin: 40px 0 0;
+
+    & > h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+  }
+
+  &--top + &--top {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px dashed $color-border-strong;
+  }
+
+  &--sub {
+    margin: 28px 0 0;
+    padding-left: 16px;
+    border-left: 2px solid $color-border;
+
+    & > h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+  }
+
+}
+
+.section__body ul {
+  margin: 0 0 12px;
+  padding-left: 1.3em;
+}
+
+.section__body li {
+  margin: 8px 0;
+}
+
+.page__body--markdown > ul > li {
+  margin: 12px 0;
+}
+
+.section__body li > ul {
+  margin: 4px 0 0;
+  color: $color-text-secondary;
+  font-size: 15px;
+  list-style: circle;
+}
+
+.section__body li > ul > li {
+  margin: 4px 0;
+}
+
+.section--top > .section__body > p {
+  margin: 0 0 6px;
+  color: $color-text-secondary;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.section--top > .section__body > p:first-child strong {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 8px;
+  border-radius: 6px;
+  background: $color-bg-muted;
+  color: $color-text;
+  font-size: 14px;
+}
+
+.section--top > .section__body > ul {
+  margin-top: 16px;
+}
+
+.section--sub > .section__body > p {
+  margin: 0 0 12px;
+  color: $color-text-secondary;
+  font-size: 15.5px;
+}
+
+.section--sub > .section__body > h4 {
+  margin: 24px 0 8px;
+  color: $color-link;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0;
+}
+
+// Contact: 이름·메일·GitHub를 한 줄 칩으로
+.page__body--markdown > .section--top:first-child {
+  margin-top: 0;
+
+  & > h2 {
+    margin-bottom: 10px;
+    color: $color-text-tertiary;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+
+  & ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  & li {
+    margin: 0 8px 8px 0;
+    padding: 4px 12px;
+    border-radius: 16px;
+    background: $color-bg-muted;
+    font-size: 14px;
   }
 
 }
@@ -78,6 +234,35 @@
 
     &__body {
       font-size: 17px;
+    }
+
+  }
+
+  .page__body--markdown {
+    & > h1 {
+      margin-top: 80px;
+      padding-top: 48px;
+      font-size: 30px;
+    }
+
+    & > h1 + p {
+      font-size: 20px;
+    }
+
+  }
+
+  .section {
+    &--top > h2 {
+      font-size: 24px;
+    }
+
+    &--sub {
+      padding-left: 20px;
+
+      & > h3 {
+        font-size: 19px;
+      }
+
     }
 
   }

@@ -22,16 +22,13 @@ exports[`PageTemplate renders correctly 1`] = `
           test
         </h1>
         <div
-          className="page__body"
-        >
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<p>test</p>",
-              }
+          className="page__body page__body--markdown"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>test</p>",
             }
-          />
-        </div>
+          }
+        />
       </div>
     </div>
   </main>

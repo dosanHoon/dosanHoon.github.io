@@ -16,7 +16,8 @@
 
 }
 
-// 카드 전체가 제목 링크로 눌리도록 제목 링크의 ::after를 카드 위에 펼친다.
+// 카드 전체가 제목 링크로 눌리도록 제목 링크의 ::after를 카드(position: relative) 위에 펼친다.
+// 썸네일은 position을 두지 않아야 ::after가 썸네일이 아니라 카드 전체를 덮는다.
 // 카테고리 칩은 그 위(z-index)에 올려 따로 눌리게 한다.
 .card {
   position: relative;
@@ -37,61 +38,62 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.09);
   }
 
+  // 1.9:1 비율: flex 항목인 ::before의 padding-top(%)이 너비 기준이라 높이를 만든다. 제목이 길면 그만큼 늘어난다.
   &__thumb {
-    position: relative;
+    display: flex;
     flex: none;
-    height: 0;
-    padding-bottom: 52.5%;
-    overflow: hidden;
-    border-bottom: 1px solid $color-border;
-    background: $color-bg-soft;
-  }
-
-  &__thumb-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: cover;
-  }
-
-  // 도식(SVG)은 잘리지 않게 여백을 두고 전체를 보여준다
-  &__thumb--vector &__thumb-image {
+    align-items: center;
     box-sizing: border-box;
-    padding: 12px;
-    object-fit: contain;
-    background: $color-bg;
+    padding: 20px 22px;
+
+    &::before {
+      content: '';
+      flex: none;
+      padding-top: 42%;
+    }
+
   }
 
-  &__thumb--generated {
-    border-bottom: 0;
-  }
-
-  // 세로 가운데 정렬: top 50% + translateY
-  &__thumb-title {
-    position: absolute;
-    top: 50%;
-    right: 22px;
-    left: 22px;
-    display: -webkit-box;
-    overflow: hidden;
-    transform: translateY(-50%);
+  &__title {
+    margin: 0;
     font-size: 20px;
     font-weight: 800;
     line-height: 1.4;
     letter-spacing: -0.03em;
     word-break: keep-all;
+  }
+
+  &__title-link {
+    display: -webkit-box;
+    overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+  }
+
+  &:focus-within &__title-link {
+    text-decoration: underline;
   }
 
   &__body {
     display: flex;
     flex: 1 0 auto;
     flex-direction: column;
-    padding: 18px 20px 16px;
+    padding: 16px 20px;
   }
 
   &__category {
@@ -112,49 +114,10 @@
 
   }
 
-  &__title {
-    margin: 12px 0 8px;
-    font-size: 18px;
-    line-height: 1.5;
-    letter-spacing: -0.02em;
-  }
-
-  &__title-link {
-    display: -webkit-box;
-    overflow: hidden;
-    color: $color-text;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1;
-    }
-
-    &:hover,
-    &:focus {
-      color: $color-text;
-    }
-
-    &:focus-visible {
-      outline: none;
-    }
-
-  }
-
-  &:focus-within &__title-link {
-    text-decoration: underline;
-  }
-
   &__description {
     display: -webkit-box;
     flex: 1 0 auto;
-    margin: 0 0 16px;
+    margin: 12px 0 16px;
     overflow: hidden;
     color: $color-text-secondary;
     font-size: 14.5px;

@@ -11,20 +11,28 @@ exports[`Feed renders correctly 1`] = `
       className="card"
     >
       <div
-        aria-hidden="true"
-        className="card__thumb card__thumb--generated"
+        className="card__thumb"
         style={
           Object {
             "backgroundImage": "linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%)",
-            "color": "#495057",
           }
         }
       >
-        <span
-          className="card__thumb-title"
+        <h2
+          className="card__title"
         >
-          test_0
-        </span>
+          <Link
+            className="card__title-link"
+            style={
+              Object {
+                "color": "#495057",
+              }
+            }
+            to="/test_0"
+          >
+            test_0
+          </Link>
+        </h2>
       </div>
       <div
         className="card__body"
@@ -41,16 +49,6 @@ exports[`Feed renders correctly 1`] = `
         >
           test_0
         </Link>
-        <h2
-          className="card__title"
-        >
-          <Link
-            className="card__title-link"
-            to="/test_0"
-          >
-            test_0
-          </Link>
-        </h2>
         <p
           className="card__description"
         >
@@ -72,14 +70,28 @@ exports[`Feed renders correctly 1`] = `
       className="card"
     >
       <div
-        className="card__thumb card__thumb--vector"
+        className="card__thumb"
+        style={
+          Object {
+            "backgroundImage": "linear-gradient(135deg, #E6FCF5 0%, #C3FAE8 100%)",
+          }
+        }
       >
-        <img
-          alt=""
-          className="card__thumb-image"
-          loading="lazy"
-          src="/media/test_1.svg"
-        />
+        <h2
+          className="card__title"
+        >
+          <Link
+            className="card__title-link"
+            style={
+              Object {
+                "color": "#087F5B",
+              }
+            }
+            to="/test_1"
+          >
+            test_1
+          </Link>
+        </h2>
       </div>
       <div
         className="card__body"
@@ -96,75 +108,10 @@ exports[`Feed renders correctly 1`] = `
         >
           AI
         </Link>
-        <h2
-          className="card__title"
-        >
-          <Link
-            className="card__title-link"
-            to="/test_1"
-          >
-            test_1
-          </Link>
-        </h2>
         <p
           className="card__description"
         >
           test_1
-        </p>
-        <time
-          className="card__date"
-          dateTime="2016-09-01"
-        >
-          2016년 9월 1일
-        </time>
-      </div>
-    </article>
-  </li>
-  <li
-    className="feed__item"
-  >
-    <article
-      className="card"
-    >
-      <div
-        className="card__thumb "
-      >
-        <img
-          alt=""
-          className="card__thumb-image"
-          loading="lazy"
-          src="https://example.com/test_2.png"
-        />
-      </div>
-      <div
-        className="card__body"
-      >
-        <Link
-          className="card__category"
-          style={
-            Object {
-              "backgroundColor": "#FFF0F6",
-              "color": "#A61E4D",
-            }
-          }
-          to="/test_2"
-        >
-          MobX
-        </Link>
-        <h2
-          className="card__title"
-        >
-          <Link
-            className="card__title-link"
-            to="/test_2"
-          >
-            test_2
-          </Link>
-        </h2>
-        <p
-          className="card__description"
-        >
-          test_2
         </p>
         <time
           className="card__date"
